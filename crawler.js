@@ -4,22 +4,36 @@
  * @licence MIT
  */
 
-// Importing modules.
-const command = require('minimist')(process.argv.slice(2));
+/**
+ * Importing modules.
+ */
+const commands = require('minimist')(process.argv.slice(2));
 const axios = require('axios');
 const cheerio = require('cheerio');
 const URL = require('url-parse');
 
-// Defaults from command line.
+/**
+ * Defaults from command line.
+ */
 const startUrlDefault = 'https://www.phpdoc.org/';
-const maxPagesDefault = '0';
+const maxPagesDefault = 0;
 const debugDefault = 'false';
 
-const startUrl = command.url || startUrlDefault;
-const maxPages = command.pages || maxPagesDefault;
-const debug = command.debug || debugDefault;
+/**
+ * Settings.
+ */
+var startUrlVar = commands.url || startUrlDefault;
+var maxPagesVar = commands.pages || maxPagesDefault;
+var debugVar = commands.debug || debugDefault;
 
-// Global definitions.
+// Set constants with correct type.
+const startUrl = startUrlVar; // String
+const maxPages = parseInt(maxPagesVar); // Integer
+const debug = (debugVar === 'true'); // Boolean
+
+/**
+ * Global definitions.
+ */
 var visited = {};
 var numVisited = 0;
 var followingPages = [];
@@ -31,30 +45,41 @@ var linkList = {
 };
 var errorList = {};
 
-// Start.
+/**
+ * Start crawling.
+ */
 followingPages.push(startUrl);
 crawl();
 
-// Crawler functions.
+/**
+ * Crawler functions.
+ */
+
+/**
+ * Check before visit a page.
+ */
 function crawl() {
-  if (numVisited >= maxPages && maxPages !== '0') {
+  // Reached max limit of pages to visit.
+  if (numVisited >= maxPages && maxPages !== 0) {
     writeLine('Reached max limit of number of pages to visit. (Pages: ' + numVisited + ')');
     write('Found absolute links total: ' + linkList.absolute.length);
     write('Found relative links total: ' + linkList.relative.length);
     write('Found links total: ' + (linkList.absolute.length + linkList.relative.length));
     write('Errors total: ' + getTotalErrors());
     debugging(errorList);
-    debugging(getUserInput());
+    writeUserInput();
     return;
   }
 
   var nextPage = followingPages.pop();
 
+  // Page already visited.
   if (nextPage in visited) {
     crawl();
     return;
   }
 
+  // No more page to visit.
   if (typeof nextPage === 'undefined') {
     writeLine('No more page to visit. (Page ' + numVisited + ')');
     write('Found absolute links total: ' + linkList.absolute.length);
@@ -62,13 +87,19 @@ function crawl() {
     write('Found links total: ' + (linkList.absolute.length + linkList.relative.length));
     write('Errors total: ' + getTotalErrors());
     debugging(errorList);
-    debugging(getUserInput());
+    writeUserInput();
     return;
   }
 
   visitPage(nextPage, crawl);
 }
 
+/**
+ * Visit page.
+ *
+ * @param url: string
+ * @param callback: function
+ */
 function visitPage(url, callback) {
   visited[url] = true;
   numVisited += 1;
@@ -78,10 +109,10 @@ function visitPage(url, callback) {
 
   axios.get(url)
     .then(function (response) {
-      if (response.status !== 200) {
-        debugging('Url: ' + url);
-        debugging('Status: ' + response.status);
+      debugging('Url: ' + url);
+      debugging('Status: ' + response.status);
 
+      if (response.status !== 200) {
         callback();
         return;
       }
@@ -106,6 +137,11 @@ function visitPage(url, callback) {
     });
 }
 
+/**
+ * Get all anchors.
+ *
+ * @param $ Something like jQuery.
+ */
 function collectLinks($) {
   var relativeLinks = $("a[href^='/']");
   var absoluteLinks = $("a[href^='http']");
@@ -133,6 +169,12 @@ function collectLinks($) {
   write('Absolute links ' + count.absolute);
 }
 
+/**
+ * Set relative links or absolute links without protocol type (e.g. /google.com) to list of links.
+ *
+ * @param link: string
+ * @returns {boolean}
+ */
 function collectRelativeLinks(link) {
   var linkArray = link.split('/');
 
@@ -166,22 +208,45 @@ function collectRelativeLinks(link) {
   return (linkType === 'relative');
 }
 
-// Helper functions.
+/**
+ * Helper functions.
+ */
+
+/**
+ * Returns input when "debug" was true.
+ *
+ * @param variable
+ */
 function debugging(variable) {
-  if (debug === 'true') {
+  if (debug) {
     console.log(variable);
   }
 }
 
+/**
+ * Write output.
+ *
+ * @param string: string
+ */
 function write(string) {
   console.log(string);
 }
 
+/**
+ * Write with empty line before.
+ *
+ * @param string: string
+ */
 function writeLine(string) {
   console.log();
   console.log(string);
 }
 
+/**
+ * Get number of total errors.
+ *
+ * @returns {number}
+ */
 function getTotalErrors() {
   var counter = 0;
 
@@ -192,10 +257,16 @@ function getTotalErrors() {
   return counter;
 }
 
-function getUserInput() {
+/**
+ * Writes out user input when "debug" was true.
+ */
+function writeUserInput() {
+  if (!debug) {
+    return;
+  }
+
   writeLine('Commands:');
   write('Url: ' + startUrl + ((startUrl === startUrlDefault) ? ' (default)' : ''));
   write('Max pages: ' + maxPages + ((maxPages === maxPagesDefault) ? ' (default)' : ''));
   write('Debug: ' + debug + ((debug === debugDefault) ? ' (default)' : ''));
-  return '';
 }
