@@ -1,23 +1,31 @@
 /**
- * @author lbraun
- * @date 16.10.2017
- * @licence MIT
+ * Import modules.
  */
-
 var axios = require('axios');
 var cheerio = require('cheerio');
 
+/**
+ * Import custom modules.
+ */
 var args = require('./lib/crawler/arguments');
 var output = require('./output')();
 var customerInfo = require('./customerInfo')();
 
+/**
+ * Module Crawler
+ *
+ * @param commands: {}
+ * @returns {module}
+ */
 module.exports = function (commands) {
+  // Set arguments.
   for (var name in args) {
     if (args.hasOwnProperty(name)) {
       this[name] = args[name];
     }
   }
 
+  // Init arguments.
   this.init(commands);
 
   /**
@@ -26,6 +34,7 @@ module.exports = function (commands) {
   this.crawl = function () {
     var self = this;
 
+    // Reached limit to visit websites.
     if (self.numVisited >= self.pageLimit && self.pageLimit !== 0) {
       output.pageLimitOut(self.numVisited,
         self.linkList.typeAbsolute.length,
@@ -40,12 +49,14 @@ module.exports = function (commands) {
 
     var nextPage = self.followingPages.pop();
 
+    // Already visited next website.
     if (nextPage in self.visited) {
       self.debugging('Url ' + nextPage + ' already visited.');
       self.crawl();
       return;
     }
 
+    // No more websites available.
     if (typeof nextPage === 'undefined') {
       output.lastPageOut(self.numVisited,
         self.linkList.typeAbsolute.length,
@@ -58,6 +69,7 @@ module.exports = function (commands) {
       return;
     }
 
+    // Visit website.
     self.visitPage(nextPage, self.crawl);
   };
 
@@ -75,6 +87,7 @@ module.exports = function (commands) {
     output.writeLine('Visiting page ' + url);
     output.write('Visited pages: ' + self.numVisited);
 
+    // Make the request.
     axios.get(url)
       .then(function (response) {
         self.debugging('Url: ' + url);
@@ -92,6 +105,8 @@ module.exports = function (commands) {
         }
 
         self.collectLinks($);
+
+        // Crawl next website.
         callback();
       })
       .catch(function (error) {
@@ -107,6 +122,7 @@ module.exports = function (commands) {
         self.errorList[error.response.status].push(url);
         self.numErrors += 1;
 
+        // Crawl next website.
         callback();
       });
   };

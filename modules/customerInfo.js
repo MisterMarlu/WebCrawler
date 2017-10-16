@@ -1,12 +1,14 @@
 /**
- * @author lbraun
- * @date 16.10.2017
- * @licence MIT
+ * Import modules.
  */
-
 const axios = require('axios');
 const cheerio = require('cheerio');
 
+/**
+ * Module customerInfo
+ *
+ * @returns {module}
+ */
 module.exports = function () {
   /**
    * Check if site can have a customer website.
@@ -22,7 +24,7 @@ module.exports = function () {
    *
    * @param url: string
    * @param $
-   * @param customers: object
+   * @param customers: {}
    */
   this.setCustomer = function (url, $, customers) {
     var self = this;
@@ -38,6 +40,7 @@ module.exports = function () {
       return;
     }
 
+    // Make the request to customer's website.
     axios.get(customerPage)
       .then(function (response) {
         if (response.status !== 200) {
@@ -56,8 +59,8 @@ module.exports = function () {
   /**
    * Set information about a customer's website (if there is a website)
    *
-   * @param customers: object
-   * @param i: object
+   * @param customers: {}
+   * @param i: {}
    * @param url: string
    * @param website: string
    * @param $
@@ -68,12 +71,14 @@ module.exports = function () {
     var imprintLink = '';
     var rto = false;
 
+    // Search for imprint link.
     links.each(function () {
       if ($(this).attr('href').toLowerCase().includes('impressum')) {
         imprintLink = self.fullLink($(this).attr('href'), website);
       }
     });
 
+    // Search in comments for 'heartbeat' comment.
     $('*').contents().each(function () {
       if (this.nodeType === 8) {
         if (typeof this.nodeType === 'string' && this.nodeValue.includes('heartbeat')) {
@@ -94,6 +99,8 @@ module.exports = function () {
 
   /**
    * Should be completed.
+   *
+   * @todo: Implement this method so you get the full link to the imprint.
    *
    * @param href: string
    * @param base: string

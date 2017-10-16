@@ -1,3 +1,3 @@
 # WebCrawler
 
-A web crawler written in JavaScript and one (not good working) in PHP.
+A web crawler written with NodeJS. More description is following soon.

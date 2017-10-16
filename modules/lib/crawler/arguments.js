@@ -1,18 +1,44 @@
 /**
- * @author lbraun
- * @date 16.10.2017
- * @licence MIT
+ * Import modules.
  */
-
 const URL = require('url-parse');
 
+/**
+ * Storage for user input.
+ * @type {{}}
+ */
 module.exports.commands = {};
 
+/**
+ * Default values for necessary arguments.
+ *
+ * @type {{
+ *  startUrl: string,
+ *  pageLimit: string,
+ *  debug: string,
+ *  visited: {},
+ *  numVisited: int,
+ *  followingPages: Array,
+ *  url: {},
+ *  baseUrl: string,
+ *  linkList: {
+ *    typeAbsolute: Array,
+ *    typeRelative: Array
+ *  },
+ *  errorList: {},
+ *  numErrors: int,
+ *  customers: {
+ *    rtoWebsite: Array,
+ *    otherWebsite: Array,
+ *    noWebsite: Array
+ *  },
+ *  startTime: int
+ *  }}
+ */
 module.exports.defaultArgs = {
   startUrl: 'https://www.phpdoc.org/',
   pageLimit: '0',
   debug: 'false',
-
   visited: {},
   numVisited: 0,
   followingPages: [],
@@ -32,10 +58,12 @@ module.exports.defaultArgs = {
   startTime: 0
 };
 
+/**
+ * Necessary arguments
+ */
 module.exports.startUrl = this.defaultArgs.startUrl;
 module.exports.pageLimit = this.defaultArgs.pageLimit;
 module.exports.debug = this.defaultArgs.debug;
-
 module.exports.visited = this.defaultArgs.visited;
 module.exports.numVisited = this.defaultArgs.numVisited;
 module.exports.followingPages = this.defaultArgs.followingPages;
@@ -47,7 +75,7 @@ module.exports.numErrors = this.defaultArgs.numErrors;
 module.exports.customers = this.defaultArgs.customers;
 
 /**
- * Set all arguments so default.
+ * Set all arguments to default.
  */
 module.exports.setDefault = function () {
   for (var key in this.defaultArgs) {
@@ -60,7 +88,7 @@ module.exports.setDefault = function () {
 /**
  * Initialize all parameters to be ready for crawling.
  *
- * @param commands: object
+ * @param commands: {}
  * @returns {exports}
  */
 module.exports.init = function (commands) {
@@ -87,6 +115,9 @@ module.exports.init = function (commands) {
   return this;
 };
 
+/**
+ * Print customer/post information.
+ */
 module.exports.getCustomerInfo = function () {
   if (this.debug) {
     console.log();
@@ -121,6 +152,9 @@ module.exports.getCustomerInfo = function () {
   console.log('RTO website: ' + this.customers.rtoWebsite.length);
 };
 
+/**
+ * Print user inputs.
+ */
 module.exports.getUserInput = function () {
   console.log();
   console.log('User input:');
@@ -132,6 +166,9 @@ module.exports.getUserInput = function () {
   }
 };
 
+/**
+ * Stops execution time and print as readable time.
+ */
 module.exports.getReadableTime = function () {
   var ms = new Date() - this.startTime;
   var days = ms / 1000;
