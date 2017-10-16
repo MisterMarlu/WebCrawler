@@ -69,9 +69,9 @@ module.exports.init = function (commands) {
   var debug = commands.debug || this.debug;
 
   this.commands = {
-    startUrl: commands.startUrl,
-    pageLimit: commands.pageLimit,
-    debug: commands.debug
+    startUrl: commands.startUrl || startUrl,
+    pageLimit: commands.pageLimit || pageLimit,
+    debug: commands.debug || debug
   };
 
   this.startUrl = startUrl;
@@ -88,29 +88,25 @@ module.exports.init = function (commands) {
 };
 
 module.exports.getCustomerInfo = function () {
-  console.log();
-  console.log('No website: ' + this.customers.noWebsite.length);
   if (this.debug) {
+    console.log();
+    console.log('No website: ' + this.customers.noWebsite.length);
     for (var i = 0; i < this.customers.noWebsite.length; i += 1) {
       console.log((i + 1) + ':');
       console.log('Link: ' + this.customers.noWebsite[i]);
     }
-  }
 
-  console.log();
-  console.log('Other website: ' + this.customers.otherWebsite.length);
-  if (this.debug) {
+    console.log();
+    console.log('Other website: ' + this.customers.otherWebsite.length);
     for (var j = 0; j < this.customers.otherWebsite.length; j += 1) {
       console.log((j + 1) + ':');
       console.log('Link: ' + this.customers.otherWebsite[j].url);
       console.log('Website: ' + this.customers.otherWebsite[j].website);
       console.log('Imprint: ' + this.customers.otherWebsite[j].imprint);
     }
-  }
 
-  console.log();
-  console.log('RTO website: ' + this.customers.rtoWebsite.length);
-  if (this.debug) {
+    console.log();
+    console.log('RTO website: ' + this.customers.rtoWebsite.length);
     for (var ij = 0; ij < this.customers.rtoWebsite.length; ij += 1) {
       console.log((ij + 1) + ':');
       console.log('Link: ' + this.customers.rtoWebsite[ij].url);
@@ -118,6 +114,11 @@ module.exports.getCustomerInfo = function () {
       console.log('Imprint: ' + this.customers.rtoWebsite[ij].imprint);
     }
   }
+
+  console.log();
+  console.log('No website: ' + this.customers.noWebsite.length);
+  console.log('Other website: ' + this.customers.otherWebsite.length);
+  console.log('RTO website: ' + this.customers.rtoWebsite.length);
 };
 
 module.exports.getUserInput = function () {
