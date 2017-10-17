@@ -12,19 +12,29 @@ module.exports = function () {
   this.logger = null;
 
   this.initLogger = function () {
-    var name = 'crawler-0001';
+    var name = 'crawler-1';
     var path = 'logs/' + name + '.log';
+    var info = this.checkLogFile(name, path);
 
-    if (fs.existsSync(path)) {
-      var nameArray = name.split('-');
-      var number = parseInt(nameArray[(nameArray.length - 1)]);
-      nameArray[(nameArray.length - 1)] = (number + 1);
-      name = nameArray.join('-');
-      path = 'logs/' + name + '.log';
+    this.logger = fs.createWriteStream(info.path, {flags: 'a'});
+    this.writeWithSpace('Name of this log file: ' + info.name + '.log');
+  };
+
+  this.checkLogFile = function (name, path) {
+    if (!fs.existsSync(path)) {
+      return {
+        name: name,
+        path: path
+      };
     }
 
-    this.logger = fs.createWriteStream(path, {flags: 'a'});
-    this.writeWithSpace('Name of this log file: ' + name + '.log');
+    var nameArray = name.split('-');
+    var number = parseInt(nameArray[(nameArray.length - 1)]);
+    nameArray[(nameArray.length - 1)] = (number + 1);
+    name = nameArray.join('-');
+    path = 'logs/' + name + '.log';
+
+    return this.checkLogFile(name, path);
   };
 
   /**

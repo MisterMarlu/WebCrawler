@@ -27,6 +27,8 @@ module.exports = function (commands) {
 
   // Init arguments.
   this.init(commands);
+
+  // Write user input into log file.
   for(var command in commands) {
     if (commands.hasOwnProperty(command) && command !== '_') {
       output.write('User input: command=' + command + '; value=' + commands[command] + ';');
@@ -36,7 +38,16 @@ module.exports = function (commands) {
   /**
    * Crawling through websites.
    */
-  this.crawl = function () {
+  this.crawl = function (first) {
+    if (typeof first !== 'undefined') {
+      if (this.lockFileExists()) {
+        output.logger.end();
+        return;
+      }
+
+      this.createLockFile();
+    }
+
     var self = this;
 
     // Reached limit to visit websites.
@@ -50,6 +61,7 @@ module.exports = function (commands) {
       self.getUserInput();
       self.getReadableTime();
       output.logger.end();
+      this.removeLockFile();
       return;
     }
 
@@ -73,6 +85,7 @@ module.exports = function (commands) {
       self.getUserInput();
       self.getReadableTime();
       output.logger.end();
+      this.removeLockFile();
       return;
     }
 

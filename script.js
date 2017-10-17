@@ -14,4 +14,4 @@ const Crawler = require('./modules/crawler')(commands);
  */
 
 // Start crawling.
-Crawler.crawl();
+Crawler.crawl(true);

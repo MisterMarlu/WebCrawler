@@ -2,6 +2,9 @@
  * Import modules.
  */
 const URL = require('url-parse');
+const fs = require('fs');
+
+const lockFileName = 'crawler.lock';
 
 /**
  * Storage for user input.
@@ -109,4 +112,25 @@ module.exports.init = function (commands) {
   this.startTime = new Date();
 
   return this;
+};
+
+/**
+ * Creates lock file.
+ */
+module.exports.createLockFile = function () {
+  fs.writeFileSync(lockFileName, new Date());
+};
+
+/**
+ * Removes lock file.
+ */
+module.exports.removeLockFile = function () {
+  fs.unlinkSync(lockFileName);
+};
+
+/**
+ * Checks if lock file exists.
+ */
+module.exports.lockFileExists = function () {
+  return fs.existsSync(lockFileName);
 };
