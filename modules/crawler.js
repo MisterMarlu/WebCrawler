@@ -27,6 +27,11 @@ module.exports = function (commands) {
 
   // Init arguments.
   this.init(commands);
+  for(var command in commands) {
+    if (commands.hasOwnProperty(command) && command !== '_') {
+      output.write('User input: command=' + command + '; value=' + commands[command] + ';');
+    }
+  }
 
   /**
    * Crawling through websites.

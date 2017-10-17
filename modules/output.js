@@ -1,3 +1,6 @@
+/**
+ * Import modules.
+ */
 const fs = require('fs');
 
 /**
@@ -6,7 +9,23 @@ const fs = require('fs');
  * @returns {module}
  */
 module.exports = function () {
-  this.logger = fs.createWriteStream('crawler.log', {flags: 'a'});
+  this.logger = null;
+
+  this.initLogger = function () {
+    var name = 'crawler-0001';
+    var path = 'logs/' + name + '.log';
+
+    if (fs.existsSync(path)) {
+      var nameArray = name.split('-');
+      var number = parseInt(nameArray[(nameArray.length - 1)]);
+      nameArray[(nameArray.length - 1)] = (number + 1);
+      name = nameArray.join('-');
+      path = 'logs/' + name + '.log';
+    }
+
+    this.logger = fs.createWriteStream(path, {flags: 'a'});
+    this.writeWithSpace('Name of this log file: ' + name + '.log');
+  };
 
   /**
    * Default output when page limit is reached.
@@ -84,6 +103,19 @@ module.exports = function () {
   };
 
   /**
+   * Write output with a break after.
+   *
+   * @param string: string
+   */
+  this.writeWithSpace = function (string) {
+    this.logger.write(string + "\n");
+    this.logger.write("\n");
+
+    console.log(string);
+    console.log();
+  };
+
+  /**
    * Get default ending information.
    *
    * @param numLinksAb: int
@@ -112,6 +144,8 @@ module.exports = function () {
       this.write(sentences[i]);
     }
   };
+
+  this.initLogger();
 
   return this;
 };
