@@ -3,7 +3,7 @@
  */
 const axios = require('axios');
 const cheerio = require('cheerio');
-const request = require('request');
+const dns = require('dns');
 
 /**
  * Module customerInfo
@@ -31,13 +31,12 @@ module.exports = function () {
     var self = this;
     var customerPage = $('.icon_url_text').find('a').attr('href');
     var i = {
-      nw: customers.noWebsite.length,
-      rw: customers.rtoWebsite.length,
-      ow: customers.otherWebsite.length
+      with: customers.withWebsite.length,
+      without: customers.withoutWebsite.length
     };
 
     if (typeof customerPage === 'undefined') {
-      customers.noWebsite[i.nw] = url;
+      customers.withoutWebsite[i.without] = url;
       return;
     }
 
@@ -49,7 +48,19 @@ module.exports = function () {
         }
 
         var $ = cheerio.load(response.data);
-        self.setCustomerSettings(customers, i, url, customerPage, $);
+        self.setCustomerSettings(customers, i.with, url, customerPage, $);
+      })
+      .catch(function (error) {
+        console.log('Has error');
+
+        console.log(error);
+
+        customers.withWebsite[i.with] = {
+          url: url,
+          website: customerPage,
+          rto: false,
+          hasError: true
+        };
       });
   };
 
@@ -75,31 +86,31 @@ module.exports = function () {
       }
     });
 
-    // Search in comments for 'heartbeat' comment.
     $('*').contents().each(function () {
-      self.searchForRto(this, $, rto, website);
-      if (this.nodeType === 8) {
-        if (typeof this.nodeValue === 'string' && this.nodeValue.includes('heartbeat')) {
-          rto = true;
-        }
+      if (!rto) {
+        rto = self.searchForRto(this, $, rto, website);
       }
     });
 
-    var type = (rto) ? 'rtoWebsite' : 'otherWebsite';
-    var iType = (rto) ? 'rw' : 'ow';
+    if (!rto) {
+      rto = self.searchForRtoRequest(rto, website);
+    }
+
     var exists = false;
 
-    for (var j = 0; j < customers[type].length; j += 1) {
-      if (customers[type][j].website === website) {
+    for (var j = 0; j < customers.withWebsite.length; j += 1) {
+      if (customers.withWebsite[j].website === website) {
         exists = true;
       }
     }
 
     if (!exists) {
-      customers[type][i[iType]] = {
+      customers.withWebsite[i] = {
         url: url,
         website: website,
-        imprint: imprintLink
+        imprint: imprintLink,
+        rto: rto,
+        hasError: false
       };
     }
   };
@@ -107,15 +118,14 @@ module.exports = function () {
   this.searchForRto = function (contents, $, isRto, website) {
     // If isRto is already true, don't try to set true again.
     if (isRto) {
-      return;
+      return true;
     }
 
     // Check for heartbeat.
     if (!isRto) {
-      if (contents.nodeType === 8) {
+      if (contents.nodeType === contents.COMMENT_NODE) {
         if (typeof contents.nodeValue === 'string' && contents.nodeValue.includes('heartbeat')) {
-          isRto = true;
-          return;
+          return true;
         }
       }
     }
@@ -125,27 +135,38 @@ module.exports = function () {
       var metaTag = $("meta[name='publisher']");
       if (typeof metaTag !== 'undefined' && typeof metaTag.attr('content') !== 'undefined') {
         if (metaTag.attr('content').toLowerCase().includes('rto')) {
-          isRto = true;
-          return;
+          return true;
         }
       }
     }
 
-    // Check with ip (compare with ip from rto.de).
+    return isRto;
+  };
+
+  this.searchForRtoRequest = function (isRto, website) {
+    if (isRto) {
+      return true;
+    }
+
     if (!isRto) {
-      var ip = '';
-      request('www.rto.de', function (error, request, body) {
-        ip = request.remoteIP;
-      }).on('response', function (res) {
-        res.remoteIP = res.connection.remoteAddress;
+      var ipAddress = '';
+      dns.lookup('www.rto.de', function (error, address, family) {
+        if (error) {
+          return;
+        }
+
+        ipAddress = address;
       });
 
-      request(website, function (error, request, body) {
-        if (ip === request.remoteIP) {
-          isRto = true;
+      dns.lookup(website, function (error, address, family) {
+        if (error) {
+          return;
         }
-      }).on('response', function (res) {
-        res.remoteIP = res.connection.remoteAddress;
+
+        if (ipAddress === address) {
+          isRto = true;
+          return true;
+        }
       });
     }
 
@@ -153,6 +174,8 @@ module.exports = function () {
     if (!isRto) {
       // Searching for imprint.
     }
+
+    return isRto;
   };
 
   /**
@@ -163,7 +186,6 @@ module.exports = function () {
    * @returns {string}
    */
   this.fullLink = function (link, base) {
-    console.log(link);
     if (link.substr(0, 4) === 'http' || link.substr(0, 3) === 'www') {
       return link;
     }

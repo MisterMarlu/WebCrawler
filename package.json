@@ -10,7 +10,7 @@
     "cheerio": "latest",
     "fs": "0.0.1-security",
     "minimist": "latest",
-    "request": "^2.83.0",
+    "dns": "latest",
     "url-parse": "latest"
   }
 }

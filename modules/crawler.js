@@ -216,33 +216,60 @@ module.exports = function (commands) {
    * Print customer/post information.
    */
   this.getCustomerInfo = function () {
+    var i = 0;
+    var web = {
+      no: [],
+      other: [],
+      rto: [],
+      hasError: []
+    };
+
+    for (i = 0; i < this.customers.withoutWebsite.length; i += 1) {
+      web.no.push(this.customers.withoutWebsite[i]);
+    }
+
+    for (i = 0; i < this.customers.withWebsite.length; i += 1) {
+      var type = (this.customers.withWebsite[i].rto === true) ? 'rto' : 'other';
+      type = (this.customers.withWebsite[i].hasError === true) ? 'hasError' : type;
+
+      web[type].push(this.customers.withWebsite[i]);
+    }
+
     if (this.debug) {
-      output.writeLine('No website: ' + this.customers.noWebsite.length);
-      for (var i = 0; i < this.customers.noWebsite.length; i += 1) {
+      output.writeLine('No website: ' + web.no.length);
+      for (i = 0; i < web.no.length; i += 1) {
         output.write((i + 1) + ':');
-        output.write('Link: ' + this.customers.noWebsite[i]);
+        output.write('Link: ' + web.no[i]);
       }
 
-      output.writeLine('Other website: ' + this.customers.otherWebsite.length);
-      for (var j = 0; j < this.customers.otherWebsite.length; j += 1) {
-        output.write((j + 1) + ':');
-        output.write('Link: ' + this.customers.otherWebsite[j].url);
-        output.write('Website: ' + this.customers.otherWebsite[j].website);
-        output.write('Imprint: ' + this.customers.otherWebsite[j].imprint);
+      output.writeLine('Other website: ' + web.other.length);
+      for (i = 0; i < web.other.length; i += 1) {
+        output.write((i + 1) + ':');
+        output.write('Link: ' + web.other[i].url);
+        output.write('Website: ' + web.other[i].website);
+        output.write('Imprint: ' + web.other[i].imprint);
       }
 
-      output.writeLine('RTO website: ' + this.customers.rtoWebsite.length);
-      for (var ij = 0; ij < this.customers.rtoWebsite.length; ij += 1) {
-        output.write((ij + 1) + ':');
-        output.write('Link: ' + this.customers.rtoWebsite[ij].url);
-        output.write('Website: ' + this.customers.rtoWebsite[ij].website);
-        output.write('Imprint: ' + this.customers.rtoWebsite[ij].imprint);
+      output.writeLine('RTO website: ' + web.rto.length);
+      for (i = 0; i < web.rto.length; i += 1) {
+        output.write((i + 1) + ':');
+        output.write('Link: ' + web.rto[i].url);
+        output.write('Website: ' + web.rto[i].website);
+        output.write('Imprint: ' + web.rto[i].imprint);
+      }
+
+      output.writeLine('Websites with error: ' + web.hasError.length);
+      for (i = 0; i < web.hasError.length; i += 1) {
+        output.write((i + 1) + ':');
+        output.write('Link: ' + web.hasError[i].url);
+        output.write('Website: ' + web.hasError[i].website);
       }
     }
 
-    output.writeLine('No website: ' + this.customers.noWebsite.length);
-    output.write('Other website: ' + this.customers.otherWebsite.length);
-    output.write('RTO website: ' + this.customers.rtoWebsite.length);
+    output.writeLine('No website: ' + web.no.length);
+    output.write('Other website: ' + web.other.length);
+    output.write('RTO website: ' + web.rto.length);
+    output.write('Websites with error: ' + web.hasError.length);
   };
 
   /**

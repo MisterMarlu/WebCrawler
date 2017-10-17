@@ -49,9 +49,8 @@ module.exports.defaultArgs = {
   },
   errorList: {},
   customers: {
-    rtoWebsite: [],
-    otherWebsite: [],
-    noWebsite: []
+    withWebsite: [],
+    withoutWebsite: []
   },
   startTime: 0
 };
