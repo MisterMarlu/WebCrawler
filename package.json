@@ -6,9 +6,11 @@
   "author": "LBraun",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "latest",
-    "url-parse": "latest",
     "axios": "latest",
-    "minimist": "latest"
+    "cheerio": "latest",
+    "fs": "0.0.1-security",
+    "minimist": "latest",
+    "request": "^2.83.0",
+    "url-parse": "latest"
   }
 }

@@ -1,3 +1,3 @@
 # WebCrawler
 
-A web crawler written with NodeJS. More description is following soon.
+Web crawler to crawl through a specific website.
