@@ -26,7 +26,6 @@ module.exports.commands = {};
  *    typeRelative: Array
  *  },
  *  errorList: {},
- *  numErrors: int,
  *  customers: {
  *    rtoWebsite: Array,
  *    otherWebsite: Array,
@@ -49,7 +48,6 @@ module.exports.defaultArgs = {
     typeRelative: []
   },
   errorList: {},
-  numErrors: 0,
   customers: {
     rtoWebsite: [],
     otherWebsite: [],
@@ -71,7 +69,6 @@ module.exports.url = this.defaultArgs.url;
 module.exports.baseUrl = this.defaultArgs.baseUrl;
 module.exports.linkList = this.defaultArgs.linkList;
 module.exports.errorList = this.defaultArgs.errorList;
-module.exports.numErrors = this.defaultArgs.numErrors;
 module.exports.customers = this.defaultArgs.customers;
 
 /**
@@ -113,79 +110,4 @@ module.exports.init = function (commands) {
   this.startTime = new Date();
 
   return this;
-};
-
-/**
- * Print customer/post information.
- */
-module.exports.getCustomerInfo = function () {
-  if (this.debug) {
-    console.log();
-    console.log('No website: ' + this.customers.noWebsite.length);
-    for (var i = 0; i < this.customers.noWebsite.length; i += 1) {
-      console.log((i + 1) + ':');
-      console.log('Link: ' + this.customers.noWebsite[i]);
-    }
-
-    console.log();
-    console.log('Other website: ' + this.customers.otherWebsite.length);
-    for (var j = 0; j < this.customers.otherWebsite.length; j += 1) {
-      console.log((j + 1) + ':');
-      console.log('Link: ' + this.customers.otherWebsite[j].url);
-      console.log('Website: ' + this.customers.otherWebsite[j].website);
-      console.log('Imprint: ' + this.customers.otherWebsite[j].imprint);
-    }
-
-    console.log();
-    console.log('RTO website: ' + this.customers.rtoWebsite.length);
-    for (var ij = 0; ij < this.customers.rtoWebsite.length; ij += 1) {
-      console.log((ij + 1) + ':');
-      console.log('Link: ' + this.customers.rtoWebsite[ij].url);
-      console.log('Website: ' + this.customers.rtoWebsite[ij].website);
-      console.log('Imprint: ' + this.customers.rtoWebsite[ij].imprint);
-    }
-  }
-
-  console.log();
-  console.log('No website: ' + this.customers.noWebsite.length);
-  console.log('Other website: ' + this.customers.otherWebsite.length);
-  console.log('RTO website: ' + this.customers.rtoWebsite.length);
-};
-
-/**
- * Print user inputs.
- */
-module.exports.getUserInput = function () {
-  console.log();
-  console.log('User input:');
-  for (var name in this.commands) {
-    if (this.commands.hasOwnProperty(name)) {
-      var isDefault = (this.commands[name] === this.defaultArgs[name]) ? ' (default)' : '';
-      console.log(name + ': ' + this.commands[name] + isDefault);
-    }
-  }
-};
-
-/**
- * Stops execution time and print as readable time.
- */
-module.exports.getReadableTime = function () {
-  var ms = new Date() - this.startTime;
-  var days = ms / 1000;
-  var seconds = parseInt(days % 60);
-  seconds = (seconds < 10) ? '0' + seconds : seconds;
-
-  days /= 60;
-  var minutes = parseInt(days % 60);
-  minutes = (minutes < 10) ? '0' + minutes : minutes;
-
-  days /= 60;
-  var hours = parseInt(days % 24);
-  hours = (hours < 10) ? '0' + hours : hours;
-
-  days /= 24;
-  days = parseInt(days);
-
-  var time = days + ' days, ' + hours + ':' + minutes + ':' + seconds;
-  console.log(time);
 };

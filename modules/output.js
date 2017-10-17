@@ -1,9 +1,13 @@
+const fs = require('fs');
+
 /**
  * Module output
  *
  * @returns {module}
  */
 module.exports = function () {
+  this.logger = fs.createWriteStream('crawler.log', {flags: 'a'});
+
   /**
    * Default output when page limit is reached.
    *
@@ -62,6 +66,7 @@ module.exports = function () {
    * @param string: string
    */
   this.write = function (string) {
+    this.logger.write(string + "\n");
     console.log(string);
   };
 
@@ -71,6 +76,9 @@ module.exports = function () {
    * @param string: string
    */
   this.writeLine = function (string) {
+    this.logger.write("\n");
+    this.logger.write(string + "\n");
+
     console.log();
     console.log(string);
   };
@@ -88,7 +96,7 @@ module.exports = function () {
       this.sprintf('Found absolute links total: %s', numLinksAb),
       this.sprintf('Found relative links total: %s', numLinksRel),
       this.sprintf('Found links total: %s', (numLinksAb + numLinksRel)),
-      this.sprintf('Errors total: ', numErrors)
+      this.sprintf('Errors total: %s', numErrors)
     ];
   };
 

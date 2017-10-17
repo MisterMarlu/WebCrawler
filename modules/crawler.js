@@ -39,11 +39,12 @@ module.exports = function (commands) {
       output.pageLimitOut(self.numVisited,
         self.linkList.typeAbsolute.length,
         self.linkList.typeRelative.length,
-        self.numErrors);
+        self.numErrors());
       self.debugging(self.errorList);
       self.getCustomerInfo();
       self.getUserInput();
       self.getReadableTime();
+      output.logger.end();
       return;
     }
 
@@ -61,11 +62,12 @@ module.exports = function (commands) {
       output.lastPageOut(self.numVisited,
         self.linkList.typeAbsolute.length,
         self.linkList.typeRelative.length,
-        self.numErrors);
+        self.numErrors());
       self.debugging(self.errorList);
       self.getCustomerInfo();
       self.getUserInput();
       self.getReadableTime();
+      output.logger.end();
       return;
     }
 
@@ -120,7 +122,6 @@ module.exports = function (commands) {
         }
 
         self.errorList[error.response.status].push(url);
-        self.numErrors += 1;
 
         // Crawl next website.
         callback();
@@ -209,6 +210,102 @@ module.exports = function (commands) {
     if (this.debug) {
       output.write(string);
     }
+  };
+
+  /**
+   * Print customer/post information.
+   */
+  this.getCustomerInfo = function () {
+    if (this.debug) {
+      output.writeLine('No website: ' + this.customers.noWebsite.length);
+      for (var i = 0; i < this.customers.noWebsite.length; i += 1) {
+        output.write((i + 1) + ':');
+        output.write('Link: ' + this.customers.noWebsite[i]);
+      }
+
+      output.writeLine('Other website: ' + this.customers.otherWebsite.length);
+      for (var j = 0; j < this.customers.otherWebsite.length; j += 1) {
+        output.write((j + 1) + ':');
+        output.write('Link: ' + this.customers.otherWebsite[j].url);
+        output.write('Website: ' + this.customers.otherWebsite[j].website);
+        output.write('Imprint: ' + this.customers.otherWebsite[j].imprint);
+      }
+
+      output.writeLine('RTO website: ' + this.customers.rtoWebsite.length);
+      for (var ij = 0; ij < this.customers.rtoWebsite.length; ij += 1) {
+        output.write((ij + 1) + ':');
+        output.write('Link: ' + this.customers.rtoWebsite[ij].url);
+        output.write('Website: ' + this.customers.rtoWebsite[ij].website);
+        output.write('Imprint: ' + this.customers.rtoWebsite[ij].imprint);
+      }
+    }
+
+    output.writeLine('No website: ' + this.customers.noWebsite.length);
+    output.write('Other website: ' + this.customers.otherWebsite.length);
+    output.write('RTO website: ' + this.customers.rtoWebsite.length);
+  };
+
+  /**
+   * Print user inputs.
+   */
+  this.getUserInput = function () {
+    output.writeLine('User input:');
+    for (var name in this.commands) {
+      if (this.commands.hasOwnProperty(name)) {
+        var isDefault = (this.commands[name] === this.defaultArgs[name]) ? ' (default)' : '';
+        output.write(name + ': ' + this.commands[name] + isDefault);
+      }
+    }
+  };
+
+  /**
+   * Stops execution time and print as readable time.
+   */
+  this.getReadableTime = function () {
+    var ms = new Date() - this.startTime;
+    var days = ms / 1000;
+    var seconds = parseInt(days % 60);
+    seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+    days /= 60;
+    var minutes = parseInt(days % 60);
+    minutes = (minutes < 10) ? '0' + minutes : minutes;
+
+    days /= 60;
+    var hours = parseInt(days % 24);
+    hours = (hours < 10) ? '0' + hours : hours;
+
+    days /= 24;
+    days = parseInt(days);
+
+    var time = days + ' days, ' + hours + ':' + minutes + ':' + seconds;
+    output.write(time);
+  };
+
+  /**
+   * Counts the number of total errors.
+   *
+   * @param status?: string
+   * @returns {number}
+   */
+  this.numErrors = function (status) {
+    var counter = 0;
+
+    if (typeof status === 'undefined') {
+      for (var tmpStatus in this.errorList) {
+        if (this.errorList.hasOwnProperty(tmpStatus)) {
+          counter += this.errorList[tmpStatus].length;
+        }
+      }
+
+      return counter;
+    }
+
+    if (this.errorList.hasOwnProperty(status)) {
+      counter = this.errorList[status].length;
+    }
+
+    return counter;
   };
 
   return this;

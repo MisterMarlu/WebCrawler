@@ -3,6 +3,7 @@
  */
 const axios = require('axios');
 const cheerio = require('cheerio');
+const request = require('request');
 
 /**
  * Module customerInfo
@@ -44,10 +45,6 @@ module.exports = function () {
     axios.get(customerPage)
       .then(function (response) {
         if (response.status !== 200) {
-          customers.otherWebsite[i.ow] = {
-            url: url,
-            website: customerPage
-          };
           return;
         }
 
@@ -80,8 +77,9 @@ module.exports = function () {
 
     // Search in comments for 'heartbeat' comment.
     $('*').contents().each(function () {
+      self.searchForRto(this, $, rto, website);
       if (this.nodeType === 8) {
-        if (typeof this.nodeType === 'string' && this.nodeValue.includes('heartbeat')) {
+        if (typeof this.nodeValue === 'string' && this.nodeValue.includes('heartbeat')) {
           rto = true;
         }
       }
@@ -89,25 +87,101 @@ module.exports = function () {
 
     var type = (rto) ? 'rtoWebsite' : 'otherWebsite';
     var iType = (rto) ? 'rw' : 'ow';
+    var exists = false;
 
-    customers[type][i[iType]] = {
-      url: url,
-      website: website,
-      imprint: imprintLink
-    };
+    for (var j = 0; j < customers[type].length; j += 1) {
+      if (customers[type][j].website === website) {
+        exists = true;
+      }
+    }
+
+    if (!exists) {
+      customers[type][i[iType]] = {
+        url: url,
+        website: website,
+        imprint: imprintLink
+      };
+    }
+  };
+
+  this.searchForRto = function (contents, $, isRto, website) {
+    // If isRto is already true, don't try to set true again.
+    if (isRto) {
+      return;
+    }
+
+    // Check for heartbeat.
+    if (!isRto) {
+      if (contents.nodeType === 8) {
+        if (typeof contents.nodeValue === 'string' && contents.nodeValue.includes('heartbeat')) {
+          isRto = true;
+          return;
+        }
+      }
+    }
+
+    // Check in meta (publisher === 'rto').
+    if (!isRto) {
+      var metaTag = $("meta[name='publisher']");
+      if (typeof metaTag !== 'undefined' && typeof metaTag.attr('content') !== 'undefined') {
+        if (metaTag.attr('content').toLowerCase().includes('rto')) {
+          isRto = true;
+          return;
+        }
+      }
+    }
+
+    // Check with ip (compare with ip from rto.de).
+    if (!isRto) {
+      var ip = '';
+      request('www.rto.de', function (error, request, body) {
+        ip = request.remoteIP;
+      }).on('response', function (res) {
+        res.remoteIP = res.connection.remoteAddress;
+      });
+
+      request(website, function (error, request, body) {
+        if (ip === request.remoteIP) {
+          isRto = true;
+        }
+      }).on('response', function (res) {
+        res.remoteIP = res.connection.remoteAddress;
+      });
+    }
+
+    // Check in imprint.
+    if (!isRto) {
+      // Searching for imprint.
+    }
   };
 
   /**
    * Should be completed.
    *
-   * @todo: Implement this method so you get the full link to the imprint.
-   *
-   * @param href: string
+   * @param link: string
    * @param base: string
    * @returns {string}
    */
-  this.fullLink = function (href, base) {
-    return href;
+  this.fullLink = function (link, base) {
+    console.log(link);
+    if (link.substr(0, 4) === 'http' || link.substr(0, 3) === 'www') {
+      return link;
+    }
+
+    if (link.substr(0, 1) === '/') {
+      if (base.substr((base.length - 1), 1) === '/') {
+        base = base.substr(base.length, -1);
+      }
+
+      return base + link;
+    }
+
+
+    if (base.substr((base.length - 1), 1) !== '/') {
+      base += '/';
+    }
+
+    return base + link;
   };
 
   return this;
