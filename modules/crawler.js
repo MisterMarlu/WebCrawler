@@ -3,6 +3,10 @@
  */
 var axios = require('axios');
 var cheerio = require('cheerio');
+var spinner = require('cli-spinner').Spinner;
+
+// Default spinner type "|/-\".
+spinner.setDefaultSpinnerString(0);
 
 /**
  * Import custom modules.
@@ -18,6 +22,8 @@ var customerInfo = require('./customerInfo')();
  * @returns {module}
  */
 module.exports = function (commands) {
+  var finishDelay = 2000;
+
   // Set arguments.
   for (var name in args) {
     if (args.hasOwnProperty(name)) {
@@ -30,6 +36,8 @@ module.exports = function (commands) {
 
   /**
    * Crawling through websites.
+   *
+   * @param first?: {boolean}
    */
   this.crawl = function (first) {
     if (typeof first !== 'undefined') {
@@ -45,16 +53,21 @@ module.exports = function (commands) {
 
     // Reached limit to visit websites.
     if (self.numVisited >= self.pageLimit && self.pageLimit !== 0) {
-      output.pageLimitOut(self.numVisited,
-        self.linkList.typeAbsolute.length,
-        self.linkList.typeRelative.length,
-        self.numErrors());
-      self.debugging(self.errorList);
-      self.getCustomerInfo();
-      self.getUserInput();
-      self.getReadableTime();
-      output.logger.end();
-      this.removeLockFile();
+      var consoleSpinner = new spinner("%s Waiting for finishing requests.");
+      consoleSpinner.start();
+      setTimeout(function (args2) {
+        consoleSpinner.stop(true);
+        output.pageLimitOut(self.numVisited,
+          self.linkList.typeAbsolute.length,
+          self.linkList.typeRelative.length,
+          self.numErrors());
+        output.write(self.errorList, self.debug);
+        self.getCustomerInfo();
+        self.getUserInput();
+        self.getReadableTime(finishDelay);
+        output.logger.end();
+        self.removeLockFile();
+      }, finishDelay);
       return;
     }
 
@@ -62,23 +75,26 @@ module.exports = function (commands) {
 
     // Already visited next website.
     if (nextPage in self.visited) {
-      self.debugging('Url ' + nextPage + ' already visited.');
+      output.write('Url ' + nextPage + ' already visited.', self.debug);
       self.crawl();
       return;
     }
 
     // No more websites available.
     if (typeof nextPage === 'undefined') {
-      output.lastPageOut(self.numVisited,
-        self.linkList.typeAbsolute.length,
-        self.linkList.typeRelative.length,
-        self.numErrors());
-      self.debugging(self.errorList);
-      self.getCustomerInfo();
-      self.getUserInput();
-      self.getReadableTime();
-      output.logger.end();
-      this.removeLockFile();
+      // Wait for finishing request to customer page.
+      setTimeout(function (args2) {
+        output.lastPageOut(self.numVisited,
+          self.linkList.typeAbsolute.length,
+          self.linkList.typeRelative.length,
+          self.numErrors());
+        output.write(self.errorList, self.debug);
+        self.getCustomerInfo();
+        self.getUserInput();
+        self.getReadableTime(finishDelay);
+        output.logger.end();
+        self.removeLockFile();
+      }, finishDelay);
       return;
     }
 
@@ -97,14 +113,14 @@ module.exports = function (commands) {
     self.visited[url] = true;
     self.numVisited += 1;
 
-    output.writeLine('Visiting page ' + url);
-    output.write('Visited pages: ' + self.numVisited);
+    output.writeLine('Visiting page ' + url, self.debug);
+    output.write('Visited pages: ' + self.numVisited, true);
 
     // Make the request.
     axios.get(url)
       .then(function (response) {
-        self.debugging('Url: ' + url);
-        self.debugging('Status: ' + response.status);
+        output.write('Url: ' + url, self.debug);
+        output.write('Status: ' + response.status, self.debug);
 
         if (response.status !== 200) {
           callback();
@@ -113,8 +129,8 @@ module.exports = function (commands) {
 
         var $ = cheerio.load(response.data);
 
-        if (customerInfo.canHaveWebsite(url)) {
-          customerInfo.setCustomer(url, $, self.customers, output);
+        if (customerInfo.canHaveWebsite(url, 'sex-anzeigen')) {
+          customerInfo.setCustomer(url, $, self.customers, output, self.debug);
         }
 
         self.collectLinks($);
@@ -123,12 +139,12 @@ module.exports = function (commands) {
         callback();
       })
       .catch(function (error) {
-        output.writeLine('Error on url ' + url, 'warning');
-        self.debugging('Url: ' + url);
+        output.writeLine('Error on url ' + url, true, 'warning');
+        output.write('Url: ' + url, self.debug);
 
         if (typeof error.response !== 'undefined') {
-          self.debugging('Status: ' + error.response.status);
-          self.debugging('Status text: ' + error.response.statusText);
+          output.write('Status: ' + error.response.status, true, 'warning');
+          output.writeWithSpace('Status text: ' + error.response.statusText, true, 'warning');
 
           if (typeof self.errorList[error.response.status] === 'undefined') {
             self.errorList[error.response.status] = [];
@@ -136,7 +152,8 @@ module.exports = function (commands) {
 
           self.errorList[error.response.status].push(url);
         } else {
-          output.write('Request was sent with no response.', 'error');
+          output.write('Request was sent with no response.', true, 'error');
+          output.write(error, self.debug, 'error');
         }
 
         // Crawl next website.
@@ -158,6 +175,7 @@ module.exports = function (commands) {
       absolute: absoluteLinks.length
     };
 
+    // Add absolute links to link list.
     absoluteLinks.each(function () {
       var href = $(this).attr('href');
       if (self.linkList.typeAbsolute.indexOf(href) === -1) {
@@ -165,6 +183,7 @@ module.exports = function (commands) {
       }
     });
 
+    // Add relative links to link list.
     relativeLinks.each(function () {
       if (self.collectRelativeLinks($(this).attr('href'))) {
         count.relative += 1;
@@ -173,8 +192,8 @@ module.exports = function (commands) {
       }
     });
 
-    self.debugging('Relative links: ' + count.relative);
-    self.debugging('Absolute links ' + count.absolute);
+    output.write('Relative links: ' + count.relative, self.debug);
+    output.write('Absolute links ' + count.absolute, self.debug);
   };
 
   /**
@@ -218,17 +237,6 @@ module.exports = function (commands) {
   };
 
   /**
-   * Just outputs content when debug was set to true.
-   *
-   * @param string
-   */
-  this.debugging = function (string) {
-    if (this.debug) {
-      console.log("\x1b[36m", string, "\x1b[0m");
-    }
-  };
-
-  /**
    * Print customer/post information.
    */
   this.getCustomerInfo = function () {
@@ -251,93 +259,159 @@ module.exports = function (commands) {
       web[type].push(this.customers.withWebsite[i]);
     }
 
-    if (this.debug) {
-      output.writeLine('No website: ' + web.no.length);
-      for (i = 0; i < web.no.length; i += 1) {
-        output.write((i + 1) + ':');
-        output.write('Link: ' + web.no[i]);
-      }
-
-      output.writeLine('Other website: ' + web.other.length);
-      for (i = 0; i < web.other.length; i += 1) {
-        output.write((i + 1) + ':');
-        output.write('Link: ' + web.other[i].url);
-        output.write('Website: ' + web.other[i].website);
-        output.write('Imprint: ' + web.other[i].imprint);
-      }
-
-      output.writeLine('RTO website: ' + web.rto.length);
-      for (i = 0; i < web.rto.length; i += 1) {
-        output.write((i + 1) + ':');
-        output.write('Link: ' + web.rto[i].url);
-        output.write('Website: ' + web.rto[i].website);
-        output.write('Imprint: ' + web.rto[i].imprint);
-      }
-
-      output.writeLine('Websites with error: ' + web.hasError.length);
-      for (i = 0; i < web.hasError.length; i += 1) {
-        output.write((i + 1) + ':');
-        output.write('Link: ' + web.hasError[i].url);
-        output.write('Website: ' + web.hasError[i].website);
-      }
+    output.writeLine('No website: ' + web.no.length, this.debug);
+    for (i = 0; i < web.no.length; i += 1) {
+      output.write((i + 1) + ':', this.debug);
+      output.write('Link: ' + web.no[i], this.debug);
     }
 
-    output.writeLine('No website: ' + web.no.length);
-    output.write('Other website: ' + web.other.length);
-    output.write('RTO website: ' + web.rto.length);
-    var webErrorColor = (web.hasError.length === 0) ? '' : ((web.hasError.length >= 10) ? 'error' : 'warning');
-    output.write('Websites with error: ' + web.hasError.length, webErrorColor);
+    output.writeLine('Other website: ' + web.other.length, this.debug);
+    for (i = 0; i < web.other.length; i += 1) {
+      output.write((i + 1) + ':', this.debug);
+      output.write('Link: ' + web.other[i].url, this.debug);
+      output.write('Website: ' + web.other[i].website, this.debug);
+      output.write('Imprint: ' + web.other[i].imprint, this.debug);
+    }
+
+    output.writeLine('RTO website: ' + web.rto.length, this.debug);
+    for (i = 0; i < web.rto.length; i += 1) {
+      output.write((i + 1) + ':', this.debug);
+      output.write('Link: ' + web.rto[i].url, this.debug);
+      output.write('Website: ' + web.rto[i].website, this.debug);
+      output.write('Imprint: ' + web.rto[i].imprint, this.debug);
+    }
+
+    output.writeLine('Websites with error: ' + web.hasError.length, this.debug);
+    for (i = 0; i < web.hasError.length; i += 1) {
+      output.write((i + 1) + ':', this.debug);
+      output.write('Link: ' + web.hasError[i].url, this.debug);
+      output.write('Website: ' + web.hasError[i].website, this.debug);
+    }
+
+    output.writeLine('No website: ' + web.no.length, true);
+    output.write('Other website: ' + web.other.length, true);
+    output.write('RTO website: ' + web.rto.length, true);
+    var webErrorColor = '';
+    if (web.hasError.length > 0) {
+      webErrorColor = (web.hasError.length >= parseInt(this.pageLimit / 50)) ? 'error' : 'warning';
+    }
+
+    output.write('Websites with error: ' + web.hasError.length, true, webErrorColor);
   };
 
   /**
    * Print user inputs.
    */
   this.getUserInput = function () {
-    output.writeLine('User input:');
+    output.writeLine('User input:', true);
     for (var name in this.commands) {
       if (this.commands.hasOwnProperty(name)) {
-        var isDefault = (this.commands[name] === this.defaultArgs[name]) ? ' (default)' : '';
-        output.write(name + ': ' + this.commands[name] + isDefault);
+        var isDefault = (this.commands[name] === this.defaultArgs[name]);
+        var string = (isDefault) ? ' (default)' : '';
+        var color = (isDefault) ? 'default' : '';
+        output.write(name + ': ' + this.commands[name] + string, true, color);
       }
     }
   };
 
   /**
    * Stops execution time and print as readable time.
+   *
+   * @param delay?: int
    */
-  this.getReadableTime = function () {
-    var timeLimits = {
-      success: (1000 * 60 * 30), // 30 minutes.
-      warning: (1000 * 60 * 60), // 1 hour.
-      error: (1000 * 60 * 60 + 1000) // >1 hour.
+  this.getReadableTime = function (delay) {
+    if (typeof delay === 'undefined') {
+      delay = 0;
+    }
+
+    // Convert from ms to s.
+    delay = (delay > 0) ? delay / 1000 : delay;
+
+    var ratio = {
+      warning: {
+        pages: 100,
+        seconds: 16
+      },
+      success: {
+        pages: 100,
+        seconds: 8
+      }
     };
+    var ms = new Date() - this.startTime;
+    var timeColor = '';
+    var expectations = [];
 
-    var timeColor = 'success';
+    if (this.pageLimit !== 0) {
+      timeColor = 'error';
+      for (var type in ratio) {
+        if (ratio.hasOwnProperty(type)) {
+          var exSeconds = (this.pageLimit / 100 * ratio[type].seconds); // Get seconds from ratio.
+          exSeconds *= 1.2; // Add tolerance.
+          exSeconds += delay; // Add delay.
+          expectations[expectations.length] = parseInt(exSeconds);
+          var tmpUsedSeconds = parseInt(ms / 1000);
 
-    for (var type in timeLimits) {
-      if (timeLimits.hasOwnProperty(type) && ms <= timeLimits[type]) {
-        timeColor = type;
+          if (tmpUsedSeconds <= expectations[(expectations.length - 1)]) {
+            timeColor = type;
+          }
+        }
       }
     }
 
-    var ms = new Date() - this.startTime;
-    var days = ms / 1000;
-    var seconds = parseInt(days % 60);
-    seconds = (seconds < 10) ? '0' + seconds : seconds;
+    var time = this.parseTime(ms);
+    var timeString = time.d + ' days, ' + time.h + ':' + time.m + ':' + time.s;
 
-    days /= 60;
-    var minutes = parseInt(days % 60);
-    minutes = (minutes < 10) ? '0' + minutes : minutes;
+    output.write(timeString, true, timeColor);
 
-    days /= 60;
-    var hours = parseInt(days % 24);
-    hours = (hours < 10) ? '0' + hours : hours;
+    if (expectations.length > 0) {
+      var etn = this.parseTime((expectations[(expectations.length - 1)] * 1000));
+      var etb = this.parseTime((expectations[0] * 1000));
+      output.write(output.sprintf('(Expected: %s days, %s:%s:%s)', etn.d, etn.h, etn.m, etn.s), true);
+      output.write(output.sprintf('(Expected best: %s days, %s:%s:%s)', etn.d, etn.h, etn.m, etn.s), true);
+    }
+  };
 
-    days /= 24;
-    days = parseInt(days);
+  /**
+   * Parse milliseconds to object or array with days, hours, minutes and seconds.
+   *
+   * @param ms: int
+   * @param asArray?: bool
+   * @returns {*}
+   */
+  this.parseTime = function (ms, asArray) {
+    if (typeof asArray === 'undefined') {
+      asArray = false;
+    }
 
-    var time = days + ' days, ' + hours + ':' + minutes + ':' + seconds;
-    output.write(time, timeColor);
+    var time = {
+      d: 0,
+      h: 0,
+      m: 0,
+      s: 0
+    };
+
+    var seconds = ms / 1000;
+    time.s = parseInt(seconds % 60);
+    time.s = (time.s < 10) ? '0' + time.s : time.s;
+
+    var minutes = seconds / 60;
+    time.m = parseInt(minutes % 60);
+    time.m = (time.m < 10) ? '0' + time.m : time.m;
+
+    var hours = minutes / 60;
+    time.h = parseInt(hours % 24);
+    time.h = (time.h < 10) ? '0' + time.h : time.h;
+
+    var days = hours / 24;
+    time.d = parseInt(days);
+
+    if (!asArray) {
+      return time;
+    }
+
+    return Object.keys(time).map(function (t) {
+      return parseInt(time[t]);
+    });
   };
 
   /**

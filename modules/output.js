@@ -11,15 +11,28 @@ const fs = require('fs');
 module.exports = function () {
   this.logger = null;
 
+  this.types = ['write', 'writeLine', 'writeWithSpace'];
+
+  /**
+   * Init the logfile.
+   */
   this.initLogger = function () {
     var name = 'crawler-1';
     var path = 'logs/' + name + '.log';
+    // Generate name and path of the logfile.
     var info = this.checkLogFile(name, path);
 
     this.logger = fs.createWriteStream(info.path, {flags: 'a'});
-    this.writeWithSpace('Name of this log file: ' + info.name + '.log', 'success');
+    this.write('Name of this log file: ' + info.name + '.log', true, 'success');
   };
 
+  /**
+   * Generate name and path of the logfile.
+   *
+   * @param name: {string}
+   * @param path: {string}
+   * @returns {{name: string, path: string}}
+   */
   this.checkLogFile = function (name, path) {
     if (!fs.existsSync(path)) {
       return {
@@ -40,10 +53,10 @@ module.exports = function () {
   /**
    * Default output when page limit is reached.
    *
-   * @param numPages: int
-   * @param numLinksAb: int
-   * @param numLinksRel: int
-   * @param numErrors: int
+   * @param numPages: {int}
+   * @param numLinksAb: {int}
+   * @param numLinksRel: {int}
+   * @param numErrors: {int}
    */
   this.pageLimitOut = function (numPages, numLinksAb, numLinksRel, numErrors) {
     var sentences = [
@@ -59,10 +72,10 @@ module.exports = function () {
   /**
    * Default output when no more websites are available.
    *
-   * @param numPages: int
-   * @param numLinksAb: int
-   * @param numLinksRel: int
-   * @param numErrors: int
+   * @param numPages: {int}
+   * @param numLinksAb: {int}
+   * @param numLinksRel: {int}
+   * @param numErrors: {int}
    */
   this.lastPageOut = function (numPages, numLinksAb, numLinksRel, numErrors) {
     var sentences = [
@@ -77,9 +90,10 @@ module.exports = function () {
 
   /**
    * Simple version of a adaptive function from php.
+   * @see http://php.net/manual/en/function.sprintf.php
    *
-   * @param format: string
-   * @returns {*}
+   * @param format: {string}
+   * @returns {string}
    */
   this.sprintf = function (format) {
     for (var i = 1; i < arguments.length; i += 1) {
@@ -92,63 +106,98 @@ module.exports = function () {
   /**
    * Write output.
    *
-   * @param string: string
-   * @param type?: string
+   * @param value: {*}
+   * @param toBash?: {boolean}
+   * @param type?: {string}
    */
-  this.write = function (string, type) {
-    this.logger.write(string + "\n");
-
-    if (typeof type !== 'string' || type === '') {
-      console.log(string);
+  this.write = function (value, toBash, type) {
+    if (typeof value === 'object') {
+      // Doesn't work for a logfile. ToDo: Find another way to write an object to logfile.
+      this.logger.write(value.toString() + "\n");
     } else {
-      console.log(this.getColor(type), string);
+      this.logger.write(value + "\n");
     }
+
+    if (typeof toBash === 'undefined' || toBash === false) {
+      return;
+    }
+
+    if (typeof type === 'undefined' || type === '') {
+      console.log(value);
+      return;
+    }
+
+    console.log(this.getColor(type), value);
   };
 
   /**
    * Write output with a break before.
    *
-   * @param string: string
-   * @param type?: string
+   * @param value: {*}
+   * @param toBash?: {boolean}
+   * @param type?: {string}
    */
-  this.writeLine = function (string, type) {
+  this.writeLine = function (value, toBash, type) {
     this.logger.write("\n");
-    this.logger.write(string + "\n");
+
+    if (typeof value === 'object') {
+      // Doesn't work for a logfile. ToDo: Find another way to write an object to logfile.
+      this.logger.write(value.toString() + "\n");
+    } else {
+      this.logger.write(value + "\n");
+    }
+
+    if (typeof toBash === 'undefined' || toBash === false) {
+      return;
+    }
 
     console.log();
 
-    if (typeof type !== 'string' || type === '') {
-      console.log(string);
-    } else {
-      console.log(this.getColor(type), string);
+    if (typeof type === 'undefined' || type === '') {
+      console.log(value);
+      return;
     }
+
+    console.log(this.getColor(type), value);
   };
 
   /**
    * Write output with a break after.
    *
-   * @param string: string
-   * @param type?: string
+   * @param value: {*}
+   * @param toBash?: {boolean}
+   * @param type?: {string}
    */
-  this.writeWithSpace = function (string, type) {
-    this.logger.write(string + "\n");
-    this.logger.write("\n");
-
-    if (typeof type !== 'string' || type === '') {
-      console.log(string);
+  this.writeWithSpace = function (value, toBash, type) {
+    if (typeof value === 'object') {
+      // Doesn't work for a logfile. ToDo: Find another way to write an object to logfile.
+      this.logger.write(value.toString() + "\n");
     } else {
-      console.log(this.getColor(type), string);
+      this.logger.write(value + "\n");
     }
 
+    this.logger.write("\n");
+
+    if (typeof toBash === 'undefined' || toBash === false) {
+      return;
+    }
+
+    if (typeof type === 'undefined' || type === '') {
+      console.log(value);
+      console.log();
+      return;
+    }
+
+    console.log(this.getColor(type), value);
     console.log();
   };
 
   /**
    * Get default ending information.
    *
-   * @param numLinksAb: int
-   * @param numLinksRel: int
-   * @param numErrors: int
+   * @param numLinksAb: {int}
+   * @param numLinksRel: {int}
+   * @param numErrors: {int}
    * @returns {Array}
    */
   this.getEndSentences = function (numLinksAb, numLinksRel, numErrors) {
@@ -163,21 +212,21 @@ module.exports = function () {
   /**
    * Write array as strings with new line for each entry.
    *
-   * @param sentences: Array
-   * @param type: string
+   * @param sentences: {Array}
+   * @param type: {string}
    */
   this.writeOutput = function (sentences, type) {
-    this.writeLine(sentences[0], type);
+    this.writeLine(sentences[0], true, type);
 
     for (var i = 1; i < sentences.length; i += 1) {
-      this.write(sentences[i]);
+      this.write(sentences[i], true);
     }
   };
 
   /**
    * Get colored command line output.
    *
-   * @param type: string
+   * @param type: {string}
    * @returns {string}
    */
   this.getColor = function (type) {
@@ -195,7 +244,7 @@ module.exports = function () {
       success: "\x1b[32m",
       warning: "\x1b[33m",
       FgBlue: "\x1b[34m",
-      FgMagenta: "\x1b[35m",
+      default: "\x1b[35m",
       debug: "\x1b[36m",
       FgWhite: "\x1b[37m",
 
@@ -214,6 +263,7 @@ module.exports = function () {
     }
   };
 
+  // Init logger to write all outputs into a logfile.
   this.initLogger();
 
   return this;

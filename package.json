@@ -8,9 +8,10 @@
   "dependencies": {
     "axios": "latest",
     "cheerio": "latest",
+    "cli-spinner": "^0.2.6",
+    "dns": "latest",
     "fs": "0.0.1-security",
     "minimist": "latest",
-    "dns": "latest",
     "url-parse": "latest"
   }
 }

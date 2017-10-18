@@ -1,4 +1,23 @@
 /**
+ * Add to js functions.
+ */
+if (!String.prototype.splice) {
+  /**
+   * The splice() method changes the content of a string by removing a range of
+   * characters and/or adding new characters.
+   *
+   * @this {String}
+   * @param {number} start Index at which to start changing the string.
+   * @param {number} delCount An integer indicating the number of old chars to remove.
+   * @param {string} newSubStr The String that is spliced in.
+   * @return {string} A new string with the spliced substring.
+   */
+  String.prototype.splice = function (start, delCount, newSubStr) {
+    return this.slice(0, start) + newSubStr + this.slice(start + Math.abs(delCount));
+  };
+}
+
+/**
  * Import modules.
  */
 const axios = require('axios');
@@ -14,22 +33,24 @@ module.exports = function () {
   /**
    * Check if site can have a customer website.
    *
-   * @param url: string
+   * @param url: {string}
+   * @param search?: {string}
    */
-  this.canHaveWebsite = function (url) {
-    return (url.toLowerCase().includes('sex-anzeigen'));
+  this.canHaveWebsite = function (url, search) {
+    search = (typeof search === 'undefined') ? 'sex-anzeigen' : search;
+    return (url.toLowerCase().includes(search.toLowerCase()));
   };
 
   /**
    * Set customer information.
    *
-   * @param url: string
+   * @param url: {string}
    * @param $
    * @param customers: {}
    * @param output
+   * @param debug: {boolean}
    */
-  this.setCustomer = function (url, $, customers, output) {
-    var self = this;
+  this.setCustomer = function (url, $, customers, output, debug) {
     var customerPage = $('.icon_url_text').find('a').attr('href');
     var i = {
       with: customers.withWebsite.length,
@@ -38,25 +59,51 @@ module.exports = function () {
 
     if (typeof customerPage === 'undefined') {
       customers.withoutWebsite[i.without] = url;
+      output.write('Found customer without website: ' + url, debug, 'success');
       return;
     }
 
     // Make the request to customer's website.
-    axios.get(customerPage)
+    this.requestCustomerPage(customerPage, url, customers, i.with, output, debug);
+  };
+
+  /**
+   * Requesting to customers page via  http and https.
+   *
+   * @param website: {string}
+   * @param url: {string}
+   * @param customers: {}
+   * @param i: {int}
+   * @param output
+   * @param debug: {boolean}
+   */
+  this.requestCustomerPage = function (website, url, customers, i, output, debug) {
+    var self = this;
+
+    axios.get(website)
       .then(function (response) {
         if (response.status !== 200) {
           return;
         }
 
+        // Read and check website.
         var $ = cheerio.load(response.data);
-        self.setCustomerSettings(customers, i.with, url, customerPage, $);
+        self.setCustomerSettings(customers, i, url, website, $, output, debug);
       })
       .catch(function (error) {
-        output.writeLine('Error when try to visit customer page: ' + customerPage, 'warning');
+        output.writeLine('Error when try to visit customer page: ' + website, true, 'warning');
+        output.write(error, ((typeof error === 'string') ? true : debug), 'warning');
 
-        customers.withWebsite[i.with] = {
+        if (website.substr(0, 5) !== 'https') {
+          output.writeWithSpace('Try now to visit customer page with https.', true, 'warning');
+          website = website.splice(4, 0, 's'); // http -> https
+          self.requestCustomerPage(website, url, customers, i, output, debug);
+          return;
+        }
+
+        customers.withWebsite[i] = {
           url: url,
-          website: customerPage,
+          website: website,
           rto: false,
           hasError: true
         };
@@ -64,15 +111,17 @@ module.exports = function () {
   };
 
   /**
-   * Set information about a customer's website (if there is a website)
+   * Set information about a customer's website (if there is a website).
    *
    * @param customers: {}
-   * @param i: {}
-   * @param url: string
-   * @param website: string
+   * @param i: {int}
+   * @param url: {string}
+   * @param website: {string}
    * @param $
+   * @param output
+   * @param debug: {boolean}
    */
-  this.setCustomerSettings = function (customers, i, url, website, $) {
+  this.setCustomerSettings = function (customers, i, url, website, $, output, debug) {
     var self = this;
     var links = $('a[href]');
     var imprintLink = '';
@@ -85,25 +134,24 @@ module.exports = function () {
       }
     });
 
+    // Search for heartbeat or rto.
     $('*').contents().each(function () {
       if (!rto) {
-        rto = self.searchForRto(this, $, rto, website);
+        rto = self.searchForRto(this, $, rto);
       }
     });
 
     if (!rto) {
+      // Check ip address and imprint for rto.
       rto = self.searchForRtoRequest(rto, website);
     }
 
-    var exists = false;
+    var websiteInfo = self.getWebsiteInfo(customers, website);
+    website = websiteInfo.website;
 
-    for (var j = 0; j < customers.withWebsite.length; j += 1) {
-      if (customers.withWebsite[j].website === website) {
-        exists = true;
-      }
-    }
-
-    if (!exists) {
+    if (!websiteInfo.exists) {
+      var rtoString = (rto) ? 'RTO' : 'other';
+      output.write('Found customer with ' + rtoString + ' website: ' + website, debug, 'success');
       customers.withWebsite[i] = {
         url: url,
         website: website,
@@ -114,7 +162,43 @@ module.exports = function () {
     }
   };
 
-  this.searchForRto = function (contents, $, isRto, website) {
+  /**
+   * Remove "http://" and "https://" from website.
+   *
+   * @param customers: {}
+   * @param website: {string}
+   * @returns {{website: string, exists: boolean}}
+   */
+  this.getWebsiteInfo = function (customers, website) {
+    // Remove "http".
+    website = website.slice(4, website.length);
+
+    // Remove "s" when it was "https".
+    if (website.substr(0, 1) === 's') {
+      website = website.slice(1, website.length);
+    }
+
+    // Remove "://" from "http://".
+    website = website.slice(3, website.length);
+
+    for (var j = 0; j < customers.withWebsite.length; j += 1) {
+      if (customers.withWebsite[j].website === website) {
+        return {website: website, exists: true};
+      }
+    }
+
+    return {website: website, exists: false};
+  };
+
+  /**
+   * Checks every node type for heartbeat or rto.
+   *
+   * @param contents
+   * @param $
+   * @param isRto: {boolean}
+   * @returns {boolean}
+   */
+  this.searchForRto = function (contents, $, isRto) {
     // If isRto is already true, don't try to set true again.
     if (isRto) {
       return true;
@@ -142,46 +226,62 @@ module.exports = function () {
     return isRto;
   };
 
+  /**
+   * Checks website ip address and imprint (if it's given).
+   *
+   * Maybe there is something wrong. ToDo: Check this method.
+   *
+   * @param isRto: {boolean}
+   * @param website: {string}
+   * @returns {boolean}
+   */
   this.searchForRtoRequest = function (isRto, website) {
+    var todoIsNotDone = true;
+
     if (isRto) {
       return true;
     }
 
-    // if (!isRto) {
-    //   var ipAddress = '';
-    //   dns.lookup('www.rto.de', function (error, address, family) {
-    //     if (error) {
-    //       return;
-    //     }
-    //
-    //     ipAddress = address;
-    //   });
-    //
-    //   dns.lookup(website, function (error, address, family) {
-    //     if (error) {
-    //       return;
-    //     }
-    //
-    //     if (ipAddress === address) {
-    //       isRto = true;
-    //       return true;
-    //     }
-    //   });
-    // }
+    if (todoIsNotDone) {
+      return isRto;
+    }
+
+    // There is no way to catch errors...
+    if (!isRto) {
+      var ipAddress = '';
+      dns.lookup('www.rto.de', function (error, address, family) {
+        if (error) {
+          return;
+        }
+
+        ipAddress = address;
+      });
+
+      dns.lookup(website, function (error, address, family) {
+        if (error) {
+          return;
+        }
+
+        if (ipAddress === address) {
+          isRto = true;
+          return true;
+        }
+      });
+    }
 
     // Check in imprint.
     if (!isRto) {
-      // Searching for imprint.
+      // Searching for imprint with own request.
     }
 
     return isRto;
   };
 
   /**
-   * Should be completed.
+   * Get the full url of the imprint.
    *
-   * @param link: string
-   * @param base: string
+   * @param link: {string}
+   * @param base: {string}
    * @returns {string}
    */
   this.fullLink = function (link, base) {
