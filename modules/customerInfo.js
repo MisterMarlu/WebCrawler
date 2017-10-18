@@ -113,6 +113,8 @@ module.exports = function () {
   /**
    * Set information about a customer's website (if there is a website).
    *
+   * Function must be an asynchronous function to be able to use the keyword await.
+   *
    * @param customers: {}
    * @param i: {int}
    * @param url: {string}
@@ -121,11 +123,12 @@ module.exports = function () {
    * @param output
    * @param debug: {boolean}
    */
-  this.setCustomerSettings = function (customers, i, url, website, $, output, debug) {
+  this.setCustomerSettings = async function (customers, i, url, website, $, output, debug) {
     var self = this;
     var links = $('a[href]');
     var imprintLink = '';
     var rto = false;
+    website = self.removeUrlProtocol(website);
 
     // Search for imprint link.
     links.each(function () {
@@ -142,14 +145,19 @@ module.exports = function () {
     });
 
     if (!rto) {
-      // Check ip address and imprint for rto.
-      rto = self.searchForRtoRequest(rto, website);
+      // Check ip address and imprint for rto. Using the keyword await to get return value
+      // from asynchronous function.
+      rto = await self.searchForRtoRequest(rto, website);
     }
 
-    var websiteInfo = self.getWebsiteInfo(customers, website);
-    website = websiteInfo.website;
+    var exists = false;
+    for (var j = 0; j < customers.withWebsite.length; j += 1) {
+      if (customers.withWebsite[j].website === website) {
+        exists = true;
+      }
+    }
 
-    if (!websiteInfo.exists) {
+    if (!exists) {
       var rtoString = (rto) ? 'RTO' : 'other';
       output.write('Found customer with ' + rtoString + ' website: ' + website, debug, 'success');
       customers.withWebsite[i] = {
@@ -163,13 +171,12 @@ module.exports = function () {
   };
 
   /**
-   * Remove "http://" and "https://" from website.
+   * Removes "http://" and "https://" from website.
    *
-   * @param customers: {}
    * @param website: {string}
-   * @returns {{website: string, exists: boolean}}
+   * @returns {string}
    */
-  this.getWebsiteInfo = function (customers, website) {
+  this.removeUrlProtocol = function (website) {
     // Remove "http".
     website = website.slice(4, website.length);
 
@@ -179,15 +186,7 @@ module.exports = function () {
     }
 
     // Remove "://" from "http://".
-    website = website.slice(3, website.length);
-
-    for (var j = 0; j < customers.withWebsite.length; j += 1) {
-      if (customers.withWebsite[j].website === website) {
-        return {website: website, exists: true};
-      }
-    }
-
-    return {website: website, exists: false};
+    return website.slice(3, website.length);
   };
 
   /**
@@ -229,43 +228,34 @@ module.exports = function () {
   /**
    * Checks website ip address and imprint (if it's given).
    *
-   * Maybe there is something wrong. ToDo: Check this method.
+   * Imprint would not be checked. ToDo: Implement imprint checking.
    *
    * @param isRto: {boolean}
    * @param website: {string}
    * @returns {boolean}
    */
   this.searchForRtoRequest = function (isRto, website) {
-    var todoIsNotDone = true;
-
     if (isRto) {
       return true;
     }
 
-    if (todoIsNotDone) {
-      return isRto;
-    }
-
-    // There is no way to catch errors...
+    // Check if rto is hosting customer's website.
     if (!isRto) {
-      var ipAddress = '';
-      dns.lookup('www.rto.de', function (error, address, family) {
-        if (error) {
+      dns.lookup('www.rto.de', function (rtoError, rtoAddress, rtoFamily) {
+        if (rtoError) {
           return;
         }
 
-        ipAddress = address;
-      });
+        dns.lookup(website, function (error, address, family) {
+          if (error) {
+            return;
+          }
 
-      dns.lookup(website, function (error, address, family) {
-        if (error) {
-          return;
-        }
-
-        if (ipAddress === address) {
-          isRto = true;
-          return true;
-        }
+          if (rtoAddress === address) {
+            isRto = true;
+            return true;
+          }
+        });
       });
     }
 

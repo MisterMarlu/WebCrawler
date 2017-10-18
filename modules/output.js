@@ -112,8 +112,7 @@ module.exports = function () {
    */
   this.write = function (value, toBash, type) {
     if (typeof value === 'object') {
-      // Doesn't work for a logfile. ToDo: Find another way to write an object to logfile.
-      this.logger.write(value.toString() + "\n");
+      this.logger.write(JSON.stringify(value) + "\n");
     } else {
       this.logger.write(value + "\n");
     }
@@ -141,8 +140,7 @@ module.exports = function () {
     this.logger.write("\n");
 
     if (typeof value === 'object') {
-      // Doesn't work for a logfile. ToDo: Find another way to write an object to logfile.
-      this.logger.write(value.toString() + "\n");
+      this.logger.write(JSON.stringify(value) + "\n");
     } else {
       this.logger.write(value + "\n");
     }
@@ -170,8 +168,7 @@ module.exports = function () {
    */
   this.writeWithSpace = function (value, toBash, type) {
     if (typeof value === 'object') {
-      // Doesn't work for a logfile. ToDo: Find another way to write an object to logfile.
-      this.logger.write(value.toString() + "\n");
+      this.logger.write(JSON.stringify(value) + "\n");
     } else {
       this.logger.write(value + "\n");
     }
