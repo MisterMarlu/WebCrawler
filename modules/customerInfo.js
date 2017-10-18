@@ -26,8 +26,9 @@ module.exports = function () {
    * @param url: string
    * @param $
    * @param customers: {}
+   * @param output
    */
-  this.setCustomer = function (url, $, customers) {
+  this.setCustomer = function (url, $, customers, output) {
     var self = this;
     var customerPage = $('.icon_url_text').find('a').attr('href');
     var i = {
@@ -51,9 +52,7 @@ module.exports = function () {
         self.setCustomerSettings(customers, i.with, url, customerPage, $);
       })
       .catch(function (error) {
-        console.log('Has error');
-
-        console.log(error);
+        output.writeLine('Error when try to visit customer page: ' + customerPage, 'warning');
 
         customers.withWebsite[i.with] = {
           url: url,
@@ -148,27 +147,27 @@ module.exports = function () {
       return true;
     }
 
-    if (!isRto) {
-      var ipAddress = '';
-      dns.lookup('www.rto.de', function (error, address, family) {
-        if (error) {
-          return;
-        }
-
-        ipAddress = address;
-      });
-
-      dns.lookup(website, function (error, address, family) {
-        if (error) {
-          return;
-        }
-
-        if (ipAddress === address) {
-          isRto = true;
-          return true;
-        }
-      });
-    }
+    // if (!isRto) {
+    //   var ipAddress = '';
+    //   dns.lookup('www.rto.de', function (error, address, family) {
+    //     if (error) {
+    //       return;
+    //     }
+    //
+    //     ipAddress = address;
+    //   });
+    //
+    //   dns.lookup(website, function (error, address, family) {
+    //     if (error) {
+    //       return;
+    //     }
+    //
+    //     if (ipAddress === address) {
+    //       isRto = true;
+    //       return true;
+    //     }
+    //   });
+    // }
 
     // Check in imprint.
     if (!isRto) {

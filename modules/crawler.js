@@ -28,13 +28,6 @@ module.exports = function (commands) {
   // Init arguments.
   this.init(commands);
 
-  // Write user input into log file.
-  for(var command in commands) {
-    if (commands.hasOwnProperty(command) && command !== '_') {
-      output.write('User input: command=' + command + '; value=' + commands[command] + ';');
-    }
-  }
-
   /**
    * Crawling through websites.
    */
@@ -121,7 +114,7 @@ module.exports = function (commands) {
         var $ = cheerio.load(response.data);
 
         if (customerInfo.canHaveWebsite(url)) {
-          customerInfo.setCustomer(url, $, self.customers);
+          customerInfo.setCustomer(url, $, self.customers, output);
         }
 
         self.collectLinks($);
@@ -130,16 +123,21 @@ module.exports = function (commands) {
         callback();
       })
       .catch(function (error) {
-        output.writeLine('Error on url ' + url);
+        output.writeLine('Error on url ' + url, 'warning');
         self.debugging('Url: ' + url);
-        self.debugging('Status: ' + error.response.status);
-        self.debugging('Status text: ' + error.response.statusText);
 
-        if (typeof self.errorList[error.response.status] === 'undefined') {
-          self.errorList[error.response.status] = [];
+        if (typeof error.response !== 'undefined') {
+          self.debugging('Status: ' + error.response.status);
+          self.debugging('Status text: ' + error.response.statusText);
+
+          if (typeof self.errorList[error.response.status] === 'undefined') {
+            self.errorList[error.response.status] = [];
+          }
+
+          self.errorList[error.response.status].push(url);
+        } else {
+          output.write('Request was sent with no response.', 'error');
         }
-
-        self.errorList[error.response.status].push(url);
 
         // Crawl next website.
         callback();
@@ -222,11 +220,11 @@ module.exports = function (commands) {
   /**
    * Just outputs content when debug was set to true.
    *
-   * @param string: string
+   * @param string
    */
   this.debugging = function (string) {
     if (this.debug) {
-      output.write(string);
+      console.log("\x1b[36m", string, "\x1b[0m");
     }
   };
 
@@ -287,7 +285,8 @@ module.exports = function (commands) {
     output.writeLine('No website: ' + web.no.length);
     output.write('Other website: ' + web.other.length);
     output.write('RTO website: ' + web.rto.length);
-    output.write('Websites with error: ' + web.hasError.length);
+    var webErrorColor = (web.hasError.length === 0) ? '' : ((web.hasError.length >= 10) ? 'error' : 'warning');
+    output.write('Websites with error: ' + web.hasError.length, webErrorColor);
   };
 
   /**
@@ -307,6 +306,20 @@ module.exports = function (commands) {
    * Stops execution time and print as readable time.
    */
   this.getReadableTime = function () {
+    var timeLimits = {
+      success: (1000 * 60 * 30), // 30 minutes.
+      warning: (1000 * 60 * 60), // 1 hour.
+      error: (1000 * 60 * 60 + 1000) // >1 hour.
+    };
+
+    var timeColor = 'success';
+
+    for (var type in timeLimits) {
+      if (timeLimits.hasOwnProperty(type) && ms <= timeLimits[type]) {
+        timeColor = type;
+      }
+    }
+
     var ms = new Date() - this.startTime;
     var days = ms / 1000;
     var seconds = parseInt(days % 60);
@@ -324,7 +337,7 @@ module.exports = function (commands) {
     days = parseInt(days);
 
     var time = days + ' days, ' + hours + ':' + minutes + ':' + seconds;
-    output.write(time);
+    output.write(time, timeColor);
   };
 
   /**
@@ -352,6 +365,9 @@ module.exports = function (commands) {
 
     return counter;
   };
+
+  // Write user input into log file.
+  this.getUserInput();
 
   return this;
 };

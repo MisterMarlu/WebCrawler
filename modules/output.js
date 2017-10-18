@@ -17,7 +17,7 @@ module.exports = function () {
     var info = this.checkLogFile(name, path);
 
     this.logger = fs.createWriteStream(info.path, {flags: 'a'});
-    this.writeWithSpace('Name of this log file: ' + info.name + '.log');
+    this.writeWithSpace('Name of this log file: ' + info.name + '.log', 'success');
   };
 
   this.checkLogFile = function (name, path) {
@@ -53,7 +53,7 @@ module.exports = function () {
     // Add default ending information.
     sentences = sentences.concat(this.getEndSentences(numLinksAb, numLinksRel, numErrors));
 
-    this.writeOutput(sentences);
+    this.writeOutput(sentences, 'warning');
   };
 
   /**
@@ -72,7 +72,7 @@ module.exports = function () {
     // Add default ending information.
     sentences = sentences.concat(this.getEndSentences(numLinksAb, numLinksRel, numErrors));
 
-    this.writeOutput(sentences);
+    this.writeOutput(sentences, 'success');
   };
 
   /**
@@ -93,35 +93,53 @@ module.exports = function () {
    * Write output.
    *
    * @param string: string
+   * @param type?: string
    */
-  this.write = function (string) {
+  this.write = function (string, type) {
     this.logger.write(string + "\n");
-    console.log(string);
+
+    if (typeof type !== 'string' || type === '') {
+      console.log(string);
+    } else {
+      console.log(this.getColor(type), string);
+    }
   };
 
   /**
    * Write output with a break before.
    *
    * @param string: string
+   * @param type?: string
    */
-  this.writeLine = function (string) {
+  this.writeLine = function (string, type) {
     this.logger.write("\n");
     this.logger.write(string + "\n");
 
     console.log();
-    console.log(string);
+
+    if (typeof type !== 'string' || type === '') {
+      console.log(string);
+    } else {
+      console.log(this.getColor(type), string);
+    }
   };
 
   /**
    * Write output with a break after.
    *
    * @param string: string
+   * @param type?: string
    */
-  this.writeWithSpace = function (string) {
+  this.writeWithSpace = function (string, type) {
     this.logger.write(string + "\n");
     this.logger.write("\n");
 
-    console.log(string);
+    if (typeof type !== 'string' || type === '') {
+      console.log(string);
+    } else {
+      console.log(this.getColor(type), string);
+    }
+
     console.log();
   };
 
@@ -146,12 +164,53 @@ module.exports = function () {
    * Write array as strings with new line for each entry.
    *
    * @param sentences: Array
+   * @param type: string
    */
-  this.writeOutput = function (sentences) {
-    this.writeLine(sentences[0]);
+  this.writeOutput = function (sentences, type) {
+    this.writeLine(sentences[0], type);
 
     for (var i = 1; i < sentences.length; i += 1) {
       this.write(sentences[i]);
+    }
+  };
+
+  /**
+   * Get colored command line output.
+   *
+   * @param type: string
+   * @returns {string}
+   */
+  this.getColor = function (type) {
+    var colors = {
+      reset: "\x1b[0m",
+      Bright: "\x1b[1m",
+      Dim: "\x1b[2m",
+      Underscore: "\x1b[4m",
+      Blink: "\x1b[5m",
+      Reverse: "\x1b[7m",
+      Hidden: "\x1b[8m",
+
+      FgBlack: "\x1b[30m",
+      error: "\x1b[31m",
+      success: "\x1b[32m",
+      warning: "\x1b[33m",
+      FgBlue: "\x1b[34m",
+      FgMagenta: "\x1b[35m",
+      debug: "\x1b[36m",
+      FgWhite: "\x1b[37m",
+
+      BgBlack: "\x1b[40m",
+      BgRed: "\x1b[41m",
+      BgGreen: "\x1b[42m",
+      BgYellow: "\x1b[43m",
+      BgBlue: "\x1b[44m",
+      BgMagenta: "\x1b[45m",
+      BgCyan: "\x1b[46m",
+      BgWhite: "\x1b[47m"
+    };
+
+    if (colors.hasOwnProperty(type)) {
+      return colors[type] + '%s' + colors.reset;
     }
   };
 
