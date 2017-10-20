@@ -32,7 +32,8 @@ const {Chromeless} = require('chromeless');
  */
 module.exports = function () {
   this.numScreenshots = 0;
-  this.chromeless = new Chromeless({waitTimeout: 1000});
+  this.screenshotsDone = 0;
+  this.allreadyVisited = [];
 
   /**
    * Check if site can have a customer website.
@@ -54,7 +55,7 @@ module.exports = function () {
    * @param output
    * @param debug: {boolean}
    */
-  this.setCustomer = function (url, $, customers, output, debug) {
+  this.setCustomer = async function (url, $, customers, output, debug) {
     var customerPage = $('.icon_url_text').find('a').attr('href');
     var i = {
       with: customers.withWebsite.length,
@@ -64,11 +65,29 @@ module.exports = function () {
     if (typeof customerPage === 'undefined') {
       customers.withoutWebsite[i.without] = url;
       output.write('Found customer without website: ' + url, debug, 'success');
+      if (this.allreadyVisited.indexOf(url) < 0) {
+        this.allreadyVisited.push(url);
+      }
       return;
     }
 
+    var tmpWebsite = this.removeUrlProtocol(customerPage);
+    if (tmpWebsite.substr(0, 3) === 'www') {
+      tmpWebsite = this.trimFront(4, tmpWebsite);
+    }
+
+    if (this.allreadyVisited.indexOf(tmpWebsite) > -1) {
+      return;
+    }
+
+    this.allreadyVisited.push(tmpWebsite);
+
     // Make the request to customer's website.
     this.requestCustomerPage(customerPage, url, customers, i.with, output, debug);
+  };
+
+  this.trimFront = function (remove, website) {
+    return website.substr(remove, (website.length - remove));
   };
 
   /**
@@ -167,9 +186,13 @@ module.exports = function () {
       var rtoString = (rto) ? 'RTO' : 'other';
       output.write('Found customer with ' + rtoString + ' website: ' + website, debug, 'success');
       this.numScreenshots += 1;
+      console.log('Added to screenshots. Current: ', this.numScreenshots);
+      console.log('Added to screenshots for: ', website);
 
       if (imprintLink.length > website.length) {
         this.numScreenshots += 1;
+        console.log('Added to screenshots. Current: ', this.numScreenshots);
+        console.log('Added to screenshots for: ', imprintLink);
       }
 
       customers.withWebsite[i] = {
@@ -190,6 +213,10 @@ module.exports = function () {
    */
   this.removeUrlProtocol = function (website) {
     // Remove "http".
+    if (website.substr(0, 4) !== 'http') {
+      return website;
+    }
+
     website = website.slice(4, website.length);
 
     // Remove "s" when it was "https".
@@ -281,68 +308,97 @@ module.exports = function () {
 
   this.doScreenshots = async function (websites, output) {
     for (var i = 0; i < websites.length; i += 1) {
-      var website = websites[i];
-      var screenshot = await this.screenshotting(website, output).catch(this.screenshotCatch());
-      output.write('Added screenshot: ' + screenshot, false);
+      if (!websites[i].hasError) {
+        await this.screenshotting(websites[i], output);
+      }
     }
   };
 
   this.screenshotting = async function (website, output) {
+    const chromeless = new Chromeless({waitTimeout: 2000});
     var name = this.getScreenshotName(website.website, website.imprint);
     var url = 'http://' + website.website;
     var viewPort = {width: 1920, height: 3500, scale: 1};
     var screenshotOptions = {filePath: `/var/www/html/webcrawler/screenshots/${name}.png`};
     var screenshot = '';
-
-    await this.chromeless.clearCache();
-    var entry = await this.chromeless
-      .goto(url)
-      .exists('.enter_buttons a[href="?enter"]')
-      .catch(this.screenshotCatch());
-    entry = (typeof entry !== 'undefined');
+    var entry = false;
     var popup = false;
 
-    if (entry)  {
-      popup = await this.chromeless
+    try {
+      entry = await chromeless
         .goto(url)
-        .exists('.popup .popup_closebutton')
-        .catch(this.screenshotCatch());
+        .exists('.enter_buttons a[href="?enter"]');
+    } catch (error) {
+      console.log('Unable to check for enter button (url: ' + url + ')');
+      console.log(error);
     }
 
-    if (!entry) {
-      screenshot = await this.chromeless
-        .goto(url)
-        .setViewport(viewPort)
-        .screenshot(screenshotOptions)
-        .catch(this.screenshotCatch(true));
+    if (entry) {
+      try {
+        popup = await chromeless
+          .goto(url)
+          .exists('.popup .popup_closebutton');
+      } catch (error) {
+        console.log('Unable to check for popup (url: ' + url + ')');
+        console.log(error);
+      }
     }
 
-    if (entry && (typeof popup === 'undefined' || !popup)) {
-      screenshot = await this.chromeless
-        .goto(url)
-        .click('.enter_buttons a[href="?enter"]')
-        .wait(100)
-        .setViewport(viewPort)
-        .screenshot(screenshotOptions)
-        .catch(console.error.bind(console));
+    if (!entry && !popup) {
+      try {
+        screenshot = await chromeless
+          .goto(url)
+          .scrollTo(0, viewPort.height)
+          .setViewport(viewPort)
+          .screenshot(screenshotOptions);
+      } catch (err) {
+        console.log('Unable to do screenshots - Part 1 (url: ' + url + ')');
+        console.log(err);
+      }
+    }
+
+    if (entry && !popup) {
+      try {
+        screenshot = await chromeless
+          .goto(url)
+          .click('.enter_buttons a[href="?enter"]')
+          .wait(100)
+          .scrollTo(0, viewPort.height)
+          .setViewport(viewPort)
+          .screenshot(screenshotOptions);
+      } catch (err) {
+        console.log('Unable to do screenshots - Part 2 (url: ' + url + ')');
+        console.log(err);
+      }
     }
 
     if (entry && popup) {
-      screenshot = await this.chromeless
-        .goto(url)
-        .click('.enter_buttons a[href="?enter"]')
-        .wait(100)
-        .click('.close_popupbutton')
-        .wait(1200)
-        .setViewport(viewPort)
-        .screenshot(screenshotOptions)
-        .catch(console.error.bind(console));
+      try {
+        screenshot = await chromeless
+          .goto(url)
+          .click('.enter_buttons a[href="?enter"]')
+          .wait(100)
+          .click('.popup .close_popupbutton')
+          .wait(1200)
+          .scrollTo(0, viewPort.height)
+          .setViewport(viewPort)
+          .screenshot(screenshotOptions);
+      } catch (err) {
+        console.log('Unable to do screenshots - Part 3 (url: ' + url + ')');
+        console.log(err);
+      }
     }
 
-    await this.chromeless.end();
+    await chromeless.end();
+    output.write('Added screenshot: ' + screenshot);
+    this.screenshotsDone += 1;
+    console.log('Done screenshots: ', this.screenshotsDone);
+    console.log('Done screenshots for: ', website.website);
 
     if (website.hasOwnProperty('imprint') && website.imprint.length > website.website.length) {
-      var tmpWebsite = {};
+      var tmpWebsite = {
+        imprint: true
+      };
       for (var key in website) {
         if (website.hasOwnProperty(key) && key !== 'imprint') {
           tmpWebsite[key] = website[key];
@@ -353,12 +409,8 @@ module.exports = function () {
         }
       }
 
-      var impScreen = await this.screenshotting(tmpWebsite, output)
-        .catch(console.error.bind(console));
-      output.write('Added imprint screenshot: ' + impScreen);
+      await this.screenshotting(tmpWebsite, output);
     }
-
-    return screenshot;
   };
 
   this.getScreenshotName = function (website, isImprint) {
@@ -370,7 +422,7 @@ module.exports = function () {
     var name = (websiteArray[0] === 'www') ? websiteArray[1] : websiteArray[0];
 
     if (isImprint) {
-      name += '_imprint';
+      name = 'imprint.' + name;
     }
 
     return name;
@@ -384,7 +436,29 @@ module.exports = function () {
    * @returns {string}
    */
   this.fullLink = function (link, base) {
-    if (link.substr(0, 4) === 'http' || link.substr(0, 3) === 'www') {
+    link = this.removeUrlProtocol(link);
+
+    if (link.substr(0, 3) === 'www') {
+      return link;
+    }
+
+    var linkArray = link.split('.');
+    var baseArray = base.split('.');
+    var baseIndex = 0;
+
+    if (baseArray[0] === 'www') {
+      baseIndex += 1;
+    }
+
+    if (linkArray[0] === baseArray[baseIndex]) {
+      if (baseIndex === 0) {
+        return link;
+      }
+
+      link = 'www.' + link;
+    }
+
+    if (link.substr(0, 3) === 'www') {
       return link;
     }
 

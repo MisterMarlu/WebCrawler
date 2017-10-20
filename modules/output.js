@@ -58,14 +58,15 @@ module.exports = function () {
    * @param numLinksRel: {int}
    * @param numErrors: {int}
    * @param numScreenshots: {int}
+   * @param screenshots: {boolean}
    */
-  this.pageLimitOut = function (numPages, numLinksAb, numLinksRel, numErrors, numScreenshots) {
+  this.pageLimitOut = function (numPages, numLinksAb, numLinksRel, numErrors, numScreenshots, screenshots) {
     var sentences = [
       this.sprintf('Reached max limit of number of pages to visit. (Pages: %s)', numPages)
     ];
 
     // Add default ending information.
-    sentences = sentences.concat(this.getEndSentences(numLinksAb, numLinksRel, numErrors, numScreenshots));
+    sentences = sentences.concat(this.getEndSentences(numLinksAb, numLinksRel, numErrors, numScreenshots, screenshots));
 
     this.writeOutput(sentences, 'warning');
   };
@@ -78,14 +79,15 @@ module.exports = function () {
    * @param numLinksRel: {int}
    * @param numErrors: {int}
    * @param numScreenshots: {int}
+   * @param screenshots: {boolean}
    */
-  this.lastPageOut = function (numPages, numLinksAb, numLinksRel, numErrors, numScreenshots) {
+  this.lastPageOut = function (numPages, numLinksAb, numLinksRel, numErrors, numScreenshots, screenshots) {
     var sentences = [
       this.sprintf('No more pages to visit. (Pages: %s)', numPages)
     ];
 
     // Add default ending information.
-    sentences = sentences.concat(this.getEndSentences(numLinksAb, numLinksRel, numErrors, numScreenshots));
+    sentences = sentences.concat(this.getEndSentences(numLinksAb, numLinksRel, numErrors, numScreenshots, screenshots));
 
     this.writeOutput(sentences, 'success');
   };
@@ -198,16 +200,22 @@ module.exports = function () {
    * @param numLinksRel: {int}
    * @param numErrors: {int}
    * @param numScreenshots: {int}
+   * @param screenshots: {boolean}
    * @returns {Array}
    */
-  this.getEndSentences = function (numLinksAb, numLinksRel, numErrors, numScreenshots) {
-    return [
+  this.getEndSentences = function (numLinksAb, numLinksRel, numErrors, numScreenshots, screenshots) {
+    var endingInformation = [
       this.sprintf('Found absolute links total: %s', numLinksAb),
       this.sprintf('Found relative links total: %s', numLinksRel),
       this.sprintf('Found links total: %s', (numLinksAb + numLinksRel)),
-      this.sprintf('Screenshots total: %s', numScreenshots),
       this.sprintf('Errors total: %s', numErrors)
     ];
+
+    if (screenshots) {
+      endingInformation.splice(3, 0, this.sprintf('Screenshots total: %s', numScreenshots));
+    }
+
+    return endingInformation;
   };
 
   /**

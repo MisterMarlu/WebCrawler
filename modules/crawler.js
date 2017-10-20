@@ -22,8 +22,6 @@ var customerInfo = require('./customerInfo')();
  * @returns {module}
  */
 module.exports = function (commands) {
-  var finishDelay = 2000;
-
   // Set arguments.
   for (var name in args) {
     if (args.hasOwnProperty(name)) {
@@ -39,7 +37,7 @@ module.exports = function (commands) {
    *
    * @param first?: {boolean}
    */
-  this.crawl = function (first) {
+  this.crawl = async function (first) {
     if (typeof first !== 'undefined') {
       if (this.lockFileExists()) {
         output.logger.end();
@@ -49,72 +47,68 @@ module.exports = function (commands) {
       this.createLockFile();
     }
 
-    var self = this;
-    var spinnerTitle = null;
-    var consoleSpinner = null;
-
     // Reached limit to visit websites.
-    if (self.numVisited >= self.pageLimit && self.pageLimit !== 0) {
-      // Chromeless should take approx 4 seconds per screenshot.
-      // finishDelay = (customerInfo.numScreenshots * 4 * 1000) + finishDelay;
-      spinnerTitle = "%s Waiting for screenshots.";
-      spinnerTitle += "(" + (finishDelay / 1000) + " seconds for " + customerInfo.numScreenshots + " screenshots)";
-      consoleSpinner = new spinner(spinnerTitle);
-      consoleSpinner.start();
-      // customerInfo.doScreenshots(self.customers.withWebsite, output);
-      setTimeout(function (args2) {
-        consoleSpinner.stop(true);
-        output.pageLimitOut(self.numVisited,
-          self.linkList.typeAbsolute.length,
-          self.linkList.typeRelative.length,
-          self.numErrors(),
-          self.numScreenshots);
-        output.write(self.errorList, self.debug);
-        self.getCustomerInfo();
-        self.getUserInput();
-        self.getReadableTime(finishDelay);
-        output.logger.end();
-        self.removeLockFile();
-      }, finishDelay);
+    if (this.numVisited >= this.pageLimit && this.pageLimit !== 0) {
+      this.endCrawling('pageLimitOut');
       return;
     }
 
-    var nextPage = self.followingPages.pop();
+    var nextPage = this.followingPages.pop();
 
     // Already visited next website.
-    if (nextPage in self.visited) {
-      output.write('Url ' + nextPage + ' already visited.', self.debug);
-      self.crawl();
+    if (nextPage in this.visited) {
+      output.write('Url ' + nextPage + ' already visited.', this.debug);
+      this.crawl();
       return;
     }
 
     // No more websites available.
     if (typeof nextPage === 'undefined') {
-      // Screenshot delay was set in seconds but we need ms.
-      // finishDelay = (self.numScreenshots * 1000) + finishDelay;
-      spinnerTitle = "%s Waiting for screenshots.";
-      spinnerTitle += "(" + (finishDelay / 1000) + " seconds)";
-      consoleSpinner = new spinner(spinnerTitle);
-      consoleSpinner.start();
-      // customerInfo.doScreenshots(self.customers.withWebsite, output);
-      setTimeout(function (args2) {
-        output.lastPageOut(self.numVisited,
-          self.linkList.typeAbsolute.length,
-          self.linkList.typeRelative.length,
-          self.numErrors(),
-          self.numScreenshots);
-        output.write(self.errorList, self.debug);
-        self.getCustomerInfo();
-        self.getUserInput();
-        self.getReadableTime(finishDelay);
-        output.logger.end();
-        self.removeLockFile();
-      }, finishDelay);
+      this.endCrawling('lastPageOut');
       return;
     }
 
     // Visit website.
-    self.visitPage(nextPage, self.crawl);
+    await this.visitPage(nextPage, this.crawl);
+  };
+
+  /**
+   * Do the ending stuff like screenshots or outputting the summary.
+   *
+   * @param outputType: {string} The used output method for the correct ending reason.
+   */
+  this.endCrawling = async function (outputType) {
+    var finishDelay = 0;
+    if (this.screenshots) {
+      var spinnerTitle = '%s Waiting for screenshots.';
+      spinnerTitle += ' (' + customerInfo.numScreenshots + ' screenshots)';
+      var consoleSpinner = new spinner(spinnerTitle);
+      consoleSpinner.start();
+      finishDelay = new Date();
+      try {
+        await customerInfo.doScreenshots(this.customers.withWebsite, output);
+      } catch (error) {
+        console.log(error);
+      }
+      finishDelay = new Date() - finishDelay;
+      consoleSpinner.stop(true);
+    }
+
+    if (typeof output[outputType] === 'function') {
+      output[outputType](this.numVisited,
+        this.linkList.typeAbsolute.length,
+        this.linkList.typeRelative.length,
+        this.numErrors(),
+        this.numScreenshots,
+        this.screenshots);
+    }
+
+    output.write(this.errorList, this.debug);
+    this.getCustomerInfo();
+    this.getUserInput();
+    this.getReadableTime(finishDelay);
+    output.logger.end();
+    this.removeLockFile();
   };
 
   /**
@@ -123,7 +117,7 @@ module.exports = function (commands) {
    * @param url: string
    * @param callback: function
    */
-  this.visitPage = function (url, callback) {
+  this.visitPage = async function (url, callback) {
     var self = this;
     self.visited[url] = true;
     self.numVisited += 1;

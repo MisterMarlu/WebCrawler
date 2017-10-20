@@ -10,11 +10,11 @@ async function run() {
   const chromeless = new Chromeless();
 
   const screenshot = await chromeless
-    .goto('http://www.fkk-mainhattan.de')
+    .goto('http://www.swingerclub-saphir.de/impressum')
     .wait(100)
     .scrollTo(0, 3500)
     .setViewport({width: 1920, height: 3500, scale: 1})
-    .screenshot({filePath: '/var/www/html/webcrawler/screenshots/manually/fkk-mainhattan.png'});
+    .screenshot({filePath: '/var/www/html/webcrawler/manually/shot.png'});
 
   console.log(screenshot); // prints local file path or S3 url
 

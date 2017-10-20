@@ -19,6 +19,7 @@ module.exports.commands = {};
  *  startUrl: string,
  *  pageLimit: string,
  *  debug: string,
+ *  screenshots: string,
  *  visited: {},
  *  numVisited: int,
  *  followingPages: Array,
@@ -41,6 +42,7 @@ module.exports.defaultArgs = {
   startUrl: 'https://www.phpdoc.org/',
   pageLimit: '0',
   debug: 'false',
+  screenshots: 'false',
   visited: {},
   numVisited: 0,
   followingPages: [],
@@ -64,6 +66,7 @@ module.exports.defaultArgs = {
 module.exports.startUrl = this.defaultArgs.startUrl;
 module.exports.pageLimit = this.defaultArgs.pageLimit;
 module.exports.debug = this.defaultArgs.debug;
+module.exports.screenshots = this.defaultArgs.screenshots;
 module.exports.visited = this.defaultArgs.visited;
 module.exports.numVisited = this.defaultArgs.numVisited;
 module.exports.followingPages = this.defaultArgs.followingPages;
@@ -95,16 +98,19 @@ module.exports.init = function (commands) {
   var startUrl = commands.startUrl || this.startUrl;
   var pageLimit = commands.pageLimit || this.pageLimit;
   var debug = commands.debug || this.debug;
+  var screenshots = commands.screenshots || this.screenshots;
 
   this.commands = {
     startUrl: commands.startUrl || startUrl,
     pageLimit: commands.pageLimit || pageLimit,
-    debug: commands.debug || debug
+    debug: commands.debug || debug,
+    screenshots: commands.screenshots || screenshots
   };
 
   this.startUrl = startUrl;
   this.pageLimit = parseInt(pageLimit);
   this.debug = (debug === 'true');
+  this.screenshots = (screenshots === 'true');
 
   this.url = new URL(this.startUrl);
   this.baseUrl = this.url.protocol + '//' + this.url.hostname;
