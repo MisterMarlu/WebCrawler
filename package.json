@@ -12,6 +12,7 @@
     "dns": "latest",
     "fs": "0.0.1-security",
     "minimist": "latest",
+    "chromeless": "latest",
     "url-parse": "latest"
   }
 }

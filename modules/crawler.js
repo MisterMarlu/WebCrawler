@@ -50,17 +50,25 @@ module.exports = function (commands) {
     }
 
     var self = this;
+    var spinnerTitle = null;
+    var consoleSpinner = null;
 
     // Reached limit to visit websites.
     if (self.numVisited >= self.pageLimit && self.pageLimit !== 0) {
-      var consoleSpinner = new spinner("%s Waiting for finishing requests.");
+      // Chromeless should take approx 4 seconds per screenshot.
+      // finishDelay = (customerInfo.numScreenshots * 4 * 1000) + finishDelay;
+      spinnerTitle = "%s Waiting for screenshots.";
+      spinnerTitle += "(" + (finishDelay / 1000) + " seconds for " + customerInfo.numScreenshots + " screenshots)";
+      consoleSpinner = new spinner(spinnerTitle);
       consoleSpinner.start();
+      // customerInfo.doScreenshots(self.customers.withWebsite, output);
       setTimeout(function (args2) {
         consoleSpinner.stop(true);
         output.pageLimitOut(self.numVisited,
           self.linkList.typeAbsolute.length,
           self.linkList.typeRelative.length,
-          self.numErrors());
+          self.numErrors(),
+          self.numScreenshots);
         output.write(self.errorList, self.debug);
         self.getCustomerInfo();
         self.getUserInput();
@@ -82,12 +90,19 @@ module.exports = function (commands) {
 
     // No more websites available.
     if (typeof nextPage === 'undefined') {
-      // Wait for finishing request to customer page.
+      // Screenshot delay was set in seconds but we need ms.
+      // finishDelay = (self.numScreenshots * 1000) + finishDelay;
+      spinnerTitle = "%s Waiting for screenshots.";
+      spinnerTitle += "(" + (finishDelay / 1000) + " seconds)";
+      consoleSpinner = new spinner(spinnerTitle);
+      consoleSpinner.start();
+      // customerInfo.doScreenshots(self.customers.withWebsite, output);
       setTimeout(function (args2) {
         output.lastPageOut(self.numVisited,
           self.linkList.typeAbsolute.length,
           self.linkList.typeRelative.length,
-          self.numErrors());
+          self.numErrors(),
+          self.numScreenshots);
         output.write(self.errorList, self.debug);
         self.getCustomerInfo();
         self.getUserInput();
@@ -153,7 +168,9 @@ module.exports = function (commands) {
           self.errorList[error.response.status].push(url);
         } else {
           output.write('Request was sent with no response.', true, 'error');
-          output.write(error, self.debug, 'error');
+          if (self.debug) {
+            console.log(error);
+          }
         }
 
         // Crawl next website.
@@ -324,17 +341,16 @@ module.exports = function (commands) {
       delay = 0;
     }
 
-    // Convert from ms to s.
     delay = (delay > 0) ? delay / 1000 : delay;
 
     var ratio = {
-      warning: {
-        pages: 100,
-        seconds: 16
-      },
       success: {
         pages: 100,
-        seconds: 8
+        seconds: 5
+      },
+      warning: {
+        pages: 100,
+        seconds: 10
       }
     };
     var ms = new Date() - this.startTime;
@@ -346,13 +362,14 @@ module.exports = function (commands) {
       for (var type in ratio) {
         if (ratio.hasOwnProperty(type)) {
           var exSeconds = (this.pageLimit / 100 * ratio[type].seconds); // Get seconds from ratio.
-          exSeconds *= 1.2; // Add tolerance.
+          exSeconds *= 1.05; // Add tolerance.
           exSeconds += delay; // Add delay.
           expectations[expectations.length] = parseInt(exSeconds);
           var tmpUsedSeconds = parseInt(ms / 1000);
 
           if (tmpUsedSeconds <= expectations[(expectations.length - 1)]) {
             timeColor = type;
+            break;
           }
         }
       }
@@ -365,9 +382,12 @@ module.exports = function (commands) {
 
     if (expectations.length > 0) {
       var etn = this.parseTime((expectations[(expectations.length - 1)] * 1000));
-      var etb = this.parseTime((expectations[0] * 1000));
-      output.write(output.sprintf('(Expected: %s days, %s:%s:%s)', etn.d, etn.h, etn.m, etn.s), true);
-      output.write(output.sprintf('(Expected best: %s days, %s:%s:%s)', etn.d, etn.h, etn.m, etn.s), true);
+      output.write(output.sprintf('(Expected: %s days, %s:%s:%s)', etn.d, etn.h, etn.m, etn.s), true, 'comment');
+
+      if (expectations.length > 1) {
+        var etb = this.parseTime((expectations[0] * 1000));
+        output.write(output.sprintf('(Expected best: %s days, %s:%s:%s)', etb.d, etb.h, etb.m, etb.s), true, 'comment');
+      }
     }
   };
 

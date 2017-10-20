@@ -10,10 +10,11 @@ async function run() {
   const chromeless = new Chromeless();
 
   const screenshot = await chromeless
-    .goto('http://www.ladies.de/Home')
-    .wait(500)
-    .setViewport({width: 1080, height: 5000, scale: 1})
-    .screenshot({filePath: '/var/www/html/webcrawler/shot.png'});
+    .goto('http://www.fkk-mainhattan.de')
+    .wait(100)
+    .scrollTo(0, 3500)
+    .setViewport({width: 1920, height: 3500, scale: 1})
+    .screenshot({filePath: '/var/www/html/webcrawler/screenshots/manually/fkk-mainhattan.png'});
 
   console.log(screenshot); // prints local file path or S3 url
 
@@ -21,21 +22,3 @@ async function run() {
 }
 
 run().catch(console.error.bind(console));
-
-// const { Chromeless } = require('chromeless');
-//
-// function run() {
-//   const chromeless = new Chromeless();
-//
-//   const screenshot = chromeless
-//     .goto('http://www.ladies.de/Home')
-//     .wait(500)
-//     .setViewport({width: 1080, height: 5000, scale: 1})
-//     .screenshot();
-//
-//   console.log(screenshot); // prints local file path or S3 url
-//
-//   chromeless.end();
-// }
-//
-// run().catch(console.error.bind(console));

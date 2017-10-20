@@ -57,14 +57,15 @@ module.exports = function () {
    * @param numLinksAb: {int}
    * @param numLinksRel: {int}
    * @param numErrors: {int}
+   * @param numScreenshots: {int}
    */
-  this.pageLimitOut = function (numPages, numLinksAb, numLinksRel, numErrors) {
+  this.pageLimitOut = function (numPages, numLinksAb, numLinksRel, numErrors, numScreenshots) {
     var sentences = [
       this.sprintf('Reached max limit of number of pages to visit. (Pages: %s)', numPages)
     ];
 
     // Add default ending information.
-    sentences = sentences.concat(this.getEndSentences(numLinksAb, numLinksRel, numErrors));
+    sentences = sentences.concat(this.getEndSentences(numLinksAb, numLinksRel, numErrors, numScreenshots));
 
     this.writeOutput(sentences, 'warning');
   };
@@ -76,14 +77,15 @@ module.exports = function () {
    * @param numLinksAb: {int}
    * @param numLinksRel: {int}
    * @param numErrors: {int}
+   * @param numScreenshots: {int}
    */
-  this.lastPageOut = function (numPages, numLinksAb, numLinksRel, numErrors) {
+  this.lastPageOut = function (numPages, numLinksAb, numLinksRel, numErrors, numScreenshots) {
     var sentences = [
       this.sprintf('No more pages to visit. (Pages: %s)', numPages)
     ];
 
     // Add default ending information.
-    sentences = sentences.concat(this.getEndSentences(numLinksAb, numLinksRel, numErrors));
+    sentences = sentences.concat(this.getEndSentences(numLinksAb, numLinksRel, numErrors, numScreenshots));
 
     this.writeOutput(sentences, 'success');
   };
@@ -112,9 +114,9 @@ module.exports = function () {
    */
   this.write = function (value, toBash, type) {
     if (typeof value === 'object') {
-      this.logger.write(JSON.stringify(value) + "\n");
+      this.logger.write(JSON.stringify(value) + "\r\n");
     } else {
-      this.logger.write(value + "\n");
+      this.logger.write(value + "\r\n");
     }
 
     if (typeof toBash === 'undefined' || toBash === false) {
@@ -137,12 +139,12 @@ module.exports = function () {
    * @param type?: {string}
    */
   this.writeLine = function (value, toBash, type) {
-    this.logger.write("\n");
+    this.logger.write("\r\n");
 
     if (typeof value === 'object') {
-      this.logger.write(JSON.stringify(value) + "\n");
+      this.logger.write(JSON.stringify(value) + "\r\n");
     } else {
-      this.logger.write(value + "\n");
+      this.logger.write(value + "\r\n");
     }
 
     if (typeof toBash === 'undefined' || toBash === false) {
@@ -168,12 +170,12 @@ module.exports = function () {
    */
   this.writeWithSpace = function (value, toBash, type) {
     if (typeof value === 'object') {
-      this.logger.write(JSON.stringify(value) + "\n");
+      this.logger.write(JSON.stringify(value) + "\r\n");
     } else {
-      this.logger.write(value + "\n");
+      this.logger.write(value + "\r\n");
     }
 
-    this.logger.write("\n");
+    this.logger.write("\r\n");
 
     if (typeof toBash === 'undefined' || toBash === false) {
       return;
@@ -195,13 +197,15 @@ module.exports = function () {
    * @param numLinksAb: {int}
    * @param numLinksRel: {int}
    * @param numErrors: {int}
+   * @param numScreenshots: {int}
    * @returns {Array}
    */
-  this.getEndSentences = function (numLinksAb, numLinksRel, numErrors) {
+  this.getEndSentences = function (numLinksAb, numLinksRel, numErrors, numScreenshots) {
     return [
       this.sprintf('Found absolute links total: %s', numLinksAb),
       this.sprintf('Found relative links total: %s', numLinksRel),
       this.sprintf('Found links total: %s', (numLinksAb + numLinksRel)),
+      this.sprintf('Screenshots total: %s', numScreenshots),
       this.sprintf('Errors total: %s', numErrors)
     ];
   };
@@ -252,7 +256,9 @@ module.exports = function () {
       BgBlue: "\x1b[44m",
       BgMagenta: "\x1b[45m",
       BgCyan: "\x1b[46m",
-      BgWhite: "\x1b[47m"
+      BgWhite: "\x1b[47m",
+
+      comment: "\x1b[90m"
     };
 
     if (colors.hasOwnProperty(type)) {

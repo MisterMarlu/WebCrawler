@@ -23,6 +23,7 @@ if (!String.prototype.splice) {
 const axios = require('axios');
 const cheerio = require('cheerio');
 const dns = require('dns');
+const {Chromeless} = require('chromeless');
 
 /**
  * Module customerInfo
@@ -30,6 +31,9 @@ const dns = require('dns');
  * @returns {module}
  */
 module.exports = function () {
+  this.numScreenshots = 0;
+  this.chromeless = new Chromeless({waitTimeout: 1000});
+
   /**
    * Check if site can have a customer website.
    *
@@ -92,7 +96,9 @@ module.exports = function () {
       })
       .catch(function (error) {
         output.writeLine('Error when try to visit customer page: ' + website, true, 'warning');
-        output.write(error, ((typeof error === 'string') ? true : debug), 'warning');
+        if (debug) {
+          console.log(error);
+        }
 
         if (website.substr(0, 5) !== 'https') {
           output.writeWithSpace('Try now to visit customer page with https.', true, 'warning');
@@ -160,6 +166,12 @@ module.exports = function () {
     if (!exists) {
       var rtoString = (rto) ? 'RTO' : 'other';
       output.write('Found customer with ' + rtoString + ' website: ' + website, debug, 'success');
+      this.numScreenshots += 1;
+
+      if (imprintLink.length > website.length) {
+        this.numScreenshots += 1;
+      }
+
       customers.withWebsite[i] = {
         url: url,
         website: website,
@@ -265,6 +277,103 @@ module.exports = function () {
     }
 
     return isRto;
+  };
+
+  this.doScreenshots = async function (websites, output) {
+    for (var i = 0; i < websites.length; i += 1) {
+      var website = websites[i];
+      var screenshot = await this.screenshotting(website, output).catch(this.screenshotCatch());
+      output.write('Added screenshot: ' + screenshot, false);
+    }
+  };
+
+  this.screenshotting = async function (website, output) {
+    var name = this.getScreenshotName(website.website, website.imprint);
+    var url = 'http://' + website.website;
+    var viewPort = {width: 1920, height: 3500, scale: 1};
+    var screenshotOptions = {filePath: `/var/www/html/webcrawler/screenshots/${name}.png`};
+    var screenshot = '';
+
+    await this.chromeless.clearCache();
+    var entry = await this.chromeless
+      .goto(url)
+      .exists('.enter_buttons a[href="?enter"]')
+      .catch(this.screenshotCatch());
+    entry = (typeof entry !== 'undefined');
+    var popup = false;
+
+    if (entry)  {
+      popup = await this.chromeless
+        .goto(url)
+        .exists('.popup .popup_closebutton')
+        .catch(this.screenshotCatch());
+    }
+
+    if (!entry) {
+      screenshot = await this.chromeless
+        .goto(url)
+        .setViewport(viewPort)
+        .screenshot(screenshotOptions)
+        .catch(this.screenshotCatch(true));
+    }
+
+    if (entry && (typeof popup === 'undefined' || !popup)) {
+      screenshot = await this.chromeless
+        .goto(url)
+        .click('.enter_buttons a[href="?enter"]')
+        .wait(100)
+        .setViewport(viewPort)
+        .screenshot(screenshotOptions)
+        .catch(console.error.bind(console));
+    }
+
+    if (entry && popup) {
+      screenshot = await this.chromeless
+        .goto(url)
+        .click('.enter_buttons a[href="?enter"]')
+        .wait(100)
+        .click('.close_popupbutton')
+        .wait(1200)
+        .setViewport(viewPort)
+        .screenshot(screenshotOptions)
+        .catch(console.error.bind(console));
+    }
+
+    await this.chromeless.end();
+
+    if (website.hasOwnProperty('imprint') && website.imprint.length > website.website.length) {
+      var tmpWebsite = {};
+      for (var key in website) {
+        if (website.hasOwnProperty(key) && key !== 'imprint') {
+          tmpWebsite[key] = website[key];
+        }
+
+        if (key === 'website') {
+          tmpWebsite.website = website.imprint;
+        }
+      }
+
+      var impScreen = await this.screenshotting(tmpWebsite, output)
+        .catch(console.error.bind(console));
+      output.write('Added imprint screenshot: ' + impScreen);
+    }
+
+    return screenshot;
+  };
+
+  this.getScreenshotName = function (website, isImprint) {
+    if (typeof isImprint === 'undefined' || typeof isImprint === 'string') {
+      isImprint = false;
+    }
+
+    var websiteArray = website.split('.');
+    var name = (websiteArray[0] === 'www') ? websiteArray[1] : websiteArray[0];
+
+    if (isImprint) {
+      name += '_imprint';
+    }
+
+    return name;
   };
 
   /**

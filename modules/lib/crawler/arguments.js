@@ -55,7 +55,7 @@ module.exports.defaultArgs = {
     withWebsite: [],
     withoutWebsite: []
   },
-  startTime: 0
+  startTime: 0,
 };
 
 /**
@@ -72,6 +72,7 @@ module.exports.baseUrl = this.defaultArgs.baseUrl;
 module.exports.linkList = this.defaultArgs.linkList;
 module.exports.errorList = this.defaultArgs.errorList;
 module.exports.customers = this.defaultArgs.customers;
+module.exports.startTime = this.defaultArgs.startTime;
 
 /**
  * Set all arguments to default.
