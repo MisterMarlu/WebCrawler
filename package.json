@@ -8,11 +8,12 @@
   "dependencies": {
     "axios": "latest",
     "cheerio": "latest",
+    "chromeless": "latest",
     "cli-spinner": "^0.2.6",
     "dns": "latest",
     "fs": "0.0.1-security",
     "minimist": "latest",
-    "chromeless": "latest",
+    "mysql": "^2.15.0",
     "url-parse": "latest"
   }
 }

@@ -4,6 +4,7 @@
 var axios = require('axios');
 var cheerio = require('cheerio');
 var spinner = require('cli-spinner').Spinner;
+var screenshots = require('./screenshot')();
 
 // Default spinner type "|/-\".
 spinner.setDefaultSpinnerString(0);
@@ -80,18 +81,13 @@ module.exports = function (commands) {
   this.endCrawling = async function (outputType) {
     var finishDelay = 0;
     if (this.screenshots) {
-      var spinnerTitle = '%s Waiting for screenshots.';
-      spinnerTitle += ' (' + customerInfo.numScreenshots + ' screenshots)';
-      var consoleSpinner = new spinner(spinnerTitle);
-      consoleSpinner.start();
       finishDelay = new Date();
       try {
-        await customerInfo.doScreenshots(this.customers.withWebsite, output);
+        await screenshots.doScreenshots(this.customers.withWebsite, output, spinner);
       } catch (error) {
         console.log(error);
       }
       finishDelay = new Date() - finishDelay;
-      consoleSpinner.stop(true);
     }
 
     if (typeof output[outputType] === 'function') {
@@ -99,7 +95,7 @@ module.exports = function (commands) {
         this.linkList.typeAbsolute.length,
         this.linkList.typeRelative.length,
         this.numErrors(),
-        this.numScreenshots,
+        screenshots.totalScreenshots,
         this.screenshots);
     }
 
