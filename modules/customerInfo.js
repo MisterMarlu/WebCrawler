@@ -169,7 +169,7 @@ module.exports = function () {
     if (!rto) {
       // Check ip address and imprint for rto. Using the keyword await to get return value
       // from asynchronous function.
-      rto = await self.searchForRtoRequest(rto, website);
+      rto = await self.searchForRtoRequest(rto, website, imprintLink);
     }
 
     var exists = false;
@@ -232,9 +232,11 @@ module.exports = function () {
 
     // Check for heartbeat.
     if (!isRto) {
-      if (contents.nodeType === contents.COMMENT_NODE) {
-        if (typeof contents.nodeValue === 'string' && contents.nodeValue.includes('heartbeat')) {
-          return true;
+      // Node type 8 is a comment.
+      if (contents.nodeType === 8) {
+        if (typeof contents.nodeValue === 'string' && contents.nodeValue.toLowerCase().includes('heartbeat')) {
+          isRto = true;
+          return isRto;
         }
       }
     }
@@ -244,7 +246,8 @@ module.exports = function () {
       var metaTag = $("meta[name='publisher']");
       if (typeof metaTag !== 'undefined' && typeof metaTag.attr('content') !== 'undefined') {
         if (metaTag.attr('content').toLowerCase().includes('rto')) {
-          return true;
+          isRto = true;
+          return isRto;
         }
       }
     }
@@ -259,9 +262,10 @@ module.exports = function () {
    *
    * @param isRto: {boolean}
    * @param website: {string}
+   * @param imprint: {string}
    * @returns {boolean}
    */
-  this.searchForRtoRequest = function (isRto, website) {
+  this.searchForRtoRequest = function (isRto, website, imprint) {
     if (isRto) {
       return true;
     }
@@ -280,15 +284,41 @@ module.exports = function () {
 
           if (rtoAddress === address) {
             isRto = true;
-            return true;
+            return isRto;
           }
         });
       });
     }
 
     // Check in imprint.
-    if (!isRto) {
-      // Searching for imprint with own request.
+    if (!isRto && imprint > website) {
+      axios.get('http://' + imprint)
+        .then(function (response) {
+          if (response.status !== 200) {
+            return;
+          }
+
+          isRto = searchImprint(response);
+        })
+        .catch(function (error) {
+          console.log('Unable to visit customers imprint with http. Trying with https.');
+          console.log('Url: ', imprint);
+          console.log('Status: ', error.response.status);
+
+          axios.get('https://' + imprint)
+            .then(function (response) {
+              if (response.status !== 200) {
+                return;
+              }
+
+              isRto = searchImprint(response);
+            })
+            .catch(function (error) {
+              console.log('Unable to visit customers imprint with https.');
+              console.log('Url: ', imprint);
+              console.log('Status: ', error.response.status);
+            });
+        });
     }
 
     return isRto;
@@ -346,3 +376,14 @@ module.exports = function () {
 
   return this;
 };
+
+function searchImprint(response) {
+  var $ = cheerio.load(response.data);
+  $('*').contents().each(function () {
+    if (typeof this.nodeValue === 'string' && this.nodeValue.toLowerCase().includes('rto gmbh')) {
+      return true
+    }
+  });
+
+  return false;
+}

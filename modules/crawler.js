@@ -80,15 +80,38 @@ module.exports = function (commands) {
    */
   this.endCrawling = async function (outputType) {
     var finishDelay = 0;
-    if (this.screenshots) {
-      finishDelay = new Date();
-      try {
-        await screenshots.doScreenshots(this.customers.withWebsite, output, spinner);
-      } catch (error) {
-        console.log(error);
-      }
-      finishDelay = new Date() - finishDelay;
+
+    if (!this.screenshots) {
+      var self = this;
+      finishDelay = 2000;
+
+      setTimeout(function () {
+        if (typeof output[outputType] === 'function') {
+          output[outputType](self.numVisited,
+            self.linkList.typeAbsolute.length,
+            self.linkList.typeRelative.length,
+            self.numErrors(),
+            screenshots.totalScreenshots,
+            self.screenshots);
+        }
+
+        output.write(self.errorList, self.debug);
+        self.getCustomerInfo();
+        self.getUserInput();
+        self.getReadableTime(finishDelay);
+        output.logger.end();
+        self.removeLockFile();
+      }, finishDelay);
+      return;
     }
+
+    finishDelay = new Date();
+    try {
+      await screenshots.doScreenshots(this.customers.withWebsite, output, spinner);
+    } catch (error) {
+      console.log(error);
+    }
+    finishDelay = new Date() - finishDelay;
 
     if (typeof output[outputType] === 'function') {
       output[outputType](this.numVisited,
@@ -328,10 +351,11 @@ module.exports = function (commands) {
    */
   this.getReadableTime = function (delay) {
     if (typeof delay === 'undefined') {
-      delay = 0;
+      delay = 2000;
     }
 
-    delay = (delay > 0) ? delay / 1000 : delay;
+    delay = (delay < 2000) ? 2000 : delay;
+    delay /= 1000;
 
     var ratio = {
       success: {

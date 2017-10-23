@@ -11,7 +11,7 @@ const spinnerText = '%s Waiting for screenshots. ',
   viewPort = {width: 1920, height: 3500, scale: 1},
   options = {filePath: '/var/www/html/webcrawler/screenshots/'},
   exists = {
-    entry: '.enter_buttons a[href="?enter"]',
+    entry: 'a[href*="?enter"]',
     popup: '.popup .popup_closebutton'
   },
   wait = {
