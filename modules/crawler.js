@@ -1,10 +1,9 @@
 /**
  * Import modules.
  */
-var axios = require('axios');
-var cheerio = require('cheerio');
-var spinner = require('cli-spinner').Spinner;
-var screenshots = require('./screenshot')();
+const axios = require('axios');
+const cheerio = require('cheerio');
+const spinner = require('cli-spinner').Spinner;
 
 // Default spinner type "|/-\".
 spinner.setDefaultSpinnerString(0);
@@ -12,9 +11,10 @@ spinner.setDefaultSpinnerString(0);
 /**
  * Import custom modules.
  */
-var args = require('./lib/crawler/arguments');
-var output = require('./output')();
-var customerInfo = require('./customerInfo')();
+const args = require('./lib/crawler/arguments');
+const output = require('./output')();
+const customerInfo = require('./customerInfo')();
+const screenshots = require('./screenshot')();
 
 /**
  * Module Crawler
@@ -24,7 +24,7 @@ var customerInfo = require('./customerInfo')();
  */
 module.exports = function (commands) {
   // Set arguments.
-  for (var name in args) {
+  for (let name in args) {
     if (args.hasOwnProperty(name)) {
       this[name] = args[name];
     }
@@ -54,7 +54,7 @@ module.exports = function (commands) {
       return;
     }
 
-    var nextPage = this.followingPages.pop();
+    let nextPage = this.followingPages.pop();
 
     // Already visited next website.
     if (nextPage in this.visited) {
@@ -79,10 +79,10 @@ module.exports = function (commands) {
    * @param outputType: {string} The used output method for the correct ending reason.
    */
   this.endCrawling = async function (outputType) {
-    var finishDelay = 0;
+    let finishDelay = 0;
 
     if (!this.screenshots) {
-      var self = this;
+      let self = this;
       finishDelay = 2000;
 
       setTimeout(function () {
@@ -137,7 +137,7 @@ module.exports = function (commands) {
    * @param callback: function
    */
   this.visitPage = async function (url, callback) {
-    var self = this;
+    let self = this;
     self.visited[url] = true;
     self.numVisited += 1;
 
@@ -155,10 +155,10 @@ module.exports = function (commands) {
           return;
         }
 
-        var $ = cheerio.load(response.data);
+        let $ = cheerio.load(response.data);
 
         if (customerInfo.canHaveWebsite(url, 'sex-anzeigen')) {
-          customerInfo.setCustomer(url, $, self.customers, output, self.debug);
+          customerInfo.setCustomer(url, $, self.customers, self.startUrl, output, self.debug);
         }
 
         self.collectLinks($);
@@ -197,17 +197,17 @@ module.exports = function (commands) {
    * @param $
    */
   this.collectLinks = function ($) {
-    var self = this;
-    var absoluteLinks = $("a[href^='http']");
-    var relativeLinks = $("a[href^='/']");
-    var count = {
-      relative: 0,
-      absolute: absoluteLinks.length
-    };
+    let self = this,
+      absoluteLinks = $("a[href^='http']"),
+      relativeLinks = $("a[href^='/']"),
+      count = {
+        relative: 0,
+        absolute: absoluteLinks.length
+      };
 
     // Add absolute links to link list.
     absoluteLinks.each(function () {
-      var href = $(this).attr('href');
+      let href = $(this).attr('href');
       if (self.linkList.typeAbsolute.indexOf(href) === -1) {
         self.linkList.typeAbsolute.push(href);
       }
@@ -233,10 +233,10 @@ module.exports = function (commands) {
    * @returns {boolean}
    */
   this.collectRelativeLinks = function (link) {
-    var self = this;
-    var linkArray = link.split('/');
+    let self = this,
+      linkArray = link.split('/');
 
-    for (var i = 0; i < link.length;) {
+    for (let i = 0; i < link.length;) {
       if (linkArray[0] === '') {
         linkArray.shift();
       } else {
@@ -244,7 +244,7 @@ module.exports = function (commands) {
       }
     }
 
-    var linkType = 'typeRelative';
+    let linkType = 'typeRelative';
 
     if (linkArray.length === 0 || linkArray[0].indexOf('.') > -1) {
       linkType = 'typeAbsolute';
@@ -252,7 +252,10 @@ module.exports = function (commands) {
 
     link = linkArray.join('/');
 
-    var tmpUrl = (linkType === 'typeRelative') ? self.baseUrl + '/' + link : self.url.protocol + '//' + link;
+    let tmpUrlRel = self.baseUrl + '/' + link,
+      tmpUrlAbs = self.url.protocol + '//' + link,
+      tmpUrl = (linkType === 'typeRelative') ? tmpUrlRel : tmpUrlAbs;
+
     if (link.length > 0) {
       if (self.linkList[linkType].indexOf(tmpUrl) === -1) {
         self.linkList[linkType].push(tmpUrl);
@@ -270,20 +273,20 @@ module.exports = function (commands) {
    * Print customer/post information.
    */
   this.getCustomerInfo = function () {
-    var i = 0;
-    var web = {
-      no: [],
-      other: [],
-      rto: [],
-      hasError: []
-    };
+    let i = 0,
+      web = {
+        no: [],
+        other: [],
+        rto: [],
+        hasError: []
+      };
 
     for (i = 0; i < this.customers.withoutWebsite.length; i += 1) {
       web.no.push(this.customers.withoutWebsite[i]);
     }
 
     for (i = 0; i < this.customers.withWebsite.length; i += 1) {
-      var type = (this.customers.withWebsite[i].rto === true) ? 'rto' : 'other';
+      let type = (this.customers.withWebsite[i].rto === true) ? 'rto' : 'other';
       type = (this.customers.withWebsite[i].hasError === true) ? 'hasError' : type;
 
       web[type].push(this.customers.withWebsite[i]);
@@ -321,7 +324,7 @@ module.exports = function (commands) {
     output.writeLine('No website: ' + web.no.length, true);
     output.write('Other website: ' + web.other.length, true);
     output.write('RTO website: ' + web.rto.length, true);
-    var webErrorColor = '';
+    let webErrorColor = '';
     if (web.hasError.length > 0) {
       webErrorColor = (web.hasError.length >= parseInt(this.pageLimit / 50)) ? 'error' : 'warning';
     }
@@ -334,11 +337,11 @@ module.exports = function (commands) {
    */
   this.getUserInput = function () {
     output.writeLine('User input:', true);
-    for (var name in this.commands) {
+    for (let name in this.commands) {
       if (this.commands.hasOwnProperty(name)) {
-        var isDefault = (this.commands[name] === this.defaultArgs[name]);
-        var string = (isDefault) ? ' (default)' : '';
-        var color = (isDefault) ? 'default' : '';
+        let isDefault = (this.commands[name] === this.defaultArgs[name]),
+          string = (isDefault) ? ' (default)' : '',
+          color = (isDefault) ? 'default' : '';
         output.write(name + ': ' + this.commands[name] + string, true, color);
       }
     }
@@ -357,29 +360,29 @@ module.exports = function (commands) {
     delay = (delay < 2000) ? 2000 : delay;
     delay /= 1000;
 
-    var ratio = {
-      success: {
-        pages: 100,
-        seconds: 5
+    let ratio = {
+        success: {
+          pages: 100,
+          seconds: 5
+        },
+        warning: {
+          pages: 100,
+          seconds: 10
+        }
       },
-      warning: {
-        pages: 100,
-        seconds: 10
-      }
-    };
-    var ms = new Date() - this.startTime;
-    var timeColor = '';
-    var expectations = [];
+      ms = new Date() - this.startTime,
+      timeColor = '',
+      expectations = [];
 
     if (this.pageLimit !== 0) {
       timeColor = 'error';
-      for (var type in ratio) {
+      for (let type in ratio) {
         if (ratio.hasOwnProperty(type)) {
-          var exSeconds = (this.pageLimit / 100 * ratio[type].seconds); // Get seconds from ratio.
+          let exSeconds = (this.pageLimit / 100 * ratio[type].seconds); // Get seconds from ratio.
           exSeconds *= 1.05; // Add tolerance.
           exSeconds += delay; // Add delay.
           expectations[expectations.length] = parseInt(exSeconds);
-          var tmpUsedSeconds = parseInt(ms / 1000);
+          let tmpUsedSeconds = parseInt(ms / 1000);
 
           if (tmpUsedSeconds <= expectations[(expectations.length - 1)]) {
             timeColor = type;
@@ -389,18 +392,22 @@ module.exports = function (commands) {
       }
     }
 
-    var time = this.parseTime(ms);
-    var timeString = time.d + ' days, ' + time.h + ':' + time.m + ':' + time.s;
+    let time = this.parseTime(ms),
+      timeString = time.d + ' days, ' + time.h + ':' + time.m + ':' + time.s;
 
     output.write(timeString, true, timeColor);
 
     if (expectations.length > 0) {
-      var etn = this.parseTime((expectations[(expectations.length - 1)] * 1000));
-      output.write(output.sprintf('(Expected: %s days, %s:%s:%s)', etn.d, etn.h, etn.m, etn.s), true, 'comment');
+      let etn = this.parseTime((expectations[(expectations.length - 1)] * 1000)),
+        etnFormat = '(Expected: %s days, %s:%s:%s)',
+        etnString = output.sprintf(etnFormat, etn.d, etn.h, etn.m, etn.s);
+      output.write(etnString, true, 'comment');
 
       if (expectations.length > 1) {
-        var etb = this.parseTime((expectations[0] * 1000));
-        output.write(output.sprintf('(Expected best: %s days, %s:%s:%s)', etb.d, etb.h, etb.m, etb.s), true, 'comment');
+        let etb = this.parseTime((expectations[0] * 1000)),
+          etbFormat = '(Expected best: %s days, %s:%s:%s)',
+          etbString = output.sprintf(etbFormat, etb.d, etb.h, etb.m, etb.s);
+        output.write(etbString, true, 'comment');
       }
     }
   };
@@ -417,26 +424,26 @@ module.exports = function (commands) {
       asArray = false;
     }
 
-    var time = {
+    let time = {
       d: 0,
       h: 0,
       m: 0,
       s: 0
     };
 
-    var seconds = ms / 1000;
+    let seconds = ms / 1000;
     time.s = parseInt(seconds % 60);
     time.s = (time.s < 10) ? '0' + time.s : time.s;
 
-    var minutes = seconds / 60;
+    let minutes = seconds / 60;
     time.m = parseInt(minutes % 60);
     time.m = (time.m < 10) ? '0' + time.m : time.m;
 
-    var hours = minutes / 60;
+    let hours = minutes / 60;
     time.h = parseInt(hours % 24);
     time.h = (time.h < 10) ? '0' + time.h : time.h;
 
-    var days = hours / 24;
+    let days = hours / 24;
     time.d = parseInt(days);
 
     if (!asArray) {
@@ -455,10 +462,10 @@ module.exports = function (commands) {
    * @returns {number}
    */
   this.numErrors = function (status) {
-    var counter = 0;
+    let counter = 0;
 
     if (typeof status === 'undefined') {
-      for (var tmpStatus in this.errorList) {
+      for (let tmpStatus in this.errorList) {
         if (this.errorList.hasOwnProperty(tmpStatus)) {
           counter += this.errorList[tmpStatus].length;
         }

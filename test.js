@@ -15,7 +15,7 @@ function test(value1, value2) {
   console.log('Value 2: ' + value2);
 }
 
-var value1 = 'Value for value1';
-var value2 = 'Value for value2';
+let value1 = 'Value for value1';
+let value2 = 'Value for value2';
 
 test(value1, value2);

@@ -81,7 +81,7 @@ module.exports.startTime = this.defaultArgs.startTime;
  * Set all arguments to default.
  */
 module.exports.setDefault = function () {
-  for (var key in this.defaultArgs) {
+  for (let key in this.defaultArgs) {
     if (this.defaultArgs.hasOwnProperty(key)) {
       this[key] = this.defaultArgs[key];
     }
@@ -95,10 +95,10 @@ module.exports.setDefault = function () {
  * @returns {exports}
  */
 module.exports.init = function (commands) {
-  var startUrl = commands.startUrl || this.startUrl;
-  var pageLimit = commands.pageLimit || this.pageLimit;
-  var debug = commands.debug || this.debug;
-  var screenshots = commands.screenshots || this.screenshots;
+  let startUrl = commands.startUrl || this.startUrl,
+    pageLimit = commands.pageLimit || this.pageLimit,
+    debug = commands.debug || this.debug,
+    screenshots = commands.screenshots || this.screenshots;
 
   this.commands = {
     startUrl: commands.startUrl || startUrl,

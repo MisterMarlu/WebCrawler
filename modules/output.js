@@ -17,10 +17,10 @@ module.exports = function () {
    * Init the logfile.
    */
   this.initLogger = function () {
-    var name = 'crawler-1';
-    var path = 'logs/' + name + '.log';
-    // Generate name and path of the logfile.
-    var info = this.checkLogFile(name, path);
+    let name = 'crawler-1',
+      path = 'logs/' + name + '.log',
+      // Generate name and path of the logfile.
+      info = this.checkLogFile(name, path);
 
     this.logger = fs.createWriteStream(info.path, {flags: 'a'});
     this.write('Name of this log file: ' + info.name + '.log', true, 'success');
@@ -41,8 +41,9 @@ module.exports = function () {
       };
     }
 
-    var nameArray = name.split('-');
-    var number = parseInt(nameArray[(nameArray.length - 1)]);
+    let nameArray = name.split('-'),
+      number = parseInt(nameArray[(nameArray.length - 1)]);
+
     nameArray[(nameArray.length - 1)] = (number + 1);
     name = nameArray.join('-');
     path = 'logs/' + name + '.log';
@@ -61,7 +62,7 @@ module.exports = function () {
    * @param screenshots: {boolean}
    */
   this.pageLimitOut = function (numPages, numLinksAb, numLinksRel, numErrors, numScreenshots, screenshots) {
-    var sentences = [
+    let sentences = [
       this.sprintf('Reached max limit of number of pages to visit. (Pages: %s)', numPages)
     ];
 
@@ -82,7 +83,7 @@ module.exports = function () {
    * @param screenshots: {boolean}
    */
   this.lastPageOut = function (numPages, numLinksAb, numLinksRel, numErrors, numScreenshots, screenshots) {
-    var sentences = [
+    let sentences = [
       this.sprintf('No more pages to visit. (Pages: %s)', numPages)
     ];
 
@@ -100,7 +101,7 @@ module.exports = function () {
    * @returns {string}
    */
   this.sprintf = function (format) {
-    for (var i = 1; i < arguments.length; i += 1) {
+    for (let i = 1; i < arguments.length; i += 1) {
       format = format.replace(/%s/, arguments[i]);
     }
 
@@ -204,7 +205,7 @@ module.exports = function () {
    * @returns {Array}
    */
   this.getEndSentences = function (numLinksAb, numLinksRel, numErrors, numScreenshots, screenshots) {
-    var endingInformation = [
+    let endingInformation = [
       this.sprintf('Found absolute links total: %s', numLinksAb),
       this.sprintf('Found relative links total: %s', numLinksRel),
       this.sprintf('Found links total: %s', (numLinksAb + numLinksRel)),
@@ -227,7 +228,7 @@ module.exports = function () {
   this.writeOutput = function (sentences, type) {
     this.writeLine(sentences[0], true, type);
 
-    for (var i = 1; i < sentences.length; i += 1) {
+    for (let i = 1; i < sentences.length; i += 1) {
       this.write(sentences[i], true);
     }
   };
@@ -239,7 +240,7 @@ module.exports = function () {
    * @returns {string}
    */
   this.getColor = function (type) {
-    var colors = {
+    let colors = {
       reset: "\x1b[0m",
       Bright: "\x1b[1m",
       Dim: "\x1b[2m",

@@ -49,15 +49,16 @@ module.exports = function () {
    * @param url: {string}
    * @param $
    * @param customers: {}
+   * @param starting: {string}
    * @param output
    * @param debug: {boolean}
    */
-  this.setCustomer = async function (url, $, customers, output, debug) {
-    var customerPage = $('.icon_url_text').find('a').attr('href');
-    var i = {
-      with: customers.withWebsite.length,
-      without: customers.withoutWebsite.length
-    };
+  this.setCustomer = async function (url, $, customers, starting, output, debug) {
+    let customerPage = $('.icon_url_text').find('a').attr('href'),
+      i = {
+        with: customers.withWebsite.length,
+        without: customers.withoutWebsite.length
+      };
 
     if (typeof customerPage === 'undefined') {
       customers.withoutWebsite[i.without] = url;
@@ -68,9 +69,13 @@ module.exports = function () {
       return;
     }
 
-    var tmpWebsite = this.removeUrlProtocol(customerPage);
+    let tmpWebsite = this.removeUrlProtocol(customerPage);
     if (tmpWebsite.substr(0, 3) === 'www') {
       tmpWebsite = this.trimFront(4, tmpWebsite);
+    }
+
+    if (this.fromStartingUrl(tmpWebsite, starting)) {
+      this.allreadyVisited.push(tmpWebsite);
     }
 
     if (this.allreadyVisited.indexOf(tmpWebsite) > -1) {
@@ -87,6 +92,15 @@ module.exports = function () {
     return website.substr(remove, (website.length - remove));
   };
 
+  this.fromStartingUrl = function (website, starting) {
+    starting = this.removeUrlProtocol(starting);
+    if (starting.substr(0, 3) === 'www') {
+      starting = this.trimFront(4, starting);
+    }
+
+    return (website.includes(starting));
+  };
+
   /**
    * Requesting to customers page via  http and https.
    *
@@ -98,7 +112,7 @@ module.exports = function () {
    * @param debug: {boolean}
    */
   this.requestCustomerPage = function (website, url, customers, i, output, debug) {
-    var self = this;
+    let self = this;
 
     axios.get(website)
       .then(function (response) {
@@ -107,7 +121,7 @@ module.exports = function () {
         }
 
         // Read and check website.
-        var $ = cheerio.load(response.data);
+        let $ = cheerio.load(response.data);
         self.setCustomerSettings(customers, i, url, website, $, output, debug);
       })
       .catch(function (error) {
@@ -146,10 +160,11 @@ module.exports = function () {
    * @param debug: {boolean}
    */
   this.setCustomerSettings = async function (customers, i, url, website, $, output, debug) {
-    var self = this;
-    var links = $('a[href]');
-    var imprintLink = '';
-    var rto = false;
+    let self = this,
+      links = $('a[href]'),
+      imprintLink = '',
+      rto = false;
+
     website = self.removeUrlProtocol(website);
 
     // Search for imprint link.
@@ -172,15 +187,15 @@ module.exports = function () {
       rto = await self.searchForRtoRequest(rto, website, imprintLink);
     }
 
-    var exists = false;
-    for (var j = 0; j < customers.withWebsite.length; j += 1) {
+    let exists = false;
+    for (let j = 0; j < customers.withWebsite.length; j += 1) {
       if (customers.withWebsite[j].website === website) {
         exists = true;
       }
     }
 
     if (!exists) {
-      var rtoString = (rto) ? 'RTO' : 'other';
+      let rtoString = (rto) ? 'RTO' : 'other';
       output.write('Found customer with ' + rtoString + ' website: ' + website, debug, 'success');
 
       customers.withWebsite[i] = {
@@ -243,7 +258,7 @@ module.exports = function () {
 
     // Check in meta (publisher === 'rto').
     if (!isRto) {
-      var metaTag = $("meta[name='publisher']");
+      let metaTag = $("meta[name='publisher']");
       if (typeof metaTag !== 'undefined' && typeof metaTag.attr('content') !== 'undefined') {
         if (metaTag.attr('content').toLowerCase().includes('rto')) {
           isRto = true;
@@ -338,9 +353,9 @@ module.exports = function () {
       return link;
     }
 
-    var linkArray = link.split('.');
-    var baseArray = base.split('.');
-    var baseIndex = 0;
+    let linkArray = link.split('.'),
+      baseArray = base.split('.'),
+      baseIndex = 0;
 
     if (baseArray[0] === 'www') {
       baseIndex += 1;
@@ -378,7 +393,7 @@ module.exports = function () {
 };
 
 function searchImprint(response) {
-  var $ = cheerio.load(response.data);
+  let $ = cheerio.load(response.data);
   $('*').contents().each(function () {
     if (typeof this.nodeValue === 'string' && this.nodeValue.toLowerCase().includes('rto gmbh')) {
       return true
