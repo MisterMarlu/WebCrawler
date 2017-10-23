@@ -37,8 +37,9 @@ module.exports = function () {
    */
   this.doScreenshots = async function (websites, output, spinner) {
     this.countUndone(websites);
-    let tmpSpinner = null;
-    let stAdd = '';
+    let tmpSpinner = null,
+      stAdd = '',
+      start = new Date();
 
     for (let i = 0; i < websites.length; i += 1) {
       if (!websites[i].hasError) {
@@ -50,6 +51,8 @@ module.exports = function () {
         tmpSpinner.stop(true);
       }
     }
+
+    console.log('Time for screenshotting (sec): ', ((new Date() - start) / 1000));
   };
 
   /**

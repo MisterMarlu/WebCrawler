@@ -83,7 +83,8 @@ module.exports = function (commands) {
 
     if (!this.screenshots) {
       let self = this;
-      finishDelay = 2000;
+      finishDelay = parseInt(self.numVisited / 2);
+      finishDelay = (finishDelay < 500) ? 500 : finishDelay;
 
       setTimeout(function () {
         if (typeof output[outputType] === 'function') {
