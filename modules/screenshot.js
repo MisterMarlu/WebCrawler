@@ -26,6 +26,7 @@ module.exports = function () {
   // Counter for undone screenshots.
   this.undone = 0;
   this.totalScreenshots = 0;
+  this.screenshotsDone = 0;
 
   /**
    * Do a screenshot for each website that does not has an error.
@@ -78,7 +79,7 @@ module.exports = function () {
         .goto(url)
         .exists(exists.entry);
     } catch (error) {
-      console.log(`Unable to check for enter button (url: ${url})`);
+      output.write(`Unable to check for enter button (url: ${url})`, true, 'error');
       console.log(error);
     }
 
@@ -88,7 +89,7 @@ module.exports = function () {
           .goto(url)
           .exists(exists.popup);
       } catch (error) {
-        console.log(`Unable to check for popup (url: ${url})`);
+        output.write(`Unable to check for popup (url: ${url})`, true, 'error');
         console.log(error);
       }
     }
@@ -99,9 +100,10 @@ module.exports = function () {
           .goto(url)
           .scrollTo(0, viewPort.height)
           .setViewport(viewPort)
+          .wait(2000) // For Websites with transitions.
           .screenshot(screenshotOptions);
       } catch (error) {
-        console.log(`Unable to do screenshots - Part 1 (url: ${url})`);
+        output.write(`Unable to do screenshots - Part 1 (url: ${url})`, true, 'error');
         console.log(error);
       }
     }
@@ -114,9 +116,10 @@ module.exports = function () {
           .wait(wait.entry)
           .scrollTo(0, viewPort.height)
           .setViewport(viewPort)
+          .wait(2000) // For Websites with transitions.
           .screenshot(screenshotOptions);
       } catch (error) {
-        console.log(`Unable to do screenshots - Part 2 (url: ${url})`);
+        output.write(`Unable to do screenshots - Part 2 (url: ${url})`, true, 'error');
         console.log(error);
       }
     }
@@ -131,15 +134,17 @@ module.exports = function () {
           .wait(wait.popup)
           .scrollTo(0, viewPort.height)
           .setViewport(viewPort)
+          .wait(2000) // For Websites with transitions.
           .screenshot(screenshotOptions);
       } catch (error) {
-        console.log(`Unable to do screenshots - Part 3 (url: ${url})`);
+        output.write(`Unable to do screenshots - Part 3 (url: ${url})`, true, 'error');
         console.log(error);
       }
     }
 
     await chromeless.end();
-    output.write(`Added screenshot ${screenshot}`);
+    this.screenshotsDone += 1;
+    output.write(`Added screenshot (${this.screenshotsDone}) ${screenshot}`);
     this.decreaseUndone();
 
     if (website.hasOwnProperty('imprint') && website.imprint.length > website.website.length) {

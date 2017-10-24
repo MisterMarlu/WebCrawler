@@ -184,7 +184,7 @@ module.exports = function () {
     if (!rto) {
       // Check ip address and imprint for rto. Using the keyword await to get return value
       // from asynchronous function.
-      rto = await self.searchForRtoRequest(rto, website, imprintLink);
+      rto = await self.searchForRtoRequest(rto, website, imprintLink, output, debug);
     }
 
     let exists = false;
@@ -273,14 +273,14 @@ module.exports = function () {
   /**
    * Checks website ip address and imprint (if it's given).
    *
-   * Imprint would not be checked. ToDo: Implement imprint checking.
-   *
    * @param isRto: {boolean}
    * @param website: {string}
    * @param imprint: {string}
+   * @param output
+   * @param debug: {boolean}
    * @returns {boolean}
    */
-  this.searchForRtoRequest = function (isRto, website, imprint) {
+  this.searchForRtoRequest = function (isRto, website, imprint, output, debug) {
     if (isRto) {
       return true;
     }
@@ -316,9 +316,8 @@ module.exports = function () {
           isRto = searchImprint(response);
         })
         .catch(function (error) {
-          console.log('Unable to visit customers imprint with http. Trying with https.');
-          console.log('Url: ', imprint);
-          console.log('Status: ', error.response.status);
+          output.writeLine('Unable to visit customers imprint with http. Trying with https.', true, 'warning');
+          output.writeWithSpace('Url: ' + imprint, debug, 'warning');
 
           axios.get('https://' + imprint)
             .then(function (response) {
@@ -329,9 +328,8 @@ module.exports = function () {
               isRto = searchImprint(response);
             })
             .catch(function (error) {
-              console.log('Unable to visit customers imprint with https.');
-              console.log('Url: ', imprint);
-              console.log('Status: ', error.response.status);
+              output.write('Unable to visit customers imprint with https.', true, 'warning');
+              output.writeWithSpace('Url: ' + imprint, debug, 'warning');
             });
         });
     }
@@ -392,6 +390,12 @@ module.exports = function () {
   return this;
 };
 
+/**
+ * Search for "rto gmbh".
+ *
+ * @param response
+ * @returns {boolean}
+ */
 function searchImprint(response) {
   let $ = cheerio.load(response.data);
   $('*').contents().each(function () {
