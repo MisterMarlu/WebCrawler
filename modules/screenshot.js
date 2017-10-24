@@ -53,7 +53,9 @@ module.exports = function () {
       }
     }
 
-    console.log('Time for screenshotting (sec): ', ((new Date() - start) / 1000));
+    let t = this.parseTime((new Date() - start));
+    let read = `${t.d} days, ${t.h}:${t.m}:${t.s}`;
+    output.write(`Time for screenshotting: ${read}`, true, 'warning');
   };
 
   /**
