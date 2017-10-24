@@ -9,7 +9,7 @@ const Crawler = require('./lib/crawler').Crawler;
 let commands = {
   startUrl: 'http://www.ladies.de',
   pageLimit: '20',
-  debug: 'false',
+  debug: 'true',
   screenshots: 'false'
 };
 
