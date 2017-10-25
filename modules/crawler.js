@@ -327,7 +327,7 @@ module.exports = function (commands) {
     output.write('RTO website: ' + web.rto.length, true);
     let webErrorColor = '';
     if (web.hasError.length > 0) {
-      webErrorColor = (web.hasError.length >= parseInt(this.pageLimit / 50)) ? 'error' : 'warning';
+      webErrorColor = (web.hasError.length >= parseInt(this.numVisited / 50)) ? 'error' : 'warning';
     }
 
     output.write('Websites with error: ' + web.hasError.length, true, webErrorColor);
@@ -375,11 +375,11 @@ module.exports = function (commands) {
       timeColor = '',
       expectations = [];
 
-    if (this.pageLimit !== 0) {
+    if (this.numVisited !== 0) {
       timeColor = 'error';
       for (let type in ratio) {
         if (ratio.hasOwnProperty(type)) {
-          let exSeconds = (this.pageLimit / 100 * ratio[type].seconds); // Get seconds from ratio.
+          let exSeconds = (this.numVisited / 100 * ratio[type].seconds); // Get seconds from ratio.
           exSeconds *= 1.05; // Add tolerance.
           exSeconds += delay; // Add delay.
           expectations[expectations.length] = parseInt(exSeconds);
