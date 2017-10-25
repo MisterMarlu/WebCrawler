@@ -325,8 +325,8 @@ module.exports = function (commands) {
     output.writeLine('No website: ' + web.no.length, true);
     output.write('Other website: ' + web.other.length, true);
     output.write('RTO website: ' + web.rto.length, true);
-    let webErrorColor = '';
-    if (web.hasError.length > 0) {
+    let webErrorColor = 'success';
+    if (web.hasError.length > 10) {
       webErrorColor = (web.hasError.length >= parseInt(this.numVisited / 50)) ? 'error' : 'warning';
     }
 

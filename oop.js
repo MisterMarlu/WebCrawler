@@ -6,7 +6,7 @@ const commands = require('minimist')(process.argv.slice(2));
 /**
  * Import custom modules.
  */
-const Crawler = require('./modules/crawler')(commands);
+const Crawler = require('./lib/crawler').Crawler;
 
 /**
  * Script that would be executed by command line. Use following syntax:
@@ -15,5 +15,8 @@ const Crawler = require('./modules/crawler')(commands);
  * Read the readme.md file to get all available parameters.
  */
 
+// Init crawler.
+let crawler = new Crawler(commands);
+
 // Start crawling.
-Crawler.crawl(true);
+crawler.start();
