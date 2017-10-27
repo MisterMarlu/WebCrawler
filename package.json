@@ -6,14 +6,15 @@
   "author": "LBraun",
   "license": "MIT",
   "dependencies": {
-    "axios": "latest",
-    "cheerio": "latest",
-    "chromeless": "latest",
+    "axios": "^0.16.2",
+    "cheerio": "^1.0.0-rc.2",
+    "chromeless": "^1.3.0",
     "cli-spinner": "^0.2.6",
-    "dns": "latest",
+    "dns": "^0.2.2",
     "fs": "0.0.1-security",
-    "minimist": "latest",
-    "mysql": "^2.15.0",
-    "url-parse": "latest"
+    "minimist": "^1.2.0",
+    "mongodb": "^2.2.33",
+    "query-string": "^5.0.1",
+    "url-parse": "^1.1.9"
   }
 }
