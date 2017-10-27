@@ -1,10 +1,4 @@
 {
-  "name": "webcrawler",
-  "version": "0.0.1",
-  "description": "A simple webcrawler written in JavaScript",
-  "main": "crawler.js",
-  "author": "LBraun",
-  "license": "MIT",
   "dependencies": {
     "axios": "^0.16.2",
     "cheerio": "^1.0.0-rc.2",
