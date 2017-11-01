@@ -1,13 +1,29 @@
+/**
+ * Import modules.
+ */
 const fs = require('fs');
 
+/**
+ * Import custom modules.
+ */
 const {Crawler} = require(`${__dirname}/lib/crawler`),
   {Output} = require(`${__dirname}/lib/output`),
   {ScreenShot} = require(`${__dirname}/lib/screenshot`),
   {DB} = require(`${__dirname}/lib/db`);
 
+/**
+ * Globals.
+ */
 let instance,
   configPath = `${__dirname}/config.json`;
 
+/**
+ * WebCrawler constructor.
+ *
+ * @param options? Can be type of object or string.
+ * @returns {*}
+ * @constructor
+ */
 let WebCrawler = function (options) {
   if (!(this instanceof WebCrawler)) return new WebCrawler(options);
   if (instance instanceof WebCrawler) return instance;
@@ -20,42 +36,33 @@ let WebCrawler = function (options) {
   return instance;
 };
 
+/**
+ * Prepare and start the crawling process.
+ *
+ * @param options Can be type of object or string.
+ * @param logFileName?: {string}
+ * @returns {Promise.<void>}
+ */
 WebCrawler.prototype.crawl = async function (options, logFileName) {
   if (typeof logFileName === 'undefined') logFileName = this.output.logFileName;
   if (typeof options === 'string') {
     options = {startUrl: options};
   }
 
+  // Do not run multiple crawling processes.
   if (this.crawler.hasLockFile()) {
     return;
   }
 
+  // Init the log.
   this.output.initLogger(logFileName);
-
   this.crawler.setOptions(options);
   this.output.writeUserInput(this.crawler);
-  let self = this,
-    startUrlOpject = {url: options.startUrl};
-  this.db.find(startUrlOpject, {_id: false}, 'starting_urls', function (error, result) {
-    if (error) throw error;
-    let newObject = Object.assign({}, startUrlOpject);
-    newObject.updated = new Date();
 
-    if (result.length > 0) {
-      self.db.update(startUrlOpject, newObject, 'starting_urls', function (error, result) {
-        if (error) throw error;
-      });
-
-      return;
-    }
-
-    self.db.insert(newObject, 'starting_urls', function (error, result) {
-      if (error) throw error;
-    });
-  });
-
+  // The crawling process.
   let reason = await this.crawler.start(this.searchCallback);
 
+  // Call the callbacks so the customer can do everything.
   if (typeof this.screenshotCallback === 'function') {
     await this.screenshotCallback(this.crawler.commands);
   }
@@ -64,25 +71,50 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
     await this.outputCallback(reason);
   }
 
+  // End the crawling process.
   this.crawler.end();
 };
 
+/**
+ * Set the callback for custom output.
+ *
+ * @param outputCallback: function
+ */
 WebCrawler.prototype.setOutputCallback = function (outputCallback) {
-  this.outputCallback = outputCallback;
+  if (typeof outputCallback === 'function') this.outputCallback = outputCallback;
 };
 
+/**
+ * Set the callback for custom screenshots.
+ *
+ * @param screenshotCallback: function
+ */
 WebCrawler.prototype.setScreenshotCallback = function (screenshotCallback) {
-  this.screenshotCallback = screenshotCallback;
+  if (typeof screenshotCallback === 'function') this.screenshotCallback = screenshotCallback;
 };
 
+/**
+ * Set the callback for search.
+ *
+ * @param searchCallback: function
+ */
 WebCrawler.prototype.setSearchCallback = function (searchCallback) {
-  this.searchCallback = searchCallback;
+  if (typeof searchCallback === 'function') this.searchCallback = searchCallback;
 };
 
+/**
+ * Initialize external module.
+ *
+ * @param module
+ * @returns {*}
+ */
 WebCrawler.prototype.addModule = function (module) {
   return new module({output: this.output, db: this.db});
 };
 
+/**
+ * Search for user configuration file to overwrite default configurations.
+ */
 WebCrawler.prototype.searchForConfig = function () {
   if (!fs.existsSync(`${this.projectPath}/web-crawler.json`)) {
     return;
@@ -91,6 +123,9 @@ WebCrawler.prototype.searchForConfig = function () {
   setConfig(this, `${this.projectPath}/web-crawler.json`, 'userConfig');
 };
 
+/**
+ * Check for configurations for database to prevent fatal errors.
+ */
 WebCrawler.prototype.databaseCheck = function () {
   if (typeof this.dbh === 'undefined' || this.dbh === null) {
     if (typeof this.userConfig === 'undefined'
@@ -103,6 +138,12 @@ WebCrawler.prototype.databaseCheck = function () {
 
 exports.WebCrawler = WebCrawler;
 
+/**
+ * Initialize WebCrawler.
+ *
+ * @param wc: {WebCrawler}
+ * @param options: {{}}
+ */
 function init(wc, options) {
   wc.dbh = null;
 
@@ -124,6 +165,13 @@ function init(wc, options) {
   wc.databaseCheck();
 }
 
+/**
+ * Set configurations from config files.
+ *
+ * @param wc: {WebCrawler}
+ * @param filePath: {string}
+ * @param parameter?: {string}
+ */
 function setConfig(wc, filePath, parameter) {
   if (!fs.existsSync(filePath)) {
     console.log(`Error: File ${filePath} doesn't exists.`);
