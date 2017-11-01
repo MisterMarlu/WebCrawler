@@ -1,4 +1,10 @@
 {
+  "name": "web-crawler",
+  "version": "0.1.1",
+  "description": "A webcrawler with optional screenshotting websites.",
+  "main": "index.js",
+  "author": "MisterMarlu",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.16.2",
     "cheerio": "^1.0.0-rc.2",
@@ -10,5 +16,23 @@
     "mongodb": "^2.2.33",
     "query-string": "^5.0.1",
     "url-parse": "^1.1.9"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"No test available\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MisterMarlu/WebCrawler.git"
+  },
+  "keywords": [
+    "crawler"
+  ],
+  "bugs": {
+    "url": "https://github.com/MisterMarlu/WebCrawler/issues"
+  },
+  "homepage": "https://github.com/MisterMarlu/WebCrawler#readme"
 }

@@ -1,0 +1,63 @@
+{
+  "database": {
+    "url": "mongodb://127.0.0.1:27017/webcrawler"
+  },
+  "crawler": {
+    "commands": {
+      "startUrl": "",
+      "pageLimit": "",
+      "screenShots": "",
+      "debug": ""
+    },
+    "startUrl": "https://www.phpdoc.org/",
+    "pageLimit": "0",
+    "debug": "false",
+    "screenShots": "false",
+    "visited": {},
+    "numVisited": 0,
+    "followingPages": [],
+    "url": {},
+    "baseUrl": "",
+    "linkList": {
+      "typeAbsolute": [],
+      "typeRelative": []
+    },
+    "errorList": {},
+    "startTime": 0,
+    "lockFileName": "webcrawler.lock"
+  },
+  "output": {
+    "logFileName": "logger-01"
+  },
+  "screenShot": {
+    "chromeless": {
+      "waitTimeout": 3000
+    },
+    "viewPort": {
+      "height": 3500,
+      "width": 1920,
+      "scale": 1
+    },
+    "screenshot": {
+      "filePath": "/var/www/html/rtocrawler/screenshots/"
+    },
+    "exists": {
+      "entry": "a[href*=\"?enter\"]",
+      "popup": ".popup .popup_closebutton"
+    },
+    "wait": {
+      "entry": {
+        "before": 100,
+        "after": 500
+      },
+      "popup": {
+        "before": 1000,
+        "after": 1200
+      },
+      "default": 2000
+    },
+    "undone": 0,
+    "total": 0,
+    "done": 0
+  }
+}
