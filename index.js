@@ -20,15 +20,63 @@ let WebCrawler = function (options) {
   return instance;
 };
 
-WebCrawler.prototype.crawl = async function (options) {
+WebCrawler.prototype.crawl = async function (options, logFileName) {
+  if (typeof logFileName === 'undefined') logFileName = this.output.logFileName;
   if (typeof options === 'string') {
     options = {startUrl: options};
   }
 
-  this.output.initLogger();
+  if (this.crawler.hasLockFile()) {
+    return;
+  }
+
+  this.output.initLogger(logFileName);
 
   this.crawler.setOptions(options);
-  await this.crawler.start();
+  this.output.writeUserInput(this.crawler);
+  let self = this,
+    startUrlOpject = {url: options.startUrl};
+  this.db.find(startUrlOpject, {_id: false}, 'starting_urls', function (error, result) {
+    if (error) throw error;
+    let newObject = Object.assign({}, startUrlOpject);
+    newObject.updated = new Date();
+
+    if (result.length > 0) {
+      self.db.update(startUrlOpject, newObject, 'starting_urls', function (error, result) {
+        if (error) throw error;
+      });
+
+      return;
+    }
+
+    self.db.insert(newObject, 'starting_urls', function (error, result) {
+      if (error) throw error;
+    });
+  });
+
+  let reason = await this.crawler.start(this.searchCallback);
+
+  if (typeof this.screenshotCallback === 'function') {
+    await this.screenshotCallback(this.crawler.commands);
+  }
+
+  if (typeof this.outputCallback === 'function') {
+    await this.outputCallback(reason);
+  }
+
+  this.crawler.end();
+};
+
+WebCrawler.prototype.setOutputCallback = function (outputCallback) {
+  this.outputCallback = outputCallback;
+};
+
+WebCrawler.prototype.setScreenshotCallback = function (screenshotCallback) {
+  this.screenshotCallback = screenshotCallback;
+};
+
+WebCrawler.prototype.setSearchCallback = function (searchCallback) {
+  this.searchCallback = searchCallback;
 };
 
 WebCrawler.prototype.searchForConfig = function () {
