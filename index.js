@@ -109,7 +109,7 @@ WebCrawler.prototype.setSearchCallback = function (searchCallback) {
  * @returns {*}
  */
 WebCrawler.prototype.addModule = function (module) {
-  return new module({output: this.output, db: this.db});
+  this[module] = new module({output: this.output, db: this.db});
 };
 
 /**
