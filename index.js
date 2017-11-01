@@ -79,6 +79,10 @@ WebCrawler.prototype.setSearchCallback = function (searchCallback) {
   this.searchCallback = searchCallback;
 };
 
+WebCrawler.prototype.addModule = function (module) {
+  return new module({output: this.output, db: this.db});
+};
+
 WebCrawler.prototype.searchForConfig = function () {
   if (!fs.existsSync(`${this.projectPath}/web-crawler.json`)) {
     return;
