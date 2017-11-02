@@ -27,7 +27,7 @@
     "lockFileName": "webcrawler.lock"
   },
   "output": {
-    "logFileName": "logger-01"
+    "logFileName": "logger-1"
   },
   "screenShot": {
     "chromeless": {

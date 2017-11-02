@@ -60,19 +60,20 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
   this.output.writeUserInput(this.crawler);
 
   // The crawling process.
-  let reason = await this.crawler.start(this.searchCallback);
+  let reason = await this.crawler.start(this.searchCallback),
+    delay = 0;
 
   // Call the callbacks so the customer can do everything.
   if (typeof this.screenshotCallback === 'function') {
-    await this.screenshotCallback(this.crawler.commands);
+    delay = await this.screenshotCallback(this.crawler.commands);
   }
 
   if (typeof this.outputCallback === 'function') {
-    await this.outputCallback(reason);
+    delay += await this.outputCallback(reason);
   }
 
   // End the crawling process.
-  this.crawler.end();
+  this.crawler.end(delay);
 };
 
 /**
@@ -103,13 +104,15 @@ WebCrawler.prototype.setSearchCallback = function (searchCallback) {
 };
 
 /**
- * Initialize external module.
+ * Initialize external module to make it usable into WebCrawler.
  *
- * @param module
+ * @param moduleName: {string}
+ * @param path: {string}
  * @returns {*}
  */
-WebCrawler.prototype.addModule = function (module) {
-  this[module] = new module({output: this.output, db: this.db});
+WebCrawler.prototype.addModule = function (moduleName, path) {
+  let Module = require(this.projectPath + path)[moduleName];
+  this[moduleName] = new Module({output: this.output, db: this.db});
 };
 
 /**
