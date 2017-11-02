@@ -63,9 +63,11 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
   let reason = await this.crawler.start(this.searchCallback),
     delay = 0;
 
-  // Call the callbacks so the customer can do everything.
-  if (typeof this.screenshotCallback === 'function') {
-    delay = await this.screenshotCallback(this.crawler.commands);
+  if (typeof options.screenShot !== 'undefined' && options.screenShot === 'true') {
+    // Call the callbacks so the customer can do everything.
+    if (typeof this.screenshotCallback === 'function') {
+      delay = await this.screenshotCallback(this.crawler.commands);
+    }
   }
 
   if (typeof this.outputCallback === 'function') {
