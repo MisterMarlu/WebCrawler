@@ -95,7 +95,7 @@ There are a lot of functions you can use. This web crawler is a wrapper and mana
 
 So the "wrapper" WebCrawler has some functions and each class has it's own functions, let me show you
 
-#### WebCrawler.addModule(module)
+#### WebCrawler.addModule(moduleName, path)
 This method adds the module to the web crawler so you can use it in the crawler. But remember: it calls `new Module({output, db})`.
 ```javascript
 
@@ -104,7 +104,7 @@ const {WebCrawler} = require('web-crawler'),
 
 let crawler = new WebCrawler(__dirname);
 
-crawler.addModule(SomeModule);
+crawler.addModule('SomeModule', '/modules/some-module');
 crawler.SomeModule.someMethod();
 
 ```
