@@ -13,7 +13,7 @@ Some configurations can be modified by creating a web-crawler.json file with spe
 
 ### Installation
 
-Just run:
+Just run *(not possible at the moment, maybe in future)*:
 ```
 npm install --save mistermarlu/web-crawler
 ```
@@ -23,7 +23,7 @@ Import the `WebCrawler` class like:
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler();
+let crawler = new WebCrawler(__dirname);
 
 ```
 
@@ -102,7 +102,7 @@ This method adds the module to the web crawler so you can use it in the crawler.
 const {WebCrawler} = require('web-crawler'),
   {SomeModule} = require('some-module');
 
-let crawler = new WebCrawler();
+let crawler = new WebCrawler(__dirname);
 
 crawler.addModule(SomeModule);
 crawler.SomeModule.someMethod();
@@ -124,7 +124,7 @@ crawler.SomeModule.someMethod();
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler(),
+let crawler = new WebCrawler(__dirname),
   logFileName = 'log-1'; // Filename must end with "-1". Default is "logger-1"
 
 // Can be a string of the starting url.
@@ -148,7 +148,7 @@ Method to insert an object into the mongodb.
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler(),
+let crawler = new WebCrawler(__dirname),
   someObj = {
     foo: 'bar',
     time: new Date()
@@ -168,7 +168,7 @@ Method to update an object in the mongodb.
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler(),
+let crawler = new WebCrawler(__dirname),
   someObj = {
     foo: 'bar',
     bar: 'foo',
@@ -193,7 +193,7 @@ Method to insert an object into the mongodb or update if it's already exists.
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler(),
+let crawler = new WebCrawler(__dirname),
   someObj = {
     foo: 'bar',
     bar: 'foo',
@@ -220,7 +220,7 @@ Method to delete an object from the mongodb.
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler(),
+let crawler = new WebCrawler(__dirname),
   someObj = {
     foo: 'bar',
   };
@@ -239,7 +239,7 @@ Method to find all objects of a collection in the mongodb.
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler();
+let crawler = new WebCrawler(__dirname);
 
 crawler.db.findAll('foo', function(error, result) {
   if (error) throw error;
@@ -255,7 +255,7 @@ Method to find an object in the the mongodb.
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler(),
+let crawler = new WebCrawler(__dirname),
   search = {
     foo: 'bar',
   },
@@ -277,7 +277,7 @@ Method to write something into the log file and/or to the console.
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler();
+let crawler = new WebCrawler(__dirname);
 
 crawler.output.write('I have something to log.', true, 'black', 'white');
 
@@ -291,7 +291,7 @@ Method to write something into the log file and/or to the console with a new lin
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler();
+let crawler = new WebCrawler(__dirname);
 
 crawler.output.writeLine('I have something to log.', true, 'black', 'white');
 
@@ -305,7 +305,7 @@ Method to write something into the log file and/or to the console with a trailin
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler();
+let crawler = new WebCrawler(__dirname);
 
 crawler.output.writeWithSpace('I have something to log.', true, 'black', 'white');
 
@@ -319,7 +319,7 @@ Method to write something to the console (wont be written into the log file).
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler();
+let crawler = new WebCrawler(__dirname);
 
 crawler.output.writeConsole('I have something to log.', true, 'black', 'white');
 
@@ -333,7 +333,7 @@ Get colored command line output.
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler();
+let crawler = new WebCrawler(__dirname);
 
 // Would return "\x1b[30m\x1b[47m%s\x1b[0m" to get a colored string:
 let colorString = crawler.output.getColor('black', 'white');
@@ -348,7 +348,7 @@ console.log(colorString, 'Say something.')
 
 const {WebCrawler} = require('web-crawler');
 
-let crawler = new WebCrawler(),
+let crawler = new WebCrawler(__dirname),
 // Websites must be an array with website objects
   websites = [
     {

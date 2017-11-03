@@ -20,16 +20,15 @@ let instance,
 /**
  * WebCrawler constructor.
  *
- * @param options? Can be type of object or string.
+ * @param dir Project directory path.
  * @returns {*}
  * @constructor
  */
-let WebCrawler = function (options) {
-  if (!(this instanceof WebCrawler)) return new WebCrawler(options);
+let WebCrawler = function (dir) {
+  if (!(this instanceof WebCrawler)) return new WebCrawler(dir);
   if (instance instanceof WebCrawler) return instance;
-  if (typeof options === 'undefined') options = {};
 
-  init(this, options);
+  init(this, dir);
 
   instance = this;
 
@@ -147,18 +146,12 @@ exports.WebCrawler = WebCrawler;
  * Initialize WebCrawler.
  *
  * @param wc: {WebCrawler}
- * @param options: {{}}
+ * @param dir: {string}
  */
-function init(wc, options) {
+function init(wc, dir) {
   wc.dbh = null;
 
-  for (let key in options) {
-    if (options.hasOwnProperty(key)) {
-      this[key] = options[key];
-    }
-  }
-
-  wc.projectPath = fs.realpathSync('./');
+  wc.projectPath = dir;
   wc.crawler = new Crawler();
   wc.output = new Output();
   wc.screenShot = new ScreenShot();
