@@ -152,9 +152,9 @@ function init(wc, dir) {
   wc.dbh = null;
 
   wc.projectPath = dir;
-  wc.crawler = new Crawler();
-  wc.output = new Output();
-  wc.screenShot = new ScreenShot();
+  wc.crawler = new Crawler(dir);
+  wc.output = new Output(dir);
+  wc.screenShot = new ScreenShot(dir);
   wc.db = new DB();
 
   setConfig(wc, configPath);
