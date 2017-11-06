@@ -138,7 +138,7 @@ let options = {
   debug: false
 }
 
-await crawler.crawl(options, logFileName);
+crawler.crawl(options, logFileName);
 
 ```
 
@@ -179,7 +179,7 @@ let crawler = new WebCrawler(__dirname),
     bar: 'bar',
   };
 
-crawler.db.update(oldObj, newObj, 'foo', function(error, result) {
+crawler.db.update(oldObj, someObj, 'foo', function(error, result) {
   if (error) throw error;
 
   // do something.
@@ -187,7 +187,7 @@ crawler.db.update(oldObj, newObj, 'foo', function(error, result) {
 
 ```
 
-#### DB.save(oldObject, structure, newObject, collection, callback)
+#### DB.save(oldObject, newObject, collection, callback)
 Method to insert an object into the mongodb or update if it's already exists.
 ```javascript
 
@@ -201,12 +201,9 @@ let crawler = new WebCrawler(__dirname),
   },
   oldObj = {
     foo: 'bar',
-  },
-  structure = {
-    _id: false,
   };
 
-crawler.db.save(oldObj, structure, newObject, 'foo', function(error, result) {
+crawler.db.save(oldObj, someObj, 'foo', function(error, result) {
   if (error) throw error;
 
   // do something.
@@ -359,7 +356,7 @@ let crawler = new WebCrawler(__dirname),
     }
   ];
 
-await crawler.screenshots.doScreenshots(websites, false);
+crawler.screenshots.doScreenshots(websites, false);
 
 ```
 
