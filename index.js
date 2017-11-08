@@ -53,28 +53,33 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
     return;
   }
 
-  // Init the log.
-  this.output.initLogger(logFileName);
-  this.crawler.setOptions(options);
-  this.output.writeUserInput(this.crawler);
+  saveStartingUrl(options.startUrl, this);
 
-  // The crawling process.
-  let reason = await this.crawler.start(this.searchCallback),
-    delay = 0;
+  let self = this;
+  setTimeout(async function () {
+    // Init the log.
+    self.output.initLogger(logFileName);
+    self.crawler.setOptions(options);
+    self.output.writeUserInput(self.crawler);
 
-  if (typeof options.screenShot !== 'undefined' && options.screenShot === 'true') {
-    // Call the callbacks so the customer can do everything.
-    if (typeof this.screenshotCallback === 'function') {
-      delay = await this.screenshotCallback(this.crawler.commands);
+    // The crawling process.
+    let reason = await self.crawler.start(self.searchCallback),
+      delay = 0;
+
+    if (typeof options.screenShot !== 'undefined' && options.screenShot === 'true') {
+      // Call the callbacks so the customer can do everything.
+      if (typeof self.screenshotCallback === 'function') {
+        delay = await self.screenshotCallback(self.crawler.commands);
+      }
     }
-  }
 
-  if (typeof this.outputCallback === 'function') {
-    delay += await this.outputCallback(reason);
-  }
+    if (typeof self.outputCallback === 'function') {
+      delay += await self.outputCallback(reason);
+    }
 
-  // End the crawling process.
-  this.crawler.end(delay);
+    // End the crawling process.
+    self.crawler.end(delay);
+  }, 10000);
 };
 
 /**
@@ -183,4 +188,10 @@ function setConfig(wc, filePath, parameter) {
   wc.output.setConfig(wc[parameter].output);
   wc.screenShot.setConfig(wc[parameter].screenShot);
   wc.db.setConfig(wc[parameter].db);
+}
+
+function saveStartingUrl(url, wc) {
+  wc.db.save({url: url}, {url: url}, 'starting_urls', function (error, result) {
+    if (error) throw error;
+  });
 }
