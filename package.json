@@ -12,7 +12,6 @@
     "cli-spinner": "^0.2.6",
     "dns": "^0.2.2",
     "fs": "0.0.1-security",
-    "minimist": "^1.2.0",
     "mongodb": "^2.2.33",
     "query-string": "^5.0.1",
     "url-parse": "^1.1.9"
