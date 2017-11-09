@@ -191,7 +191,7 @@ function setConfig(wc, filePath, parameter) {
 }
 
 function saveStartingUrl(url, wc) {
-  wc.db.save({url: url}, {url: url}, 'starting_urls', function (error, result) {
+  wc.db.save({url: url}, {url: url, active: true}, 'starting_urls', function (error, result) {
     if (error) throw error;
   });
 }
