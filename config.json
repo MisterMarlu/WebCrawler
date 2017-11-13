@@ -27,35 +27,38 @@
     "lockFileName": "webcrawler.lock"
   },
   "output": {
-    "logFileName": "logger-1"
+    "logFileName": "logger-1",
+    "multiple": true
   },
   "screenShot": {
     "chromeless": {
       "waitTimeout": 3000
     },
-    "viewPort": {
-      "height": 3500,
-      "width": 1920,
-      "scale": 1
-    },
+    "resolutions": [
+      {
+        "height": 3500,
+        "width": 1920
+      }
+    ],
     "screenshot": {
       "filePath": "/var/www/html/rtocrawler/screenshots/"
     },
-    "exists": {
-      "entry": "a[href*=\"?enter\"]",
-      "popup": ".popup .popup_closebutton"
-    },
-    "wait": {
-      "entry": {
-        "before": 100,
-        "after": 500
+    "clicks": [
+      {
+        "element": "a[href*=\"?enter\"]",
+        "waits": {
+          "before": 100,
+          "after": 500
+        }
       },
-      "popup": {
-        "before": 1000,
-        "after": 1200
-      },
-      "default": 2000
-    },
+      {
+        "element": ".popup .popup_closebutton",
+        "waits": {
+          "before": 1000,
+          "after": 1200
+        }
+      }
+    ],
     "undone": 0,
     "total": 0,
     "done": 0

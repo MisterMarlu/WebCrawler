@@ -65,7 +65,7 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
     // The crawling process.
     let reason = await self.crawler.start(self.searchCallback);
 
-    if (typeof options.screenShot !== 'undefined' && options.screenShot === 'true') {
+    if (typeof options.screenShots !== 'undefined' && options.screenShots === 'true') {
       // Call the callbacks so the customer can do everything.
       if (typeof self.screenshotCallback === 'function') {
         let tmpScreenshots = await self.screenshotCallback(self.crawler.commands);
