@@ -63,22 +63,21 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
     self.output.writeUserInput(self.crawler);
 
     // The crawling process.
-    let reason = await self.crawler.start(self.searchCallback),
-      delay = 0;
+    let reason = await self.crawler.start(self.searchCallback);
 
     if (typeof options.screenShot !== 'undefined' && options.screenShot === 'true') {
       // Call the callbacks so the customer can do everything.
       if (typeof self.screenshotCallback === 'function') {
-        delay = await self.screenshotCallback(self.crawler.commands);
+        let tmpScreenshots = await self.screenshotCallback(self.crawler.commands);
       }
     }
 
     if (typeof self.outputCallback === 'function') {
-      delay += await self.outputCallback(reason);
+      let tmpOutput = await self.outputCallback(reason);
     }
 
     // End the crawling process.
-    self.crawler.end(delay);
+    self.crawler.end();
   }, 10000);
 };
 
@@ -190,6 +189,12 @@ function setConfig(wc, filePath, parameter) {
   wc.db.setConfig(wc[parameter].db);
 }
 
+/**
+ * Save the starting url.
+ *
+ * @param url: {string}
+ * @param wc: {WebCrawler}
+ */
 function saveStartingUrl(url, wc) {
   wc.db.save({url: url}, {url: url, active: true}, 'starting_urls', function (error, result) {
     if (error) throw error;
