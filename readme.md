@@ -7,9 +7,10 @@ Some configurations can be modified by creating a web-crawler.json file with spe
 
 ## Table of contents
 1. [Installation](#installation)
-2. [Use callbacks](#use-callbacks)
-3. [Public functions](#public-functions)
-4. [Available parameters](#available-parameters)
+2. [Configuration parameters](#configuration-parameters)
+3. [Use callbacks](#use-callbacks)
+4. [Public functions](#public-functions)
+5. [Available parameters](#available-parameters)
 
 ### Installation
 
@@ -28,6 +29,100 @@ let crawler = new WebCrawler(__dirname);
 ```
 
 Now you can work with the web crawler. Pretty easy, isn't it?
+
+### Configuration parameters
+Here is the full list of available configuration parameters:
+
+
+```json
+{
+  "db": {
+    "connString": "mongodb://{user}:{password}@{host}:{port}/{database}?authSource={authentication-database}"
+  },
+  "crawler": {
+    "lockFileName": "webcrawler.lock"
+  },
+  "output": {
+    "logPath": "/full/path/to/logs",
+    "logFileName": "webcrawler",
+    "multiple": false
+  },
+  "screenShot": {
+    "chromeless": {
+      "waitTimeout": 3000
+    },
+    "resolutions": [
+      {
+        "height": 3500,
+        "width": 1920
+      }
+    ],
+    "screenshot": {
+      "filePath": "/full/path/to/screenshots/"
+    },
+    "clicks": [
+      {
+        "element": "a[href*=\"?enter\"]",
+        "waits": {
+          "before": 100,
+          "after": 500
+        }
+      },
+      {
+        "element": ".popup .popup_closebutton",
+        "waitings": {
+          "before": 1000,
+          "after": 1200
+        }
+      }
+    ]
+  }
+}
+```
+
+Okay, now step for step: There are some available configurations in each module of the web crawler, first db:
+
+  
+**db.connString**  
+The connection string for mongodb because the web crawler saves some data.
+
+  
+**crawler.lockFileName**  
+When the web crawler starts crawling it would create a `webcrawler.lock` file. 
+
+  
+**output.logPath**  
+The path to the directory of the logs should be defined, otherwise it would create a log directory
+within the directory where the web crawler was initialised.
+
+  
+**output.logFileName**  
+The logger-1.log file would be created after starting the crawling process. You can customize this name.
+
+  
+**output.multiple**  
+For default the web crawler creates for every crawling process an own log file. You can turn it off
+so the web crawler would overwrite the old log file.
+
+  
+**screenShot.chromeless**  
+Configurations for chromeless, see [here](https://github.com/graphcool/chromeless#usage).
+
+  
+**screenShot.resolutions**  
+An array of width and height resolutions of the screenshots that should be done.
+
+  
+**screenShot.screenshot**  
+Configurations for the screenshot, see [here](https://github.com/graphcool/chromeless/blob/master/docs/api.md#api-screenshot).
+
+  
+**screenShot.clicks**  
+An array of objects. Each object has an `element` that should be clicked before doing the screenshot. 
+`waitings` have to be an object too with `before` and `after`. These are the waiting times before and 
+after clicking on the element.
+
+
 
 ### Use callbacks
 Like I said you can use asynchronous callback functions to hook into the crawler.
@@ -247,7 +342,7 @@ crawler.db.findAll('foo', function(error, result) {
 ```
 
 #### DB.find(search, structure, collection, callback)
-Method to find an object in the the mongodb.
+Method to find some objects in the the mongodb.
 ```javascript
 
 const {WebCrawler} = require('web-crawler');
@@ -261,6 +356,28 @@ let crawler = new WebCrawler(__dirname),
   };
 
 crawler.db.find(search, structure, 'foo', function(error, result) {
+  if (error) throw error;
+
+  // do something.
+});
+
+```
+
+#### DB.findOne(search, structure, collection, callback)
+Method to find an object in the the mongodb.
+```javascript
+
+const {WebCrawler} = require('web-crawler');
+
+let crawler = new WebCrawler(__dirname),
+  search = {
+    _id: '5a09ba884172bb1ce5264fae',
+  },
+  structure = {
+    _id: true,
+  };
+
+crawler.db.findOne(search, structure, 'foo', function(error, foo) {
   if (error) throw error;
 
   // do something.
@@ -339,7 +456,7 @@ console.log(colorString, 'Say something.')
 
 ```
 
-#### ScreenShot.doScreenshots(websites, debug)
+#### ScreenShot.doScreenshots(websites, debug, callback)
 *(async function)* Do a screenshot for each website that does not has an error.
 ```javascript
 
@@ -356,7 +473,11 @@ let crawler = new WebCrawler(__dirname),
     }
   ];
 
-crawler.screenshots.doScreenshots(websites, false);
+function callbackAfterEachScreenshot(screenshotPath) {
+  // Do something.
+}
+
+crawler.screenshots.doScreenshots(websites, false, callbackAfterEachScreenshot);
 
 ```
 

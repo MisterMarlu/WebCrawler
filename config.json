@@ -46,14 +46,14 @@
     "clicks": [
       {
         "element": "a[href*=\"?enter\"]",
-        "waits": {
+        "waitings": {
           "before": 100,
           "after": 500
         }
       },
       {
         "element": ".popup .popup_closebutton",
-        "waits": {
+        "waitings": {
           "before": 1000,
           "after": 1200
         }
