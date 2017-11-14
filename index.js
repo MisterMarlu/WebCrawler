@@ -48,6 +48,8 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
     options = {startUrl: options};
   }
 
+  this.databaseCheck();
+
   // Do not run multiple crawling processes.
   if (this.crawler.hasLockFile()) {
     return;
@@ -109,6 +111,16 @@ WebCrawler.prototype.setSearchCallback = function (searchCallback) {
 };
 
 /**
+ * Set the callback for search.
+ *
+ * @param pathToConfig: string
+ * @param name: string
+ */
+WebCrawler.prototype.addConfig = function (pathToConfig, name) {
+  setConfig(this, pathToConfig, name);
+};
+
+/**
  * Initialize external module to make it usable into WebCrawler.
  *
  * @param moduleName: {string}
@@ -128,19 +140,31 @@ WebCrawler.prototype.searchForConfig = function () {
     return;
   }
 
-  setConfig(this, `${this.projectPath}/web-crawler.json`, 'userConfig');
+  setConfig(this, `${this.projectPath}/web-crawler.json`, 'project');
 };
 
 /**
  * Check for configurations for database to prevent fatal errors.
  */
 WebCrawler.prototype.databaseCheck = function () {
-  if (typeof this.dbh === 'undefined' || this.dbh === null) {
-    if (typeof this.userConfig === 'undefined'
-      || typeof this.userConfig.db === 'undefined'
-      || typeof this.userConfig.db.connString === 'undefined') {
-      throw 'You have to define a mongodb connection string as "dbh" or as "db": {"connString"}';
+  let isset = (typeof this.dbh === 'string' && this.dbh.length > 0);
+
+  if (isset) {
+    return;
+  }
+
+  for (let name in this.config) {
+    if (this.config.hasOwnProperty(name)) {
+      if (typeof this.config[name] !== 'undefined'
+        && typeof this.config[name].db !== 'undefined'
+        || typeof this.config[name].db.connString !== 'undefined') {
+        isset = true;
+      }
     }
+  }
+
+  if (!isset) {
+    throw 'You have to define a mongodb connection string as "dbh" or as "db": {"connString"}';
   }
 };
 
@@ -160,11 +184,10 @@ function init(wc, dir) {
   wc.output = new Output(dir);
   wc.screenShot = new ScreenShot(dir);
   wc.db = new DB();
+  wc.config = {};
 
   setConfig(wc, configPath);
   wc.searchForConfig();
-
-  wc.databaseCheck();
 }
 
 /**
@@ -180,13 +203,14 @@ function setConfig(wc, filePath, parameter) {
     return;
   }
 
-  if (typeof parameter !== 'string') parameter = 'config';
+  if (typeof parameter !== 'string') parameter = 'default';
 
-  wc[parameter] = require(filePath);
-  wc.crawler.setConfig(wc[parameter].crawler);
-  wc.output.setConfig(wc[parameter].output);
-  wc.screenShot.setConfig(wc[parameter].screenShot);
-  wc.db.setConfig(wc[parameter].db);
+  wc.config[parameter] = require(filePath);
+  for (let module in wc.config[parameter]) {
+    if (wc.config[parameter].hasOwnProperty(module) && wc.hasOwnProperty(module)) {
+      wc[module].setConfig(wc.config[parameter][module]);
+    }
+  }
 }
 
 /**

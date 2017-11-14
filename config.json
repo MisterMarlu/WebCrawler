@@ -34,7 +34,7 @@
     "chromeless": {
       "waitTimeout": 3000
     },
-    "resolutions": [
+    "dimensions": [
       {
         "height": 3500,
         "width": 1920
