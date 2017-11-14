@@ -155,10 +155,12 @@ WebCrawler.prototype.databaseCheck = function () {
 
   for (let name in this.config) {
     if (this.config.hasOwnProperty(name)) {
-      if (typeof this.config[name] !== 'undefined'
-        && typeof this.config[name].db !== 'undefined'
-        || typeof this.config[name].db.connString !== 'undefined') {
-        isset = true;
+      if (typeof this.config[name] === 'object') {
+        if (typeof this.config[name].db === 'object') {
+          if (typeof this.config[name].db.connString === 'string') {
+            isset = true;
+          }
+        }
       }
     }
   }
