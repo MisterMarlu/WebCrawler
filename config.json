@@ -1,6 +1,6 @@
 {
-  "database": {
-    "url": "mongodb://127.0.0.1:27017/webcrawler"
+  "db": {
+    "connString": "mongodb://{username}:{password}@{host}:{port}/{database}?authSource={authentication-database}"
   },
   "crawler": {
     "commands": {

@@ -62,7 +62,12 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
     // Init the log.
     self.output.initLogger(logFileName);
     self.crawler.setOptions(options);
+    self.crawler.init(options.startUrl);
     self.output.writeUserInput(self.crawler);
+
+    if (typeof self.initCallback === 'function') {
+      await self.initCallback(self, options);
+    }
 
     // The crawling process.
     let reason = await self.crawler.start(self.searchCallback);
@@ -70,12 +75,12 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
     if (typeof options.screenShots !== 'undefined' && options.screenShots === 'true') {
       // Call the callbacks so the customer can do everything.
       if (typeof self.screenshotCallback === 'function') {
-        let tmpScreenshots = await self.screenshotCallback(self.crawler.commands);
+        await self.screenshotCallback(self.crawler.commands);
       }
     }
 
     if (typeof self.outputCallback === 'function') {
-      let tmpOutput = await self.outputCallback(reason);
+      await self.outputCallback(reason);
     }
 
     // End the crawling process.
@@ -111,10 +116,19 @@ WebCrawler.prototype.setSearchCallback = function (searchCallback) {
 };
 
 /**
+ * Set the callback for initialize.
+ *
+ * @param initCallback: function
+ */
+WebCrawler.prototype.setInitCallback = function (initCallback) {
+  if (typeof initCallback === 'function') this.initCallback = initCallback;
+};
+
+/**
  * Set the callback for search.
  *
- * @param pathToConfig: string
- * @param name: string
+ * @param pathToConfig: {string}
+ * @param name: {string}
  */
 WebCrawler.prototype.addConfig = function (pathToConfig, name) {
   setConfig(this, pathToConfig, name);
@@ -147,11 +161,7 @@ WebCrawler.prototype.searchForConfig = function () {
  * Check for configurations for database to prevent fatal errors.
  */
 WebCrawler.prototype.databaseCheck = function () {
-  let isset = (typeof this.dbh === 'string' && this.dbh.length > 0);
-
-  if (isset) {
-    return;
-  }
+  let isset = false;
 
   for (let name in this.config) {
     if (this.config.hasOwnProperty(name)) {
@@ -166,7 +176,7 @@ WebCrawler.prototype.databaseCheck = function () {
   }
 
   if (!isset) {
-    throw 'You have to define a mongodb connection string as "dbh" or as "db": {"connString"}';
+    throw 'You have to define a mongodb connection string as "db": {"connString": "mongodb://"}';
   }
 };
 
@@ -179,14 +189,17 @@ exports.WebCrawler = WebCrawler;
  * @param dir: {string}
  */
 function init(wc, dir) {
-  wc.dbh = null;
-
   wc.projectPath = dir;
   wc.crawler = new Crawler(dir);
   wc.output = new Output(dir);
   wc.screenShot = new ScreenShot(dir);
   wc.db = new DB();
   wc.config = {};
+
+  wc.initCallback = null;
+  wc.searchCallback = null;
+  wc.outputCallback = null;
+  wc.screenshotCallback = null;
 
   setConfig(wc, configPath);
   wc.searchForConfig();
