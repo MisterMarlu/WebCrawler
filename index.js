@@ -36,13 +36,13 @@ let WebCrawler = function (dir) {
 };
 
 /**
- * Prepare and start the crawling process.
+ * Prepare the crawling process.
  *
  * @param options Can be type of object or string.
  * @param logFileName?: {string}
  * @returns {Promise.<void>}
  */
-WebCrawler.prototype.crawl = async function (options, logFileName) {
+WebCrawler.prototype.crawl = function (options, logFileName) {
   if (typeof logFileName === 'undefined') logFileName = this.output.logFileName;
   if (typeof options === 'string') {
     options = {startUrl: options};
@@ -58,7 +58,7 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
   saveStartingUrl(options.startUrl, this);
 
   let self = this;
-  setTimeout(async function () {
+  setTimeout(function () {
     // Init the log.
     self.output.initLogger(logFileName);
     self.crawler.setOptions(options);
@@ -66,26 +66,36 @@ WebCrawler.prototype.crawl = async function (options, logFileName) {
     self.output.writeUserInput(self.crawler);
 
     if (typeof self.initCallback === 'function') {
-      await self.initCallback(self, options);
+      self.initCallback(self, options);
+    } else {
+      self.startCrawling(options);
     }
-
-    // The crawling process.
-    let reason = await self.crawler.start(self.searchCallback);
-
-    if (typeof options.screenShots !== 'undefined' && options.screenShots === 'true') {
-      // Call the callbacks so the customer can do everything.
-      if (typeof self.screenshotCallback === 'function') {
-        await self.screenshotCallback(self.crawler.commands);
-      }
-    }
-
-    if (typeof self.outputCallback === 'function') {
-      await self.outputCallback(reason);
-    }
-
-    // End the crawling process.
-    self.crawler.end();
   }, 10000);
+};
+
+/**
+ * Start the crawling process.
+ *
+ * @param options: {{}} Must contain "startUrl" as string.
+ * @returns {Promise.<void>}
+ */
+WebCrawler.prototype.startCrawling = async function (options) {
+  // The crawling process.
+  let reason = await this.crawler.start(this.searchCallback);
+
+  if (typeof options.screenShots !== 'undefined' && options.screenShots === 'true') {
+    // Call the callbacks so the customer can do everything.
+    if (typeof this.screenshotCallback === 'function') {
+      await this.screenshotCallback(this.crawler.commands);
+    }
+  }
+
+  if (typeof this.outputCallback === 'function') {
+    await this.outputCallback(reason);
+  }
+
+  // End the crawling process.
+  this.crawler.end();
 };
 
 /**
