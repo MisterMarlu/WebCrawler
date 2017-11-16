@@ -94,8 +94,8 @@ WebCrawler.prototype.startCrawling = async function (options) {
     await this.outputCallback(reason);
   }
 
-  // End the crawling process.
-  this.crawler.end();
+  // End the crawling process after killing all chrome processes.
+  this.screenShot.stopChrome(this.crawler.end());
 };
 
 /**
