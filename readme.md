@@ -737,7 +737,7 @@ crawler.output.write('An example', true, 'black', 'white');
 // Would print this string to the console with font color black and background color white.
 
 ```
-![screenshot from console][output.black.white]
+![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 #### Output.writeLine(value, print, type, background)
 Write output with a new line before.
@@ -769,7 +769,7 @@ crawler.output.writeLine('I have something to log.', true, 'black', 'white');
 // Would print this string to the console with font color black and background color white.
 
 ```
-![screenshot from console][output.black.white]
+![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 #### Output.writeWithSpace(value, print, type, background)
 Write output with a trailing new line.
@@ -800,7 +800,7 @@ crawler.output.writeWithSpace('I have something to log.', true, 'black', 'white'
 // Would print this string to the console with font color black and background color white.
 
 ```
-![screenshot from console][output.black.white]
+![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 #### Output.writeConsole(value, print, type, background)
 Write in console only.
@@ -840,7 +840,7 @@ crawler.output.writeConsole('I have something to log.', true, 'black', 'white');
 // Would print this string to the console with font color black and background color white.
 
 ```
-![screenshot from console][output.black.white]
+![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 #### Output.writeConsole(sentences, type)
 Write array as strings with new line for each entry.
@@ -877,7 +877,7 @@ crawler.output.writeOutput(sentences, 'underscore');
 // Would print this sentences to console as small list.
 
 ```
-![screenshot from console][output.array]
+![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.array.png)
 
 #### Output.getColor(type, background)
 Get colored command line output.
@@ -1048,5 +1048,3 @@ Here you can see all available parameters:
 | debug       | boolean | `false`                   | if `true` you get a lot of output for debugging               |
 
 **[back to top](#table-of-contents)**
-[output.black.white]: https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png "In command line"
-[output.array]: https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.array.png "In command line"
