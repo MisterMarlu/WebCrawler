@@ -136,7 +136,8 @@ At the moment there are three hooks available:
  * @param options: {{}} An object with starting options.
  */
 function initCallback(webcrawler, options) {
-  // Here you can do some operations before the crawling process begins. 
+  // Here you can do some operations before the crawling process begins.
+  webcrawler.startCrawling(options);
 }
 
 crawler.setInitCallback(initCallback);
