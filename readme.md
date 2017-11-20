@@ -126,7 +126,7 @@ after clicking on the element.
 
 ### Use callbacks
 Like I said you can use asynchronous callback functions to hook into the crawler.
-At the moment there are three hooks available:
+At the moment there are some hooks available:
 
 **1. Init**
 ```javascript
@@ -213,9 +213,9 @@ There are a lot of functions you can use. This web crawler is a wrapper and mana
 So the "wrapper" WebCrawler has some functions and each class has it's own functions, let me show you
 
 #### WebCrawler.addModule(moduleName, path)
-Initialize external module to make it usable into WebCrawler.
-**moduleName: {string}**
-**path: {string}**
+Initialize external module to make it usable into WebCrawler.  
+**moduleName: {string}**  
+**path: {string}**  
 ```javascript
 
 WebCrawler.prototype.addModule = function (moduleName, path) {
@@ -251,9 +251,9 @@ crawler.SomeModule.someMethod();
 [See "Use callbacks"](#use-callbacks)
 
 #### WebCrawler.crawl(options, logFileName)
-*(async function)* Prepare the crawling process.
-**options** Can be type of object or string.
-**logFileName?: {string}**
+*(async function)* Prepare the crawling process.  
+**options** Can be type of object or string.  
+**logFileName?: {string}**  
 ```javascript
 
 WebCrawler.prototype.crawl = function (options, logFileName) {
@@ -310,8 +310,8 @@ crawler.crawl(options, logFileName);
 ```
 
 #### WebCrawler.startCrawling(options)
-*(async function)* Start the crawling process.
-**options: {{}}** Must contain "startUrl" as string.
+*(async function)* Start the crawling process.  
+**options: {{}}** Must contain "startUrl" as string.  
 ```javascript
 
 WebCrawler.prototype.startCrawling = async function (options) {
@@ -351,10 +351,10 @@ crawler.crawl(options, logFileName);
 
 ```
 #### DB.insert(object, collection, callback)
-Insert new data into mongodb.
-**object: {{}}**
-**collection: {string}**
-**callback: {function}**
+Insert new data into mongodb.  
+**object: {{}}**  
+**collection: {string}**  
+**callback: {function}**  
 ```javascript
 
 DB.prototype.insert = function (object, collection, callback) {
@@ -396,11 +396,11 @@ crawler.db.insert(someObj, 'foo', function(error, result) {
 ```
 
 #### DB.update(oldObject, newObject, collection, callback)
-Update data in mongodb.
-**oldObject: {{}}**
-**newObject: {{}}**
-**collection: {string}**
-**callback: {function}**
+Update data in mongodb.  
+**oldObject: {{}}**  
+**newObject: {{}}**  
+**collection: {string}**  
+**callback: {function}**  
 ```javascript
 
 DB.prototype.update = function (oldObject, newObject, collection, callback) {
@@ -447,11 +447,11 @@ crawler.db.update(oldObj, someObj, 'foo', function(error, result) {
 ```
 
 #### DB.save(oldObject, newObject, collection, callback)
-Insert new data into mongodb, if already exist, update.
-**oldObject: {{}}**
-**newObject: {{}}**
-**collection: {string}**
-**callback: {function}**
+Insert new data into mongodb, if already exist, update.  
+**oldObject: {{}}**  
+**newObject: {{}}**  
+**collection: {string}**  
+**callback: {function}**  
 ```javascript
 
 DB.prototype.save = function (oldObject, newObject, collection, callback) {
@@ -526,10 +526,10 @@ crawler.db.save(oldObj, someObj, 'foo', function(error, result) {
 ```
 
 #### DB.delete(object, collection, callback)
-Method to delete an object from the mongodb.
-**object: {{}}**
-**collection: {string}**
-**callback: {function}**
+Method to delete an object from the mongodb.  
+**object: {{}}**   
+**collection: {string}**  
+**callback: {function}**  
 ```javascript
 
 DB.prototype.delete = function (object, collection, callback) {
@@ -567,9 +567,9 @@ crawler.db.delete(someObj, 'foo', function(error, result) {
 ```
 
 #### DB.findAll(collection, callback)
-Get all data from mongodb.
-**collection: {string}**
-**callback: {function}**
+Get all data from mongodb.  
+**collection: {string}**  
+**callback: {function}**  
 ```javascript
 
 DB.prototype.findAll = function (collection, callback) {
@@ -603,11 +603,11 @@ crawler.db.findAll('foo', function(error, result) {
 ```
 
 #### DB.find(search, structure, collection, callback)
-Get data from mongodb.
-**search: {{}}**
-**structure: {{}}**
-**collection: {string}**
-**callback: {function}**
+Get data from mongodb.  
+**search: {{}}**  
+**structure: {{}}**  
+**collection: {string}**  
+**callback: {function}**  
 ```javascript
 
 DB.prototype.find = function (search, structure, collection, callback) {
@@ -649,11 +649,11 @@ crawler.db.find(search, structure, 'foo', function(error, result) {
 ```
 
 #### DB.findOne(search, structure, collection, callback)
-Get data from mongodb.
-**search: {{}}**
-**structure: {{}}**
-**collection: {string}**
-**callback: {function}**
+Get data from mongodb.  
+**search: {{}}**  
+**structure: {{}}**  
+**collection: {string}**  
+**callback: {function}**  
 ```javascript
 
 DB.prototype.findOne = function (search, structure, collection, callback) {
@@ -695,11 +695,11 @@ crawler.db.findOne(search, structure, 'foo', function(error, foo) {
 ```
 
 #### Output.write(value, print, type, background)
-Write output.
-**value: {*}**
-**print?: {boolean}**
-**type?: {string}**
-**background?: {string}**
+Write output.  
+**value: {*}**  
+**print?: {boolean}**  
+**type?: {string}**  
+**background?: {string}**  
 ```javascript
 
 Output.prototype.write = function (value, print, type, background) {
@@ -741,11 +741,11 @@ crawler.output.write('An example', true, 'black', 'white');
 ![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 #### Output.writeLine(value, print, type, background)
-Write output with a new line before.
-**value: {*}**
-**print?: {boolean}**
-**type?: {string}**
-**background?: {string}**
+Write output with a new line before.  
+**value: {*}**  
+**print?: {boolean}**  
+**type?: {string}**  
+**background?: {string}**  
 ```javascript
 
 Output.prototype.writeLine = function (value, print, type, background) {
@@ -773,11 +773,11 @@ crawler.output.writeLine('An example', true, 'black', 'white');
 ![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 #### Output.writeWithSpace(value, print, type, background)
-Write output with a trailing new line.
-**value: {*}**
-**print?: {boolean}**
-**type?: {string}**
-**background?: {string}**
+Write output with a trailing new line.  
+**value: {*}**  
+**print?: {boolean}**  
+**type?: {string}**  
+**background?: {string}**  
 ```javascript
 
 Output.prototype.writeWithSpace = function (value, print, type, background) {
@@ -804,11 +804,11 @@ crawler.output.writeWithSpace('An example', true, 'black', 'white');
 ![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 #### Output.writeConsole(value, print, type, background)
-Write in console only.
-**value: {*}**
-**print?: {boolean}**
-**type?: {string}**
-**background?: {string}**
+Write in console only. 
+**value: {*}**  
+**print?: {boolean}**  
+**type?: {string}**  
+**background?: {string}**  
 ```javascript
 
 Output.prototype.writeConsole = function (value, print, type, background) {
@@ -844,9 +844,9 @@ crawler.output.writeConsole('An example', true, 'black', 'white');
 ![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 #### Output.writeConsole(sentences, type)
-Write array as strings with new line for each entry.
-**sentences: {[{text: string, color: string, bg: string}]}**
-**type?: {string}**
+Write array as strings with new line for each entry.  
+**sentences: {[{text: string, color: string, bg: string}]}**  
+**type?: {string}**  
 ```javascript
 
 Output.prototype.writeOutput = function (sentences, type) {
@@ -881,9 +881,9 @@ crawler.output.writeOutput(sentences, 'underscore');
 ![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.array.png)
 
 #### Output.getColor(type, background)
-Get colored command line output.
-**type: {string}**
-**background?: {string}**
+Get colored command line output.  
+**type: {string}**  
+**background?: {string}**  
 ```javascript
 
 Output.prototype.getColor = function (type, background) {
@@ -952,10 +952,10 @@ console.log(colorString, 'Say something.')
 ```
 
 #### ScreenShot.doScreenshots(websites, debug, callback)
-*(async function)* Do a screenshot for each website that does not has an error.
-**websites: {[{url: string, has_error: boolean, name: string, found_url: string}]}**
-**debug: {boolean}**
-**callback?: {function}**
+*(async function)* Do a screenshot for each website that does not has an error.  
+**websites: {[{url: string, has_error: boolean, name: string, found_url: string}]}**  
+**debug: {boolean}**  
+**callback?: {function}**  
 ```javascript
 
 ScreenShot.prototype.doScreenshots = async function (websites, debug, callback) {
