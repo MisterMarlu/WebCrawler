@@ -44,16 +44,12 @@ let WebCrawler = function (dir) {
  */
 WebCrawler.prototype.crawl = function (options, logFileName) {
   if (typeof logFileName === 'undefined') logFileName = this.output.logFileName;
-  if (typeof options === 'string') {
-    options = {startUrl: options};
-  }
+  if (typeof options === 'string') options = {startUrl: options};
 
   this.databaseCheck();
 
   // Do not run multiple crawling processes.
-  if (this.crawler.hasLockFile()) {
-    return;
-  }
+  if (this.crawler.hasLockFile()) return;
 
   saveStartingUrl(options.startUrl, this);
 
@@ -67,9 +63,10 @@ WebCrawler.prototype.crawl = function (options, logFileName) {
 
     if (typeof self.initCallback === 'function') {
       self.initCallback(self, options);
-    } else {
-      self.startCrawling(options);
+      return;
     }
+
+    self.startCrawling(options);
   }, 10000);
 };
 
@@ -101,7 +98,7 @@ WebCrawler.prototype.startCrawling = async function (options) {
 /**
  * Set the callback for custom output.
  *
- * @param outputCallback: function
+ * @param outputCallback: {function}
  */
 WebCrawler.prototype.setOutputCallback = function (outputCallback) {
   if (typeof outputCallback === 'function') this.outputCallback = outputCallback;
@@ -110,7 +107,7 @@ WebCrawler.prototype.setOutputCallback = function (outputCallback) {
 /**
  * Set the callback for custom screenshots.
  *
- * @param screenshotCallback: function
+ * @param screenshotCallback: {function}
  */
 WebCrawler.prototype.setScreenshotCallback = function (screenshotCallback) {
   if (typeof screenshotCallback === 'function') this.screenshotCallback = screenshotCallback;
@@ -119,7 +116,7 @@ WebCrawler.prototype.setScreenshotCallback = function (screenshotCallback) {
 /**
  * Set the callback for search.
  *
- * @param searchCallback: function
+ * @param searchCallback: {function}
  */
 WebCrawler.prototype.setSearchCallback = function (searchCallback) {
   if (typeof searchCallback === 'function') this.searchCallback = searchCallback;
@@ -128,7 +125,7 @@ WebCrawler.prototype.setSearchCallback = function (searchCallback) {
 /**
  * Set the callback for initialize.
  *
- * @param initCallback: function
+ * @param initCallback: {function}
  */
 WebCrawler.prototype.setInitCallback = function (initCallback) {
   if (typeof initCallback === 'function') this.initCallback = initCallback;
@@ -149,7 +146,6 @@ WebCrawler.prototype.addConfig = function (pathToConfig, name) {
  *
  * @param moduleName: {string}
  * @param path: {string}
- * @returns {*}
  */
 WebCrawler.prototype.addModule = function (moduleName, path) {
   let Module = require(this.projectPath + path)[moduleName];
@@ -160,11 +156,9 @@ WebCrawler.prototype.addModule = function (moduleName, path) {
  * Search for user configuration file to overwrite default configurations.
  */
 WebCrawler.prototype.searchForConfig = function () {
-  if (!fs.existsSync(`${this.projectPath}/web-crawler.json`)) {
-    return;
+  if (fs.existsSync(`${this.projectPath}/web-crawler.json`)) {
+    setConfig(this, `${this.projectPath}/web-crawler.json`, 'project');
   }
-
-  setConfig(this, `${this.projectPath}/web-crawler.json`, 'project');
 };
 
 /**
