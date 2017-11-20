@@ -764,7 +764,7 @@ const {WebCrawler} = require('web-crawler');
 
 let crawler = new WebCrawler(__dirname);
 
-crawler.output.writeLine('I have something to log.', true, 'black', 'white');
+crawler.output.writeLine('An example', true, 'black', 'white');
 
 // Would print this string to the console with font color black and background color white.
 
@@ -795,7 +795,7 @@ const {WebCrawler} = require('web-crawler');
 
 let crawler = new WebCrawler(__dirname);
 
-crawler.output.writeWithSpace('I have something to log.', true, 'black', 'white');
+crawler.output.writeWithSpace('An example', true, 'black', 'white');
 
 // Would print this string to the console with font color black and background color white.
 
@@ -835,7 +835,7 @@ const {WebCrawler} = require('web-crawler');
 
 let crawler = new WebCrawler(__dirname);
 
-crawler.output.writeConsole('I have something to log.', true, 'black', 'white');
+crawler.output.writeConsole('An example', true, 'black', 'white');
 
 // Would print this string to the console with font color black and background color white.
 
@@ -1018,7 +1018,7 @@ let crawler = new WebCrawler(__dirname),
       found_url: 'https://github.com/MisterMarlu', // Url where the screenshot website was found (maybe interesting for portal crawling).
       name: 'Imprint', // Title of the website.
       url: 'http://example.com/imprint', // Url where you want to have a screenshot.
-      hasError: false, // The found website can be invalid now or may has a wrong toplevel domain.
+      has_error: false, // The found website can be invalid now or may has a wrong toplevel domain.
     }
   ];
 
