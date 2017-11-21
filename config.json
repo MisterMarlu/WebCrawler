@@ -3,16 +3,6 @@
     "connString": "mongodb://{username}:{password}@{host}:{port}/{database}?authSource={authentication-database}"
   },
   "crawler": {
-    "commands": {
-      "startUrl": "",
-      "pageLimit": "",
-      "screenShots": "",
-      "debug": ""
-    },
-    "startUrl": "https://www.phpdoc.org/",
-    "pageLimit": "0",
-    "debug": "false",
-    "screenShots": "false",
     "visited": {},
     "numVisited": 0,
     "followingPages": [],
@@ -27,6 +17,7 @@
     "lockFileName": "webcrawler.lock"
   },
   "output": {
+    "logPath": "/absolute/path/to/logs",
     "logFileName": "logger-1",
     "multiple": true
   },
@@ -41,7 +32,7 @@
       }
     ],
     "screenshot": {
-      "filePath": "/var/www/html/rtocrawler/screenshots/"
+      "filePath": "/absolute/path/to/screenshots/"
     },
     "clicks": [
       {
