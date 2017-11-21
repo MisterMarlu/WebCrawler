@@ -219,7 +219,8 @@ Initialize external module to make it usable into WebCrawler.
 ```javascript
 
 WebCrawler.prototype.addModule = function (moduleName, path) {
-  let Module = require(this.projectPath + path)[moduleName];
+  this.output.writeConsole(`WebCrawler.addModule - File: ${__filename} - Line: ${__line}`, isDebug(Global.get('DEBUG'), moduleName), 'debug');
+  let Module = require(Global.get('projectPath') + path)[moduleName];
   this[moduleName] = new Module({output: this.output, db: this.db});
 };
 
@@ -257,30 +258,31 @@ crawler.SomeModule.someMethod();
 ```javascript
 
 WebCrawler.prototype.crawl = function (options, logFileName) {
+  this.output.writeConsole(`WebCrawler.crawl - File: ${__filename} - Line: ${__line}`, isDebug(Global.get('DEBUG'), moduleName), 'debug');
   if (typeof logFileName === 'undefined') logFileName = this.output.logFileName;
   if (typeof options === 'string') options = {startUrl: options};
+
+  setInput(options);
 
   this.databaseCheck();
 
   // Do not run multiple crawling processes.
   if (this.crawler.hasLockFile()) return;
 
-  saveStartingUrl(options.startUrl, this);
+  saveStartingUrl(Global.get('START_URL'), this);
 
   let self = this;
   setTimeout(function () {
     // Init the log.
     self.output.initLogger(logFileName);
-    self.crawler.setOptions(options);
-    self.crawler.init(options.startUrl);
     self.output.writeUserInput(self.crawler);
 
-    if (typeof self.initCallback === 'function') {
-      self.initCallback(self, options);
+    if (typeof Global.get('initCallback') === 'function') {
+      Global.get('initCallback')(self, Global.get('input'));
       return;
     }
 
-    self.startCrawling(options);
+    self.startCrawling();
   }, 10000);
 };
 
@@ -309,24 +311,24 @@ crawler.crawl(options, logFileName);
 
 ```
 
-#### WebCrawler.startCrawling(options)
+#### WebCrawler.startCrawling()
 *(async function)* Start the crawling process.  
-**options: {{}}** Must contain "startUrl" as string.  
 ```javascript
 
-WebCrawler.prototype.startCrawling = async function (options) {
+WebCrawler.prototype.startCrawling = async function () {
+  this.output.writeConsole(`WebCrawler.startCrawling - File: ${__filename} - Line: ${__line}`, isDebug(Global.get('DEBUG'), moduleName), 'debug');
   // The crawling process.
-  let reason = await this.crawler.start(this.searchCallback);
+  let reason = await this.crawler.start();
 
-  if (typeof options.screenShots !== 'undefined' && options.screenShots === 'true') {
+  if (typeof Global.get('input').screenShots !== 'undefined' && Global.get('input').screenShots) {
     // Call the callbacks so the customer can do everything.
-    if (typeof this.screenshotCallback === 'function') {
-      await this.screenshotCallback(this.crawler.commands);
+    if (typeof Global.get('screenshotsCallback') === 'function') {
+      await Global.get('screenshotsCallback')(Global.get('input'));
     }
   }
 
-  if (typeof this.outputCallback === 'function') {
-    await this.outputCallback(reason);
+  if (typeof Global.get('outputCallback') === 'function') {
+    await Global.get('outputCallback')(reason);
   }
 
   // End the crawling process after killing all chrome processes.
@@ -343,7 +345,7 @@ const {WebCrawler} = require('web-crawler');
 let crawler = new WebCrawler(__dirname);
 
 function initCallback(webcrawler, options) {
-  webcrawler.startCrawling(options);
+  webcrawler.startCrawling();
 }
 
 crawler.setInitCallback(initCallback);
@@ -954,11 +956,11 @@ console.log(colorString, 'Say something.')
 #### ScreenShot.doScreenshots(websites, debug, callback)
 *(async function)* Do a screenshot for each website that does not has an error.  
 **websites: {[{url: string, has_error: boolean, name: string, found_url: string}]}**  
-**debug: {boolean}**  
-**callback?: {function}**  
+**callback?: {function}**
 ```javascript
 
-ScreenShot.prototype.doScreenshots = async function (websites, debug, callback) {
+ScreenShot.prototype.doScreenshots = async function (websites, callback) {
+  this.output.writeConsole(`ScreenShot.doScreenshots - File: ${__filename} - Line: ${__line}`, isDebug(Global.get('DEBUG'), moduleName), 'debug');
   this.countUndone(websites);
   let tmpSpinner = null,
     stAdd = '',
@@ -983,7 +985,7 @@ ScreenShot.prototype.doScreenshots = async function (websites, debug, callback) 
         tmpSpinner.start();
 
         // Do the screenshot.
-        await this.checkUrl(websites[i].url, websites[i], j, debug, callback);
+        await this.checkUrl(websites[i].url, websites[i], j, callback);
         tmpSpinner.stop(true);
       }
     }
@@ -1027,7 +1029,7 @@ function callbackAfterEachScreenshot(screenshotPath) {
   // Do something.
 }
 
-crawler.screenshots.doScreenshots(websites, false, callbackAfterEachScreenshot);
+crawler.screenshots.doScreenshots(websites, callbackAfterEachScreenshot);
 
 ```
 
@@ -1036,16 +1038,16 @@ crawler.screenshots.doScreenshots(websites, false, callbackAfterEachScreenshot);
 ### Available parameters
 You can call your script with
 ```
-node script.js --startUrl="https://github.com"
+node script.js --startUrl="https://github.com" --pageLimit=100 --screenShots=true --debug=Crawler
 ```
 
 Here you can see all available parameters:
 
-| Parameter   | Type    | Default                   | Description                                                   |  
-| ----------- | ------- | ------------------------- | ------------------------------------------------------------- |  
-| startUrl    | string  | `https://www.phpdoc.org/` | Full url with correct protocol *(`http` recommend)*           |  
-| pageLimit   | number  | `0`                       | Limitation of websites to be crawled *(`0` for infinity)*     |  
-| screenShots | boolean | `false`                   | if `true` screenshots would be made for each customer website |  
-| debug       | boolean | `false`                   | if `true` you get a lot of output for debugging               |
+| Parameter   | Type             | Default                   | Description                                                                |
+| ----------- | ---------------- | ------------------------- | -------------------------------------------------------------------------- |
+| startUrl    | string           | `https://www.phpdoc.org/` | Full url with correct protocol *(`http` recommend)*                        |
+| pageLimit   | number           | `0`                       | Limitation of websites to be crawled *(`0` for infinity)*                  |
+| screenShots | boolean          | `false`                   | If `true` screenshots would be made for each customer website              |
+| debug       | boolean / string | `false`                   | If `true` you get a lot of output for debugging. You can add a module name |
 
 **[back to top](#table-of-contents)**
