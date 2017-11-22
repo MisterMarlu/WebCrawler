@@ -116,8 +116,8 @@ WebCrawler.prototype.startCrawling = async function () {
 
   if (typeof Global.get('input').screenShots !== 'undefined' && Global.get('input').screenShots) {
     // Call the callbacks so the customer can do everything.
-    if (typeof Global.get('screenshotsCallback') === 'function') {
-      await Global.get('screenshotsCallback')(Global.get('input'));
+    if (typeof Global.get('screenshotCallback') === 'function') {
+      await Global.get('screenshotCallback')(Global.get('input'));
     }
   }
 
