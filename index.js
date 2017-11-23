@@ -100,6 +100,7 @@ WebCrawler.prototype.crawl = function (options, logFileName) {
       // Init the log.
       self.output.initLogger(logFileName);
       self.output.writeUserInput(self.crawler);
+      self.screenShot.init();
 
       if (typeof Global.get('initCallback') === 'function') {
         Global.get('initCallback')(self, Global.get('input'));
