@@ -92,7 +92,11 @@ WebCrawler.prototype.crawl = function (options, logFileName) {
     self.db.setConnection(db);
 
     // Do not run multiple crawling processes.
-    if (self.crawler.hasLockFile()) return;
+    if (self.crawler.hasLockFile()) {
+      db.close();
+
+      return;
+    }
 
     saveStartingUrl(Global.get('START_URL'), self);
 
