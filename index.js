@@ -31,7 +31,8 @@ if (typeof __stack === 'undefined') {
 /**
  * Import modules.
  */
-const fs = require('fs');
+const fs = require('fs'),
+  {MongoClient} = require('mongodb');
 
 /**
  * Import custom modules.
@@ -84,24 +85,30 @@ WebCrawler.prototype.crawl = function (options, logFileName) {
 
   this.databaseCheck();
 
-  // Do not run multiple crawling processes.
-  if (this.crawler.hasLockFile()) return;
-
-  saveStartingUrl(Global.get('START_URL'), this);
-
   let self = this;
-  setTimeout(function () {
-    // Init the log.
-    self.output.initLogger(logFileName);
-    self.output.writeUserInput(self.crawler);
+  MongoClient.connect(this.connString, function (error, db) {
+    if (error) throw error;
 
-    if (typeof Global.get('initCallback') === 'function') {
-      Global.get('initCallback')(self, Global.get('input'));
-      return;
-    }
+    self.db.setConnection(db);
 
-    self.startCrawling();
-  }, 10000);
+    // Do not run multiple crawling processes.
+    if (self.crawler.hasLockFile()) return;
+
+    saveStartingUrl(Global.get('START_URL'), self);
+
+    setTimeout(function () {
+      // Init the log.
+      self.output.initLogger(logFileName);
+      self.output.writeUserInput(self.crawler);
+
+      if (typeof Global.get('initCallback') === 'function') {
+        Global.get('initCallback')(self, Global.get('input'));
+        return;
+      }
+
+      self.startCrawling();
+    }, 10000);
+  });
 };
 
 /**
@@ -212,8 +219,8 @@ WebCrawler.prototype.databaseCheck = function () {
   for (let name in Global.get('config')) {
     if (Global.get('config').hasOwnProperty(name)) {
       if (typeof Global.get('config')[name] === 'object') {
-        if (typeof Global.get('config')[name].db === 'object') {
-          if (typeof Global.get('config')[name].db.connString === 'string') {
+        if (typeof Global.get('config')[name].default === 'object') {
+          if (typeof Global.get('config')[name].default.connString === 'string') {
             isSet = true;
           }
         }
@@ -222,7 +229,24 @@ WebCrawler.prototype.databaseCheck = function () {
   }
 
   if (!isSet) {
-    throw 'You have to define a mongodb connection string as "db": {"connString": "mongodb://"}';
+    throw 'You have to define a mongodb connection string as "default": {"connString": "mongodb://"}';
+  }
+};
+
+/**
+ * Set configurations.
+ *
+ * @param config: {{}} Object of configurations.
+ */
+WebCrawler.prototype.setConfig = function (config) {
+  if (typeof config !== 'object') {
+    return;
+  }
+
+  for (let key in config) {
+    if (config.hasOwnProperty(key)) {
+      this[key] = config[key];
+    }
   }
 };
 
@@ -241,6 +265,7 @@ function init(wc, dir) {
   wc.output = new Output();
   wc.screenShot = new ScreenShot();
   wc.db = new DB();
+  wc.connString = '';
 
 
   setConfig(wc, configPath);
@@ -264,6 +289,13 @@ function setConfig(wc, filePath, parameter) {
 
   Global.get('config')[parameter] = require(filePath);
   for (let module in Global.get('config')[parameter]) {
+    if (module === 'default') {
+      if (Global.get('config')[parameter].hasOwnProperty(module)) {
+        wc.setConfig(Global.get('config')[parameter][module]);
+      }
+      continue;
+    }
+
     if (Global.get('config')[parameter].hasOwnProperty(module) && wc.hasOwnProperty(module)) {
       wc[module].setConfig(Global.get('config')[parameter][module]);
     }

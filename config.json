@@ -1,5 +1,5 @@
 {
-  "db": {
+  "default": {
     "connString": "mongodb://{username}:{password}@{host}:{port}/{database}?authSource={authentication-database}"
   },
   "crawler": {

@@ -36,7 +36,7 @@ Here is the full list of available configuration parameters:
 
 ```json
 {
-  "db": {
+  "default": {
     "connString": "mongodb://{user}:{password}@{host}:{port}/{database}?authSource={authentication-database}"
   },
   "crawler": {
@@ -80,10 +80,10 @@ Here is the full list of available configuration parameters:
 }
 ```
 
-Okay, now step for step: There are some available configurations in each module of the web crawler, first db:
+Okay, now step for step: There are some available configurations in each module of the web crawler, first default:
 
   
-**db.connString**  
+**default.connString**
 The connection string for mongodb because the web crawler saves some data.
 
   
@@ -137,7 +137,7 @@ At the moment there are some hooks available:
  */
 function initCallback(webcrawler, options) {
   // Here you can do some operations before the crawling process begins.
-  webcrawler.startCrawling(options);
+  webcrawler.startCrawling();
 }
 
 crawler.setInitCallback(initCallback);
@@ -169,7 +169,7 @@ crawler.setSearchCallback(searchCallback);
 ```javascript
 
 /**
- * @param commands: {{startUrl: string, pageLimit: int, screenShots: boolean, debug: boolean}} Object of commands that you can get the script.
+ * @param commands: {{startUrl: string, pageLimit: int, screenShots: boolean, debug: boolean|string}} Object of commands that you can get the script.
  */
 async function screenshotCallback(commands) {
   for (let key in commands) {
@@ -216,17 +216,7 @@ So the "wrapper" WebCrawler has some functions and each class has it's own funct
 Initialize external module to make it usable into WebCrawler.  
 **moduleName: {string}**  
 **path: {string}**  
-```javascript
-
-WebCrawler.prototype.addModule = function (moduleName, path) {
-  this.output.writeConsole(`WebCrawler.addModule - File: ${__filename} - Line: ${__line}`, isDebug(Global.get('DEBUG'), moduleName), 'debug');
-  let Module = require(Global.get('projectPath') + path)[moduleName];
-  this[moduleName] = new Module({output: this.output, db: this.db});
-};
-
-```
-
-Example: 
+Example:
 ```javascript
 
 const {WebCrawler} = require('web-crawler'),
@@ -255,39 +245,6 @@ crawler.SomeModule.someMethod();
 *(async function)* Prepare the crawling process.  
 **options** Can be type of object or string.  
 **logFileName?: {string}**  
-```javascript
-
-WebCrawler.prototype.crawl = function (options, logFileName) {
-  this.output.writeConsole(`WebCrawler.crawl - File: ${__filename} - Line: ${__line}`, isDebug(Global.get('DEBUG'), moduleName), 'debug');
-  if (typeof logFileName === 'undefined') logFileName = this.output.logFileName;
-  if (typeof options === 'string') options = {startUrl: options};
-
-  setInput(options);
-
-  this.databaseCheck();
-
-  // Do not run multiple crawling processes.
-  if (this.crawler.hasLockFile()) return;
-
-  saveStartingUrl(Global.get('START_URL'), this);
-
-  let self = this;
-  setTimeout(function () {
-    // Init the log.
-    self.output.initLogger(logFileName);
-    self.output.writeUserInput(self.crawler);
-
-    if (typeof Global.get('initCallback') === 'function') {
-      Global.get('initCallback')(self, Global.get('input'));
-      return;
-    }
-
-    self.startCrawling();
-  }, 10000);
-};
-
-```
-
 Example:
 ```javascript
 
@@ -313,30 +270,6 @@ crawler.crawl(options, logFileName);
 
 #### WebCrawler.startCrawling()
 *(async function)* Start the crawling process.  
-```javascript
-
-WebCrawler.prototype.startCrawling = async function () {
-  this.output.writeConsole(`WebCrawler.startCrawling - File: ${__filename} - Line: ${__line}`, isDebug(Global.get('DEBUG'), moduleName), 'debug');
-  // The crawling process.
-  let reason = await this.crawler.start();
-
-  if (typeof Global.get('input').screenShots !== 'undefined' && Global.get('input').screenShots) {
-    // Call the callbacks so the customer can do everything.
-    if (typeof Global.get('screenshotsCallback') === 'function') {
-      await Global.get('screenshotsCallback')(Global.get('input'));
-    }
-  }
-
-  if (typeof Global.get('outputCallback') === 'function') {
-    await Global.get('outputCallback')(reason);
-  }
-
-  // End the crawling process after killing all chrome processes.
-  this.screenShot.stopChrome(this.crawler.end());
-};
-
-```
-
 Example:
 ```javascript
 
@@ -357,27 +290,6 @@ Insert new data into mongodb.
 **object: {{}}**  
 **collection: {string}**  
 **callback: {function}**  
-```javascript
-
-DB.prototype.insert = function (object, collection, callback) {
-  this.query(arguments, insertCallback);
-};
-
-function insertCallback(db, args) {
-  let object = args[0],
-    collection = args[1],
-    callback = args[2];
-
-  object.created_at = new Date();
-  object.updated_at = object.created_at;
-
-  db.collection(collection).insertOne(object, function (error, result) {
-    callback(error, result);
-  });
-}
-
-```
-
 Example:
 ```javascript
 
@@ -403,27 +315,6 @@ Update data in mongodb.
 **newObject: {{}}**  
 **collection: {string}**  
 **callback: {function}**  
-```javascript
-
-DB.prototype.update = function (oldObject, newObject, collection, callback) {
-  this.query(arguments, updateCallback);
-};
-
-function updateCallback(db, args) {
-  let oldObject = args[0],
-    newObject = args[1],
-    collection = args[2],
-    callback = args[3];
-
-  newObject.updated_at = new Date();
-
-  db.collection(collection).updateOne(oldObject, newObject, function (error, result) {
-    callback(error, result);
-  });
-}
-
-```
-
 Example:
 ```javascript
 
@@ -454,56 +345,6 @@ Insert new data into mongodb, if already exist, update.
 **newObject: {{}}**  
 **collection: {string}**  
 **callback: {function}**  
-```javascript
-
-DB.prototype.save = function (oldObject, newObject, collection, callback) {
-  this.query(arguments, saveCallback, false);
-};
-
-function saveCallback(db, args) {
-  let oldObject = args[0],
-    newObject = args[1],
-    collection = args[2],
-    callback = args[3];
-
-  db.collection(collection).find(oldObject, {_id: false}).toArray(function (error, result) {
-    if (error) throw error;
-
-    newObject.updated_at = new Date();
-
-    if (result.length < 1) {
-      newObject.created_at = newObject.updated_at;
-      db.collection(collection).insertOne(newObject, function (error, result) {
-        callback(error, result);
-        db.close();
-      });
-
-      return;
-    }
-
-    for (let index in result) {
-      let updateObject = {};
-
-      for (let key in result[index]) {
-        updateObject[key] = result[index][key];
-      }
-
-      for (let key in newObject) {
-        if (newObject.hasOwnProperty(key)) {
-          updateObject[key] = newObject[key];
-        }
-      }
-
-      db.collection(collection).updateOne(oldObject, updateObject, function (error, result) {
-        callback(error, result);
-        db.close();
-      });
-    }
-  });
-}
-
-```
-
 Example:
 ```javascript
 
@@ -532,24 +373,6 @@ Method to delete an object from the mongodb.
 **object: {{}}**   
 **collection: {string}**  
 **callback: {function}**  
-```javascript
-
-DB.prototype.delete = function (object, collection, callback) {
-  this.query(arguments, deleteCallback);
-};
-
-function deleteCallback(db, args) {
-  let object = args[0],
-    collection = args[1],
-    callback = args[2];
-
-  db.collection(collection).deleteOne(object, function (error, result) {
-    callback(error, result);
-  });
-}
-
-```
-
 Example:
 ```javascript
 
@@ -572,23 +395,6 @@ crawler.db.delete(someObj, 'foo', function(error, result) {
 Get all data from mongodb.  
 **collection: {string}**  
 **callback: {function}**  
-```javascript
-
-DB.prototype.findAll = function (collection, callback) {
-  this.query(arguments, findAllCallback);
-};
-
-function findAllCallback(db, args) {
-  let collection = args[0],
-    callback = args[1];
-
-  db.collection(collection).find({}).toArray(function (error, result) {
-    callback(error, result);
-  });
-}
-
-```
-
 Example:
 ```javascript
 
@@ -610,25 +416,6 @@ Get data from mongodb.
 **structure: {{}}**  
 **collection: {string}**  
 **callback: {function}**  
-```javascript
-
-DB.prototype.find = function (search, structure, collection, callback) {
-  this.query(arguments, findCallback);
-};
-
-function findCallback(db, args) {
-  let search = args[0],
-    structure = args[1],
-    collection = args[2],
-    callback = args[3];
-
-  db.collection(collection).find(search, structure).toArray(function (error, result) {
-    callback(error, result);
-  });
-}
-
-```
-
 Example:
 ```javascript
 
@@ -656,25 +443,6 @@ Get data from mongodb.
 **structure: {{}}**  
 **collection: {string}**  
 **callback: {function}**  
-```javascript
-
-DB.prototype.findOne = function (search, structure, collection, callback) {
-  this.query(arguments, findOneCallback);
-};
-
-function findOneCallback(db, args) {
-  let search = args[0],
-    structure = args[1],
-    collection = args[2],
-    callback = args[3];
-
-  db.collection(collection).findOne(search, structure, function (error, result) {
-    callback(error, result);
-  });
-}
-
-```
-
 Example:
 ```javascript
 
@@ -702,33 +470,7 @@ Write output.
 **print?: {boolean}**  
 **type?: {string}**  
 **background?: {string}**  
-```javascript
-
-Output.prototype.write = function (value, print, type, background) {
-  if (typeof value === 'object') {
-    this.logger.write(JSON.stringify(value) + "\r\n");
-  } else {
-    this.logger.write(value + "\r\n");
-  }
-
-  if (typeof print === 'undefined' || !print) return;
-
-  if (typeof type === 'undefined' || type.length < 1) {
-    console.log(value);
-    return;
-  }
-
-  if (typeof background === 'undefined' || background.length < 1) {
-    console.log(this.getColor(type), value);
-    return;
-  }
-
-  console.log(this.getColor(type, background), ` ${value} `);
-};
-
-```
-
-Example: 
+Example:
 ```javascript
 
 const {WebCrawler} = require('web-crawler');
@@ -748,18 +490,6 @@ Write output with a new line before.
 **print?: {boolean}**  
 **type?: {string}**  
 **background?: {string}**  
-```javascript
-
-Output.prototype.writeLine = function (value, print, type, background) {
-  this.logger.write("\r\n");
-
-  if (print) console.log();
-
-  this.write(value, print, type, background);
-};
-
-```
-
 Example:
 ```javascript
 
@@ -780,17 +510,6 @@ Write output with a trailing new line.
 **print?: {boolean}**  
 **type?: {string}**  
 **background?: {string}**  
-```javascript
-
-Output.prototype.writeWithSpace = function (value, print, type, background) {
-  this.write(value, print, type, background);
-  this.logger.write("\r\n");
-
-  if (print) console.log();
-};
-
-```
-
 Example:
 ```javascript
 
@@ -811,26 +530,6 @@ Write in console only.
 **print?: {boolean}**  
 **type?: {string}**  
 **background?: {string}**  
-```javascript
-
-Output.prototype.writeConsole = function (value, print, type, background) {
-  if (!print) return;
-
-  if (typeof type === 'undefined' || type.length < 1) {
-    console.log(value);
-    return;
-  }
-
-  if (typeof background === 'undefined' || background.length < 1) {
-    console.log(this.getColor(type), value);
-    return;
-  }
-
-  console.log(this.getColor(type, background), ` ${value} `);
-};
-
-```
-
 Example:
 ```javascript
 
@@ -849,20 +548,6 @@ crawler.output.writeConsole('An example', true, 'black', 'white');
 Write array as strings with new line for each entry.  
 **sentences: {[{text: string, color: string, bg: string}]}**  
 **type?: {string}**  
-```javascript
-
-Output.prototype.writeOutput = function (sentences, type) {
-  this.writeLine(sentences[0].text, true, type);
-
-  for (let i = 1; i < sentences.length; i += 1) {
-    let color = sentences[i].color || '',
-      bg = sentences[i].bg || '';
-    this.write(sentences[i].text, true, color, bg);
-  }
-};
-
-```
-
 Example:
 ```javascript
 
@@ -886,59 +571,6 @@ crawler.output.writeOutput(sentences, 'underscore');
 Get colored command line output.  
 **type: {string}**  
 **background?: {string}**  
-```javascript
-
-Output.prototype.getColor = function (type, background) {
-  let colors = {
-      reset: "\x1b[0m",
-      bright: "\x1b[1m",
-      dim: "\x1b[2m",
-      underscore: "\x1b[4m",
-      blink: "\x1b[5m",
-      reverse: "\x1b[7m",
-      hidden: "\x1b[8m",
-
-      black: "\x1b[30m",
-      red: "\x1b[31m",
-      green: "\x1b[32m",
-      yellow: "\x1b[33m",
-      blue: "\x1b[34m",
-      magenta: "\x1b[35m",
-      cyan: "\x1b[36m",
-      white: "\x1b[37m",
-
-      bgBlack: "\x1b[40m",
-      bgRed: "\x1b[41m",
-      bgGreen: "\x1b[42m",
-      bgYellow: "\x1b[43m",
-      bgBlue: "\x1b[44m",
-      bgMagenta: "\x1b[45m",
-      bgCyan: "\x1b[46m",
-      bgWhite: "\x1b[47m",
-
-      comment: "\x1b[90m"
-    },
-    string = '';
-
-  colors.error = colors.red;
-  colors.success = colors.green;
-  colors.warning = colors.yellow;
-  colors.default = colors.magenta;
-  colors.debug = colors.cyan;
-
-  if (colors.hasOwnProperty(type)) {
-    string = colors[type] + '%s' + colors.reset;
-
-    if (typeof background !== 'undefined' && colors.hasOwnProperty(`bg${toUpperFirst(background)}`)) {
-      string = colors[`bg${toUpperFirst(background)}`] + string;
-    }
-  }
-
-  return string;
-};
-
-```
-
 Example:
 ```javascript
 
@@ -957,58 +589,6 @@ console.log(colorString, 'Say something.')
 *(async function)* Do a screenshot for each website that does not has an error.  
 **websites: {[{url: string, has_error: boolean, name: string, found_url: string}]}**  
 **callback?: {function}**
-```javascript
-
-ScreenShot.prototype.doScreenshots = async function (websites, callback) {
-  this.output.writeConsole(`ScreenShot.doScreenshots - File: ${__filename} - Line: ${__line}`, isDebug(Global.get('DEBUG'), moduleName), 'debug');
-  this.countUndone(websites);
-  let tmpSpinner = null,
-    stAdd = '',
-    start = new Date(),
-    chromeArgs = [
-      '--headless',
-      '--hide-scrollbars',
-      '--remote-debugging-port=9222',
-      '--disable-gpu'
-    ];
-
-  if (require("os").userInfo().username === 'root') chromeArgs.push('--no-sandbox');
-
-  // Start server side Google Chrome.
-  let chrome = spawn('google-chrome-stable', chromeArgs);
-
-  for (let i = 0; i < websites.length; i += 1) {
-    if (!websites[i].has_error) {
-      for (let j = 0; j < this.dimensions.length; j += 1) {
-        stAdd = ` (${this.undone} screenshot${((this.undone === 1) ? '' : 's')} remaining)`;
-        tmpSpinner = new Spinner(spinnerText + stAdd);
-        tmpSpinner.start();
-
-        // Do the screenshot.
-        await this.checkUrl(websites[i].url, websites[i], j, callback);
-        tmpSpinner.stop(true);
-      }
-    }
-  }
-
-  // Stop server side Google Chrome.
-  chrome.kill('SIGINT');
-
-  let time = new Date() - start,
-    t = parseTime(time),
-    read = `${t.d} days, ${t.h}:${t.m}:${t.s}`;
-
-  return {
-    time,
-    timeString: `Time for screenshotting: ${read}`,
-    done: this.done,
-    undone: this.undone,
-    total: this.total
-  };
-};
-
-```
-
 Example:
 ```javascript
 
