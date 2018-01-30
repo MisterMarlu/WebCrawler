@@ -104,10 +104,20 @@ WebCrawler.prototype.crawl = function (options, logFileName) {
       // Init the log.
       self.output.initLogger(logFileName);
       self.output.writeUserInput(self.crawler);
+
+      /*
+      // Switch in development.
+      let pageLimit = options.pageLimit;
+      if (typeof pageLimit !== 'undefined') pageLimit = parseInt(pageLimit);
+      if (typeof pageLimit === 'undefined' || pageLimit === 0 || pageLimit > 50000) {
+        Global.set('storage', 'db');
+      }
+      */
+
       self.screenShot.init();
 
       if (typeof Global.get('initCallback') === 'function') {
-        Global.get('initCallback')(self, Global.get('input'));
+        Global.get('initCallback')(self, Global.get('input'), Global.get('storage'));
         return;
       }
 
@@ -357,4 +367,5 @@ function setInput(options) {
   Global.set('PAGE_LIMIT', userInput.pageLimit);
   Global.set('DEBUG', userInput.debug);
   Global.set('SCREENSHOTS', userInput.screenShots);
+  Global.set('storage', 'object');
 }
