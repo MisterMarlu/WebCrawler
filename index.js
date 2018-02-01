@@ -3,10 +3,11 @@ const {Wrapper} = require(`${__dirname}/lib/wrapper`),
   {Module} = require(`${__dirname}/lib/module`),
   {Output} = require(`${__dirname}/lib/output`),
   {DB} = require(`${__dirname}/lib/db`),
-  {Helper, Formatter} = require(`${__dirname}/lib/helper`);
+  {Helper} = require(`${__dirname}/lib/helper`),
+  {Formatter} = require(`${__dirname}/lib/formatter`);
 
 exports.WebCrawler = Wrapper;
-exports.Global = new Global();
+exports.Global = Global;
 exports.Module = Module;
 exports.Output = new Output();
 exports.DB = new DB();
