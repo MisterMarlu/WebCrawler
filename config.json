@@ -1,17 +1,20 @@
 {
   "default": {
-    "connString": "mongodb://{username}:{password}@{host}:{port}/{database}?authSource={authentication-database}"
+    "connString": "mongodb://{username}:{password}@{host}:{port}/{database}?authSource={authentication-database}",
+    "connection": {
+      "host": "host",
+      "user": "username",
+      "password": "password",
+      "database": "mydb"
+    },
+    "dbVariant": "mongodb"
   },
   "crawler": {
-    "visited": {},
+    "visited": [],
     "numVisited": 0,
     "followingPages": [],
     "url": {},
     "baseUrl": "",
-    "linkList": {
-      "typeAbsolute": [],
-      "typeRelative": []
-    },
     "errorList": {},
     "startTime": 0,
     "lockFileName": "webcrawler.lock"
