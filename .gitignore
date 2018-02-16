@@ -112,3 +112,4 @@ fabric.properties
 
 ## Additional ignored files:
 /package-lock.json
+.idea/
