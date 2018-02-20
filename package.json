@@ -24,10 +24,12 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "inquirer": "^5.1.0",
     "mocha": "^5.0.1"
   },
   "scripts": {
-    "test": "mocha test/**/**.spec.js"
+    "test": "mocha test/**/**.spec.js",
+    "add-module": "node gen/createModule.js"
   },
   "repository": {
     "type": "git",
