@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="styles/stylesheet.css">
+		<title>Documentation</title>
+	</head>
+	<body id="overview">
+
+		<header>
+			<div class="header">
+				<script type="text/javascript" src="js/jQuery.172.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var header = $('.header'),
+		content = $('.content')
+		footer = $('footer')
+	;
+
+	function mtn(str){
+		if(
+			'' === str
+			|| undefined === str
+			|| null === str
+		){
+			return 0;
+		}else{
+			var a = parseInt(str.replace(/px|ex|em/, ''), 10);
+			if(isNaN(a)){
+				a = 0;
+			}
+			return a;
+		}
+	}
+	
+	function resize(){
+		var availableHeight = $(window).height() - (header.outerHeight() + footer.outerHeight()),
+			availableWidth = $(window).width(),
+			contentOffsetH = mtn(content.css('borderTopWidth')) + 
+				mtn(content.css('marginTop')) +
+				mtn(content.css('paddingTop')) +
+				
+				mtn(content.css('paddingBottom')) +
+				mtn(content.css('marginBottom')) +
+				mtn(content.css('borderBottomWidth')),
+			contentOffsetW = mtn(content.css('borderLeftWidth')) + 
+				mtn(content.css('marginLeft')) +
+				mtn(content.css('paddingLeft')) +
+				
+				mtn(content.css('paddingRight')) +
+				mtn(content.css('marginRight')) +
+				mtn(content.css('borderRightWidth'))
+		;
+		content.height(availableHeight - contentOffsetH);
+		content.width(availableWidth - contentOffsetW);
+	}
+	resize();
+	$(window).resize(resize);
+});
+</script>
+
+<ul>
+	
+	
+	<li><a href="class_index.html">Classes</a></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<li><a href="function_index.html">Methods/Functions</a></li>
+	
+	
+	<li><a href="file_index.html">Files</a></li>
+	<li><a href="doc-index.html">Index</a></li>
+</ul>
+
+<div id="title">
+	
+
+		API
+
+		
+</div>
+
+				<div class="type">Index</div>
+
+				<a href="#letterA">A</a>&nbsp;<a href="#letterB">B</a>&nbsp;<a href="#letterC">C</a>&nbsp;<a href="#letterD">D</a>&nbsp;<a href="#letterE">E</a>&nbsp;<a href="#letterF">F</a>&nbsp;<a href="#letterG">G</a>&nbsp;<a href="#letterH">H</a>&nbsp;<a href="#letterI">I</a>&nbsp;J&nbsp;K&nbsp;L&nbsp;<a href="#letterM">M</a>&nbsp;N&nbsp;<a href="#letterO">O</a>&nbsp;<a href="#letterP">P</a>&nbsp;Q&nbsp;<a href="#letterR">R</a>&nbsp;<a href="#letterS">S</a>&nbsp;<a href="#letterT">T</a>&nbsp;<a href="#letterU">U</a>&nbsp;<a href="#letterV">V</a>&nbsp;<a href="#letterW">W</a>&nbsp;X&nbsp;Y&nbsp;Z&nbsp;
+			</div>
+		</header>
+
+		<div class="content">
+			
+			 
+			
+
+			<h2 id="letterA">
+				A
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Wrapper.html#addConfig" ><abbr title="Wrapper#addConfig">addConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Add a custom configuration file. It must be a .json file.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#addDBModules" ><abbr title="Wrapper#addDBModules">addDBModules</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Selecting the database type and create instances of all internal modules that needs an instance of the database.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#addModule" ><abbr title="Wrapper#addModule">addModule</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Add a custom module.
+				</dd>
+				
+				
+				<dt>
+				<a href="DelayedSave.html#addType" ><abbr title="DelayedSave#addType">addType</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="DelayedSave.html" ><abbr title="DelayedSave">DelayedSave</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Add a type with necessary information so DelayedSave know how to save the data.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterB">
+				B
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					This class is an abstract class with all default methods that every child class should have.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterC">
+				C
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Formatter.html#camelToDash" ><abbr title="Formatter.camelToDash">camelToDash</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Convert camelCase to dash-case.
+				</dd>
+				
+				
+				<dt>
+				<a href="Formatter.html#camelToUnderscore" ><abbr title="Formatter.camelToUnderscore">camelToUnderscore</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Convert camelCase to snake_case.
+				</dd>
+				
+				
+				<dt>
+				<a href="Output.html#checkLogFile" ><abbr title="Output.checkLogFile">checkLogFile</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Generate name and path of the log file.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#checkSaveTimer" ><abbr title="Crawler.checkSaveTimer">checkSaveTimer</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Check if it's time to save the collected data.
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html#checkUrl" ><abbr title="ScreenShot#checkUrl">checkUrl</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Check if the url is accessible.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#clearCacheDB" ><abbr title="Crawler#clearCacheDB">clearCacheDB</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Clearing temporary saved data in the database.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#collectLinks" ><abbr title="Crawler#collectLinks">collectLinks</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Collect all (relative) links.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#collectRelativeLinks" ><abbr title="Crawler#collectRelativeLinks">collectRelativeLinks</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Split relative from shorted absolute links (e.g. "/google.com").
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html#countUndone" ><abbr title="ScreenShot#countUndone">countUndone</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Count the number of undone screenshots.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#crawl" ><abbr title="Wrapper#crawl">crawl</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Prepare for the crawling process.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					The Crawler is this class that visits the portal to get all relative links to visit the nextsubpage.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#crawlViaDb" ><abbr title="Crawler#crawlViaDb">crawlViaDb</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Check if url already visited. If not, visit this url. This is the database variant.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#crawlViaObjects" ><abbr title="Crawler#crawlViaObjects">crawlViaObjects</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Check if url already visited. If not, visit this url. This is the object variant.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#createLockFile" ><abbr title="Crawler#createLockFile">createLockFile</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Creates lock file.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterD">
+				D
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Formatter.html#dashToCamel" ><abbr title="Formatter.dashToCamel">dashToCamel</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Convert dash-case to camelCase.
+				</dd>
+				
+				
+				<dt>
+				<a href="Formatter.html#dashToUnderscore" ><abbr title="Formatter.dashToUnderscore">dashToUnderscore</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Convert dash-case to snake_case.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#databaseCheck" ><abbr title="Wrapper#databaseCheck">databaseCheck</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Check if a database connection string is defined.
+				</dd>
+				
+				
+				<dt>
+				<a href="DB.html" ><abbr title="DB">DB</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					This class executes all database operations. It returns the instance of MongoDB or MySQL.
+				</dd>
+				
+				
+				<dt>
+				<a href="Helper.html#debugEnabled" ><abbr title="Helper.debugEnabled">debugEnabled</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Check if debug mode is enabled.
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html#decreaseUndone" ><abbr title="ScreenShot#decreaseUndone">decreaseUndone</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Decrease the number of undone screenshots.
+				</dd>
+				
+				
+				<dt>
+				<a href="DelayedSave.html" ><abbr title="DelayedSave">DelayedSave</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					With this class objects can be saved without overlapping.
+				</dd>
+				
+				
+				<dt>
+				<a href="MongoDB.html#delete" ><abbr title="MongoDB#delete">delete</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Delete data.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#delete" ><abbr title="MySQL#delete">delete</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Delete data.
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html#doScreenshots" ><abbr title="ScreenShot#doScreenshots">doScreenshots</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Create a screenshot for each website that does not has an error.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterE">
+				E
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Crawler.html#end" ><abbr title="Crawler#end">end</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Write ending lines into the .log file and remove .lock file.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterF">
+				F
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="MongoDB.html#find" ><abbr title="MongoDB#find">find</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get data from collection.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#find" ><abbr title="MySQL#find">find</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get data from table.
+				</dd>
+				
+				
+				<dt>
+				<a href="MongoDB.html#findAll" ><abbr title="MongoDB#findAll">findAll</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get all data from collection.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#findAll" ><abbr title="MySQL#findAll">findAll</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get all data from table.
+				</dd>
+				
+				
+				<dt>
+				<a href="MongoDB.html#findOne" ><abbr title="MongoDB#findOne">findOne</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get one element from collection.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#findOne" ><abbr title="MySQL#findOne">findOne</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get one element from table.
+				</dd>
+				
+				
+				<dt>
+				<a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					Formatter is a helper class and just has static methods.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterG">
+				G
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Global.html#get" ><abbr title="Global#get">get</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Global.html" ><abbr title="Global">Global</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get any parameter.
+				</dd>
+				
+				
+				<dt>
+				<a href="Helper.html#getCallback" ><abbr title="Helper.getCallback">getCallback</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get a callback if exists.
+				</dd>
+				
+				
+				<dt>
+				<a href="Output.html#getColor" ><abbr title="Output.getColor">getColor</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get colored command line output.
+				</dd>
+				
+				
+				<dt>
+				<a href="Parser.html#getMethodName" ><abbr title="Parser.getMethodName">getMethodName</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Parser.html" ><abbr title="Parser">Parser</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get the name of the method that is called.
+				</dd>
+				
+				
+				<dt>
+				<a href="Parser.html#getModuleName" ><abbr title="Parser.getModuleName">getModuleName</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Parser.html" ><abbr title="Parser">Parser</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get the name of the module from the absolute file path.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#getReadableTime" ><abbr title="Crawler#getReadableTime">getReadableTime</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Stops execution timer and prints readable time.
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html#getScreenshotName" ><abbr title="ScreenShot#getScreenshotName">getScreenshotName</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get the name for this screenshot.
+				</dd>
+				
+				
+				<dt>
+				<a href="Helper.html#getSqlTimestamp" ><abbr title="Helper.getSqlTimestamp">getSqlTimestamp</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Get a current MySQL timestamp.
+				</dd>
+				
+				
+				<dt>
+				<a href="Global.html" ><abbr title="Global">Global</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					This class stores all global things like functions, objects, arrays etc.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterH">
+				H
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Helper.html#hasCallback" ><abbr title="Helper.hasCallback">hasCallback</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Check if a callback exists.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#hasLockFile" ><abbr title="Crawler#hasLockFile">hasLockFile</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Check if lock file exists.
+				</dd>
+				
+				
+				<dt>
+				<a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					Helper is a helper class and just has static methods.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterI">
+				I
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Crawler.html#increaseVisited" ><abbr title="Crawler#increaseVisited">increaseVisited</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Increase visited pages counter.
+				</dd>
+				
+				
+				<dt>
+				<a href="Output.html#initLogger" ><abbr title="Output#initLogger">initLogger</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Initiate the log file and open a write stream.
+				</dd>
+				
+				
+				<dt>
+				<a href="MongoDB.html#insert" ><abbr title="MongoDB#insert">insert</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Insert new data.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#insert" ><abbr title="MySQL#insert">insert</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Insert new data.
+				</dd>
+				
+				
+				<dt>
+				<a href="Helper.html#isDebug" ><abbr title="Helper.isDebug">isDebug</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Check if debug mode is enabled for the given module.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#isDefault" ><abbr title="Crawler#isDefault">isDefault</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Check if this command is default.
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html#iterateDimensions" ><abbr title="ScreenShot#iterateDimensions">iterateDimensions</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Iterate through the dimensions to create screenshots asynchronously.
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html#iterateWebsites" ><abbr title="ScreenShot#iterateWebsites">iterateWebsites</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Iterate through the websites to create screenshots asynchronously.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterM">
+				M
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					This class executes all database operations with a MongoDB database.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					This class executes all database operations with a MySQL database.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterO">
+				O
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					This class prints every output and debugging information into the log file and/or the console.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterP">
+				P
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="MySQL.html#parseColumnValue" ><abbr title="MySQL.parseColumnValue">parseColumnValue</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Parse an object to an array in column value format.
+				</dd>
+				
+				
+				<dt>
+				<a href="Parser.html#parseInput" ><abbr title="Parser.parseInput">parseInput</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Parser.html" ><abbr title="Parser">Parser</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Converts the data of the input object into correct types.
+				</dd>
+				
+				
+				<dt>
+				<a href="Parser.html" ><abbr title="Parser">Parser</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					Parser is a helper class and just has static methods.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#parseStructure" ><abbr title="MySQL.parseStructure">parseStructure</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Parse the structure object to return specific columns.
+				</dd>
+				
+				
+				<dt>
+				<a href="Parser.html#parseTime" ><abbr title="Parser.parseTime">parseTime</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Parser.html" ><abbr title="Parser">Parser</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Parse milliseconds to object or array with days, hours, minutes and seconds.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#parseValue" ><abbr title="MySQL.parseValue">parseValue</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Parse the value to correct notation for the MySQL query.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#parseValues" ><abbr title="MySQL.parseValues">parseValues</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Parse all values to correct notation for the MySQL query.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#performCustomModules" ><abbr title="Wrapper#performCustomModules">performCustomModules</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Create instances of the added modules.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#performModuleConfig" ><abbr title="Wrapper#performModuleConfig">performModuleConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Execute all configurations for all modules, also the added.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#performWrapperConfig" ><abbr title="Wrapper#performWrapperConfig">performWrapperConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Execute the configurations for the Wrapper so we know the type of the database that should be used.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#prepareForCrawling" ><abbr title="Wrapper#prepareForCrawling">prepareForCrawling</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Prepare modules and configurations for the crawling process.
+				</dd>
+				
+				
+				<dt>
+				<a href="Helper.html#printDebugLine" ><abbr title="Helper.printDebugLine">printDebugLine</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Prints the debugging line.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterR">
+				R
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Crawler.html#removeLockFile" ><abbr title="Crawler#removeLockFile">removeLockFile</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Removes lock file.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterS">
+				S
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="MySQL.html#save" ><abbr title="MySQL#save">save</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Insert data or update if already exists.
+				</dd>
+				
+				
+				<dt>
+				<a href="MongoDB.html#save" ><abbr title="MongoDB#save">save</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Insert data or update if already exists.
+				</dd>
+				
+				
+				<dt>
+				<a href="DelayedSave.html#save" ><abbr title="DelayedSave.save">save</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="DelayedSave.html" ><abbr title="DelayedSave">DelayedSave</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					The default saving process.
+				</dd>
+				
+				
+				<dt>
+				<a href="DelayedSave.html#saveAll" ><abbr title="DelayedSave#saveAll">saveAll</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="DelayedSave.html" ><abbr title="DelayedSave">DelayedSave</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Save all found objects where a type is given.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#saveStartingUrl" ><abbr title="Wrapper#saveStartingUrl">saveStartingUrl</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Save the starting url.
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					This class can create screenshots.
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html#screenshotting" ><abbr title="ScreenShot#screenshotting">screenshotting</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Create a screenshot from a specific website.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#searchForConfig" ><abbr title="Wrapper#searchForConfig">searchForConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Search for a default configuration file.
+				</dd>
+				
+				
+				<dt>
+				<a href="DB.html#selectType" ><abbr title="DB.selectType">selectType</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="DB.html" ><abbr title="DB">DB</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					You must select a database type to get the database instance.
+				</dd>
+				
+				
+				<dt>
+				<a href="Global.html#set" ><abbr title="Global#set">set</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Global.html" ><abbr title="Global">Global</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set any parameter.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#setCallback" ><abbr title="Wrapper#setCallback">setCallback</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set a callback. On some points of the core it calls some callbacks so you can hook into somefunctions with your modules.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#setConfig" ><abbr title="Wrapper#setConfig">setConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Add a configuration file so the configs will be used.The configuration file must be a .json file. Look at the local config.json to get the format.
+				</dd>
+				
+				
+				<dt>
+				<a href="MongoDB.html#setConnection" ><abbr title="MongoDB#setConnection">setConnection</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set connection.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#setConnection" ><abbr title="MySQL#setConnection">setConnection</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set connection.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#setInput" ><abbr title="Wrapper.setInput">setInput</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Write the user input into the Global class.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#setLocalConfig" ><abbr title="Crawler#setLocalConfig">setLocalConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					inherited public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set all configuration parameters for this class.
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html#setLocalConfig" ><abbr title="ScreenShot#setLocalConfig">setLocalConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					inherited public  method in class <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set all configuration parameters for this class.
+				</dd>
+				
+				
+				<dt>
+				<a href="MongoDB.html#setLocalConfig" ><abbr title="MongoDB#setLocalConfig">setLocalConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					inherited public  method in class <a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set all configuration parameters for this class.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#setLocalConfig" ><abbr title="Wrapper#setLocalConfig">setLocalConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					inherited public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set all configuration parameters for this class.
+				</dd>
+				
+				
+				<dt>
+				<a href="BaseModule.html#setLocalConfig" ><abbr title="BaseModule#setLocalConfig">setLocalConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set all configuration parameters for this class.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#setLocalConfig" ><abbr title="MySQL#setLocalConfig">setLocalConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					inherited public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set all configuration parameters for this class.
+				</dd>
+				
+				
+				<dt>
+				<a href="Output.html#setLocalConfig" ><abbr title="Output#setLocalConfig">setLocalConfig</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					inherited public  method in class <a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Set all configuration parameters for this class.
+				</dd>
+				
+				
+				<dt>
+				<a href="String.html#splice" ><abbr title="String#splice">splice</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class String
+				</em>
+				</dt>
+				<dd>
+					The splice() method changes the content of a string by removing a range ofcharacters and/or adding new characters.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#start" ><abbr title="Crawler#start">start</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Initiate the crawling process.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#startCrawling" ><abbr title="Wrapper#startCrawling">startCrawling</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Start the crawling process.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#startWithMongo" ><abbr title="Wrapper#startWithMongo">startWithMongo</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Start the crawling process with the MongoDB database.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#startWithMysql" ><abbr title="Wrapper#startWithMysql">startWithMysql</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Start the crawling process with the MySQL database.
+				</dd>
+				
+				
+				<dt>
+				<a href="ScreenShot.html#stopChrome" ><abbr title="ScreenShot#stopChrome">stopChrome</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Kill all Google Chrome processes.
+				</dd>
+				
+				
+				<dt>
+				<a href="Wrapper.html#stopCrawling" ><abbr title="Wrapper.stopCrawling">stopCrawling</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Stop the crawling process.
+				</dd>
+				
+				
+				<dt>
+				<a href="Crawler.html#syncFoundUrls" ><abbr title="Crawler#syncFoundUrls">syncFoundUrls</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Store all following urls into the database.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterT">
+				T
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Formatter.html#toUpperFirst" ><abbr title="Formatter.toUpperFirst">toUpperFirst</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Converts the first letter of a string to upper case.
+				</dd>
+				
+				
+				<dt>
+				<a href="Helper.html#twoDigits" ><abbr title="Helper.twoDigits">twoDigits</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Convert a one digit number into a two digit number.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterU">
+				U
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Formatter.html#underscoreToCamel" ><abbr title="Formatter.underscoreToCamel">underscoreToCamel</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Convert snake_case to camelCase.
+				</dd>
+				
+				
+				<dt>
+				<a href="Formatter.html#underscoreToDash" ><abbr title="Formatter.underscoreToDash">underscoreToDash</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Convert snake_case to dash-case.
+				</dd>
+				
+				
+				<dt>
+				<a href="Formatter.html#underscoreToWhitespace" ><abbr title="Formatter.underscoreToWhitespace">underscoreToWhitespace</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					static public  method in class <a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Convert underscore to whitespaces.
+				</dd>
+				
+				
+				<dt>
+				<a href="MongoDB.html#update" ><abbr title="MongoDB#update">update</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Update data.
+				</dd>
+				
+				
+				<dt>
+				<a href="MySQL.html#update" ><abbr title="MySQL#update">update</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Update data.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterV">
+				V
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Crawler.html#visitPage" ><abbr title="Crawler#visitPage">visitPage</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Visit the url and let the customer search for whatever he want.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		 
+			
+
+			<h2 id="letterW">
+				W
+				<small><a href="#">Top</a></small>
+			</h2>
+			<dl>
+				
+				
+				<dt>
+				<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					 class in namespace null
+				</em>
+				</dt>
+				<dd>
+					Wrapper includes all core and custom modules.
+				</dd>
+				
+				
+				<dt>
+				<a href="Output.html#write" ><abbr title="Output#write">write</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Write output.
+				</dd>
+				
+				
+				<dt>
+				<a href="Output.html#writeConsole" ><abbr title="Output#writeConsole">writeConsole</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Write in console only.
+				</dd>
+				
+				
+				<dt>
+				<a href="Output.html#writeLine" ><abbr title="Output#writeLine">writeLine</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Write output with a new line before.
+				</dd>
+				
+				
+				<dt>
+				<a href="Output.html#writeOutput" ><abbr title="Output#writeOutput">writeOutput</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Write array as strings with new line for each entry.
+				</dd>
+				
+				
+				<dt>
+				<a href="Output.html#writeUserInput" ><abbr title="Output#writeUserInput">writeUserInput</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Write user input values.
+				</dd>
+				
+				
+				<dt>
+				<a href="Output.html#writeWithSpace" ><abbr title="Output#writeWithSpace">writeWithSpace</abbr></a>
+				
+				&nbsp;&mdash;&nbsp;
+				<em>
+					public  method in class <a href="Output.html" ><abbr title="Output">Output</abbr></a>
+				</em>
+				</dt>
+				<dd>
+					Write output with a trailing new line.
+				</dd>
+				
+			</dl>
+
+			
+
+		</dl>
+
+		
+		
+	</div>
+
+	<footer>
+	Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> using <a href="https://github.com/danyg/jsdoc3Template">jsdoc3Template</a> by danyg & lechecacharro on Tue Feb 20 2018 15:47:06 GMT+0100 (CET)
+</footer>
+
+</body>
+</html>

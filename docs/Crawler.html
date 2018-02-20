@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+                <meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="styles/stylesheet.css">
+                <link rel="stylesheet" type="text/css" href="styles/shCore.css">
+                <link rel="stylesheet" type="text/css" href="styles/shThemeDefault.css">
+                <script type="text/javascript" src="js/shCore.js"></script>
+                <script type="text/javascript" src="js/shBrushJScript.js"></script>
+		<title>Documentation</title>
+	</head>
+	<body id="class" onLoad="SyntaxHighlighter.highlight()">
+
+		<header>
+			<div class="header">
+				<script type="text/javascript" src="js/jQuery.172.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var header = $('.header'),
+		content = $('.content')
+		footer = $('footer')
+	;
+
+	function mtn(str){
+		if(
+			'' === str
+			|| undefined === str
+			|| null === str
+		){
+			return 0;
+		}else{
+			var a = parseInt(str.replace(/px|ex|em/, ''), 10);
+			if(isNaN(a)){
+				a = 0;
+			}
+			return a;
+		}
+	}
+	
+	function resize(){
+		var availableHeight = $(window).height() - (header.outerHeight() + footer.outerHeight()),
+			availableWidth = $(window).width(),
+			contentOffsetH = mtn(content.css('borderTopWidth')) + 
+				mtn(content.css('marginTop')) +
+				mtn(content.css('paddingTop')) +
+				
+				mtn(content.css('paddingBottom')) +
+				mtn(content.css('marginBottom')) +
+				mtn(content.css('borderBottomWidth')),
+			contentOffsetW = mtn(content.css('borderLeftWidth')) + 
+				mtn(content.css('marginLeft')) +
+				mtn(content.css('paddingLeft')) +
+				
+				mtn(content.css('paddingRight')) +
+				mtn(content.css('marginRight')) +
+				mtn(content.css('borderRightWidth'))
+		;
+		content.height(availableHeight - contentOffsetH);
+		content.width(availableWidth - contentOffsetW);
+	}
+	resize();
+	$(window).resize(resize);
+});
+</script>
+
+<ul>
+	
+	
+	<li><a href="class_index.html">Classes</a></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<li><a href="function_index.html">Methods/Functions</a></li>
+	
+	
+	<li><a href="file_index.html">Files</a></li>
+	<li><a href="doc-index.html">Index</a></li>
+</ul>
+
+<div id="title">
+	
+
+		API
+
+		
+</div>
+				<div class="type">Class</div>
+				<h1>
+					Crawler
+				</h1>
+			</div>
+		</header>
+
+		<div class="content">
+
+			<div class="anchor_list">
+	<h2>Contents</h2>
+	<ul>
+		
+		
+		
+		
+		
+
+		
+
+		
+
+		
+
+		
+		<li><a href="#static_methods">Static Methods</a></li>
+		
+
+		
+		<li><a href="#methods">Methods</a></li>
+		
+
+			
+	</ul>
+</div>
+			
+			<!-- CLASS SIGNATURE -->
+			<p class="PrincipalTitle">
+				<span> </span>
+				<span>class </span>
+				<strong>
+					Crawler
+				</strong>
+
+				
+				<span> extends <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></span>
+				
+
+				
+
+				
+			</p>
+
+
+			<!-- CLASS DESCRIPTION -->
+			<div class="description "><p>The Crawler is this class that visits the portal to get all relative links to visit the nextsubpage.</p><p>See Crawler.</p></div>
+
+
+			<!-- CLASS CONSTRUCTOR SUMMARY -->
+			<h2>
+				<a name='constructor'></a>
+				Constructor
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+				<tbody>
+					<tr>
+						<td class="type">&nbsp;</td>
+						<td class="last">
+							<a href="#Crawler">Crawler</a>
+							<span>(  )</span>
+							
+						<td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<!-- CLASS REQUIRES -->
+
+			<!-- NAMESPACE SUB-NAMESPACES -->
+						
+
+			<!-- CLASS CONSTANTS SUMMARY -->
+			
+
+
+			<!-- CLASS STATIC PROPERTIES & ENUMERATIONS SUMMARY -->
+			
+
+			<!-- CLASS PROPERTIES SUMMARY -->
+			
+
+			<!-- CLASS STATIC METHODS SUMMARY -->
+			
+			<h2>
+				<a name='static_methods'></a>
+				Static Methods
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+  <tbody>
+  
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#checkSaveTimer">
+				<abbr title="Crawler.checkSaveTimer">
+					checkSaveTimer
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+			
+
+			<!-- CLASS METHODS SUMMARY -->
+			
+			<h2>
+				<a name='methods'></a>
+				Methods
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+  <tbody>
+  
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#clearCacheDB">
+				<abbr title="Crawler#clearCacheDB">
+					clearCacheDB
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#collectLinks">
+				<abbr title="Crawler#collectLinks">
+					collectLinks
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( function $, boolean db )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#collectRelativeLinks">
+				<abbr title="Crawler#collectRelativeLinks">
+					collectRelativeLinks
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string link, boolean db )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#crawlViaDb">
+				<abbr title="Crawler#crawlViaDb">
+					crawlViaDb
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#crawlViaObjects">
+				<abbr title="Crawler#crawlViaObjects">
+					crawlViaObjects
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#createLockFile">
+				<abbr title="Crawler#createLockFile">
+					createLockFile
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#end">
+				<abbr title="Crawler#end">
+					end
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#getReadableTime">
+				<abbr title="Crawler#getReadableTime">
+					getReadableTime
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	boolean
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#hasLockFile">
+				<abbr title="Crawler#hasLockFile">
+					hasLockFile
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#increaseVisited">
+				<abbr title="Crawler#increaseVisited">
+					increaseVisited
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string url )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	boolean
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#isDefault">
+				<abbr title="Crawler#isDefault">
+					isDefault
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string command )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#removeLockFile">
+				<abbr title="Crawler#removeLockFile">
+					removeLockFile
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public inherited">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#setLocalConfig">
+				<abbr title="Crawler#setLocalConfig">
+					setLocalConfig
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object config )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	<small>inherited from <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></small>
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#start">
+				<abbr title="Crawler#start">
+					start
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( function stop )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#syncFoundUrls">
+				<abbr title="Crawler#syncFoundUrls">
+					syncFoundUrls
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( number i )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#visitPage">
+				<abbr title="Crawler#visitPage">
+					visitPage
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string url, boolean db )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+			
+
+
+			<!-- CLASS EVENTS SUMMARY -->
+			
+
+			<!--
+			################################################################################
+			## DETAILS
+			################################################################################
+			-->
+
+			<!-- CLASS CONSTRUCTOR DETAILS -->
+			<h2>
+				<a name='constructor_details'></a>
+				Constructor details
+				<small><a href="#">Top</a></small>
+				<h3 id="Crawler"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno32">Crawler.js</a> at line 32
+
+  </div>
+	
+	<div class="signature">
+		
+  
+		<strong>Crawler</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>The Crawler is this class that visits the portal to get all relative links to visit the nextsubpage.</p><p>See Crawler.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns the Crawler instance.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			</h2>
+
+
+			<!-- CLASS STATIC PROPERTIES & ENUMERATIONS DETAIL -->
+			
+
+
+			<!-- CLASS STATIC METHODS DETAIL -->
+			
+			<h2>
+				<a name='static_methods_details'></a>
+				Static Methods Detail
+				<small><a href="#">Top</a></small>
+			</h2>
+			<h3 id="checkSaveTimer"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno665">Crawler.js</a> at line 665
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    static
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>checkSaveTimer</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Check if it's time to save the collected data.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			
+
+
+			<!-- CLASS PROPERTIES DETAIL -->
+			
+
+
+			<!-- CLASS METHODS DETAIL -->
+			
+			<h2>
+				<a name='methods_details'></a>
+				Methods Detail
+				<small><a href="#">Top</a></small>
+			</h2>
+			<h3 id="clearCacheDB"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno130">Crawler.js</a> at line 130
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>clearCacheDB</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Clearing temporary saved data in the database.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="collectLinks"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno398">Crawler.js</a> at line 398
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>collectLinks</strong>
+		
+    <span class="params">
+      ( function $, boolean db )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Collect all (relative) links.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				function
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>$</a><p>The content of the website where we can perform like in jQuery.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>db</a> = <code>false</code><p>Using the database variant. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="collectRelativeLinks"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno466">Crawler.js</a> at line 466
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>collectRelativeLinks</strong>
+		
+    <span class="params">
+      ( string link, boolean db )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Split relative from shorted absolute links (e.g. "/google.com").</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>link</a><p>The url of the link.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>db</a> = <code>false</code><p>Using the database variant. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="crawlViaDb"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno231">Crawler.js</a> at line 231
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>crawlViaDb</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Check if url already visited. If not, visit this url. This is the database variant.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="crawlViaObjects"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno172">Crawler.js</a> at line 172
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>crawlViaObjects</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Check if url already visited. If not, visit this url. This is the object variant.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="createLockFile"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno568">Crawler.js</a> at line 568
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>createLockFile</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Creates lock file.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="end"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno97">Crawler.js</a> at line 97
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>end</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Write ending lines into the .log file and remove .lock file.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="getReadableTime"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno553">Crawler.js</a> at line 553
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>getReadableTime</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Stops execution timer and prints readable time.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="hasLockFile"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno623">Crawler.js</a> at line 623
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      boolean
+    </span>
+	  
+  
+		<strong>hasLockFile</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Check if lock file exists.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns the existence of the lock file.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="increaseVisited"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno367">Crawler.js</a> at line 367
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>increaseVisited</strong>
+		
+    <span class="params">
+      ( string url )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Increase visited pages counter.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>url</a><p>The url we want to visit.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="isDefault"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno540">Crawler.js</a> at line 540
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      boolean
+    </span>
+	  
+  
+		<strong>isDefault</strong>
+		
+    <span class="params">
+      ( string command )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Check if this command is default.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>command</a><p>The name of the command.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns if the command is like the default command.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="removeLockFile"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno591">Crawler.js</a> at line 591
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>removeLockFile</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Removes lock file.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="setLocalConfig"  class="public inherited">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>setLocalConfig</strong>
+		
+    <span class="params">
+      ( object config )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description inherited"><p>Set all configuration parameters for this class.</p><p>Inherited from <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></p></div>
+
+<div class="details inherited">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>config</a> = <code>{}</code><p>An object of configurations. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="start"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno76">Crawler.js</a> at line 76
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>start</strong>
+		
+    <span class="params">
+      ( function stop )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Initiate the crawling process.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				function
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>stop</a><p>The function that should be called when the crawling process has been done.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="syncFoundUrls"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno636">Crawler.js</a> at line 636
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>syncFoundUrls</strong>
+		
+    <span class="params">
+      ( number i )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Store all following urls into the database.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				number
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>i</a> = <code>0</code><p>An increment for recursively calls. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="visitPage"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno296">Crawler.js</a> at line 296
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>visitPage</strong>
+		
+    <span class="params">
+      ( string url, boolean db )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Visit the url and let the customer search for whatever he want.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>url</a><p>The url we want to visit.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>db</a> = <code>false</code><p>Using the database variant. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			
+
+
+			<!-- CLASS EVENTS DETAIL -->
+			
+
+		</div>
+
+		<footer>
+	Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> using <a href="https://github.com/danyg/jsdoc3Template">jsdoc3Template</a> by danyg & lechecacharro on Tue Feb 20 2018 15:47:06 GMT+0100 (CET)
+</footer>
+
+	</body>
+</html>

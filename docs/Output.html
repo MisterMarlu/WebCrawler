@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+                <meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="styles/stylesheet.css">
+                <link rel="stylesheet" type="text/css" href="styles/shCore.css">
+                <link rel="stylesheet" type="text/css" href="styles/shThemeDefault.css">
+                <script type="text/javascript" src="js/shCore.js"></script>
+                <script type="text/javascript" src="js/shBrushJScript.js"></script>
+		<title>Documentation</title>
+	</head>
+	<body id="class" onLoad="SyntaxHighlighter.highlight()">
+
+		<header>
+			<div class="header">
+				<script type="text/javascript" src="js/jQuery.172.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var header = $('.header'),
+		content = $('.content')
+		footer = $('footer')
+	;
+
+	function mtn(str){
+		if(
+			'' === str
+			|| undefined === str
+			|| null === str
+		){
+			return 0;
+		}else{
+			var a = parseInt(str.replace(/px|ex|em/, ''), 10);
+			if(isNaN(a)){
+				a = 0;
+			}
+			return a;
+		}
+	}
+	
+	function resize(){
+		var availableHeight = $(window).height() - (header.outerHeight() + footer.outerHeight()),
+			availableWidth = $(window).width(),
+			contentOffsetH = mtn(content.css('borderTopWidth')) + 
+				mtn(content.css('marginTop')) +
+				mtn(content.css('paddingTop')) +
+				
+				mtn(content.css('paddingBottom')) +
+				mtn(content.css('marginBottom')) +
+				mtn(content.css('borderBottomWidth')),
+			contentOffsetW = mtn(content.css('borderLeftWidth')) + 
+				mtn(content.css('marginLeft')) +
+				mtn(content.css('paddingLeft')) +
+				
+				mtn(content.css('paddingRight')) +
+				mtn(content.css('marginRight')) +
+				mtn(content.css('borderRightWidth'))
+		;
+		content.height(availableHeight - contentOffsetH);
+		content.width(availableWidth - contentOffsetW);
+	}
+	resize();
+	$(window).resize(resize);
+});
+</script>
+
+<ul>
+	
+	
+	<li><a href="class_index.html">Classes</a></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<li><a href="function_index.html">Methods/Functions</a></li>
+	
+	
+	<li><a href="file_index.html">Files</a></li>
+	<li><a href="doc-index.html">Index</a></li>
+</ul>
+
+<div id="title">
+	
+
+		API
+
+		
+</div>
+				<div class="type">Class</div>
+				<h1>
+					Output
+				</h1>
+			</div>
+		</header>
+
+		<div class="content">
+
+			<div class="anchor_list">
+	<h2>Contents</h2>
+	<ul>
+		
+		
+		
+		
+		
+
+		
+
+		
+
+		
+
+		
+		<li><a href="#static_methods">Static Methods</a></li>
+		
+
+		
+		<li><a href="#methods">Methods</a></li>
+		
+
+			
+	</ul>
+</div>
+			
+			<!-- CLASS SIGNATURE -->
+			<p class="PrincipalTitle">
+				<span> </span>
+				<span>class </span>
+				<strong>
+					Output
+				</strong>
+
+				
+				<span> extends <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></span>
+				
+
+				
+
+				
+			</p>
+
+
+			<!-- CLASS DESCRIPTION -->
+			<div class="description "><p>This class prints every output and debugging information into the log file and/or the console.</p><p>See <a href="Output.html" ><abbr title="Output">Output</abbr></a></p></div>
+
+
+			<!-- CLASS CONSTRUCTOR SUMMARY -->
+			<h2>
+				<a name='constructor'></a>
+				Constructor
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+				<tbody>
+					<tr>
+						<td class="type">&nbsp;</td>
+						<td class="last">
+							<a href="#Output">Output</a>
+							<span>(  )</span>
+							
+						<td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<!-- CLASS REQUIRES -->
+
+			<!-- NAMESPACE SUB-NAMESPACES -->
+						
+
+			<!-- CLASS CONSTANTS SUMMARY -->
+			
+
+
+			<!-- CLASS STATIC PROPERTIES & ENUMERATIONS SUMMARY -->
+			
+
+			<!-- CLASS PROPERTIES SUMMARY -->
+			
+
+			<!-- CLASS STATIC METHODS SUMMARY -->
+			
+			<h2>
+				<a name='static_methods'></a>
+				Static Methods
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+  <tbody>
+  
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	object
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#checkLogFile">
+				<abbr title="Output.checkLogFile">
+					checkLogFile
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string name, string path, boolean multiple )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	string
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#getColor">
+				<abbr title="Output.getColor">
+					getColor
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string type, string background= )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+			
+
+			<!-- CLASS METHODS SUMMARY -->
+			
+			<h2>
+				<a name='methods'></a>
+				Methods
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+  <tbody>
+  
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#initLogger">
+				<abbr title="Output#initLogger">
+					initLogger
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string name= )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public inherited">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#setLocalConfig">
+				<abbr title="Output#setLocalConfig">
+					setLocalConfig
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object config )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	<small>inherited from <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></small>
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#write">
+				<abbr title="Output#write">
+					write
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string value, boolean toConsole, string type=, string background= )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#writeConsole">
+				<abbr title="Output#writeConsole">
+					writeConsole
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string value, boolean toConsole, string type=, string background= )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#writeLine">
+				<abbr title="Output#writeLine">
+					writeLine
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string value, boolean toConsole, string type=, string background= )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#writeOutput">
+				<abbr title="Output#writeOutput">
+					writeOutput
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( Array.&lt;object&gt; sentences, string type= )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#writeUserInput">
+				<abbr title="Output#writeUserInput">
+					writeUserInput
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a> crawler )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#writeWithSpace">
+				<abbr title="Output#writeWithSpace">
+					writeWithSpace
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string value, boolean toConsole, string type=, string background= )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+			
+
+
+			<!-- CLASS EVENTS SUMMARY -->
+			
+
+			<!--
+			################################################################################
+			## DETAILS
+			################################################################################
+			-->
+
+			<!-- CLASS CONSTRUCTOR DETAILS -->
+			<h2>
+				<a name='constructor_details'></a>
+				Constructor details
+				<small><a href="#">Top</a></small>
+				<h3 id="Output"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno22">Output.js</a> at line 22
+
+  </div>
+	
+	<div class="signature">
+		
+  
+		<strong>Output</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>This class prints every output and debugging information into the log file and/or the console.</p><p>See <a href="Output.html" ><abbr title="Output">Output</abbr></a></p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				<a href="Output.html" ><abbr title="Output">Output</abbr></a>
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns the Output instance.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			</h2>
+
+
+			<!-- CLASS STATIC PROPERTIES & ENUMERATIONS DETAIL -->
+			
+
+
+			<!-- CLASS STATIC METHODS DETAIL -->
+			
+			<h2>
+				<a name='static_methods_details'></a>
+				Static Methods Detail
+				<small><a href="#">Top</a></small>
+			</h2>
+			<h3 id="checkLogFile"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno249">Output.js</a> at line 249
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    static
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      object
+    </span>
+	  
+  
+		<strong>checkLogFile</strong>
+		
+    <span class="params">
+      ( string name, string path, boolean multiple )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Generate name and path of the log file.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>name</a><p>The name of the log file.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>path</a><p>The absolute path of the log file directory.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>multiple</a><p>If true the log file will be iterated.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an object with the generated name and path of the log file.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="getColor"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno192">Output.js</a> at line 192
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    static
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      string
+    </span>
+	  
+  
+		<strong>getColor</strong>
+		
+    <span class="params">
+      ( string type, string background= )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Get colored command line output.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>type</a><p>The type or color of the value.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>background=</a><p>The background color of the value. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns the colored string.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			
+
+
+			<!-- CLASS PROPERTIES DETAIL -->
+			
+
+
+			<!-- CLASS METHODS DETAIL -->
+			
+			<h2>
+				<a name='methods_details'></a>
+				Methods Detail
+				<small><a href="#">Top</a></small>
+			</h2>
+			<h3 id="initLogger"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno44">Output.js</a> at line 44
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>initLogger</strong>
+		
+    <span class="params">
+      ( string name= )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Initiate the log file and open a write stream.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>name=</a><p>Name of the log file. Default is the name defined in a config.json. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="setLocalConfig"  class="public inherited">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>setLocalConfig</strong>
+		
+    <span class="params">
+      ( object config )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description inherited"><p>Set all configuration parameters for this class.</p><p>Inherited from <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></p></div>
+
+<div class="details inherited">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>config</a> = <code>{}</code><p>An object of configurations. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="write"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno74">Output.js</a> at line 74
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>write</strong>
+		
+    <span class="params">
+      ( string value, boolean toConsole, string type=, string background= )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Write output.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>value</a><p>The value that should be printed.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>toConsole</a> = <code>false</code><p>Print to console. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>type=</a><p>The type or color of the value. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>background=</a><p>The background color of the value. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="writeConsole"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno117">Output.js</a> at line 117
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>writeConsole</strong>
+		
+    <span class="params">
+      ( string value, boolean toConsole, string type=, string background= )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Write in console only.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>value</a><p>The value that should be printed.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>toConsole</a> = <code>false</code><p>Print to console. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>type=</a><p>The type or color of the value. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>background=</a><p>The background color of the value. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="writeLine"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno88">Output.js</a> at line 88
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>writeLine</strong>
+		
+    <span class="params">
+      ( string value, boolean toConsole, string type=, string background= )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Write output with a new line before.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>value</a><p>The value that should be printed.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>toConsole</a> = <code>false</code><p>Print to console. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>type=</a><p>The type or color of the value. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>background=</a><p>The background color of the value. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="writeOutput"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno142">Output.js</a> at line 142
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>writeOutput</strong>
+		
+    <span class="params">
+      ( Array.&lt;object&gt; sentences, string type= )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Write array as strings with new line for each entry.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Array.&lt;object&gt;
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>sentences</a><p>An array of objects stored with default write information.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>sentences[].text</a><p>The text that should be printed.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>sentences[].type=</a><p>The type or color of the text. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>sentences[].background=</a><p>The background color of the text. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>type=</a><p>The type or color of the first text. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="writeUserInput"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno163">Output.js</a> at line 163
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>writeUserInput</strong>
+		
+    <span class="params">
+      ( <a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a> crawler )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Write user input values.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>crawler</a><p>The Crawler instance to print user inputs.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="writeWithSpace"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno103">Output.js</a> at line 103
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>writeWithSpace</strong>
+		
+    <span class="params">
+      ( string value, boolean toConsole, string type=, string background= )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Write output with a trailing new line.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>value</a><p>The value that should be printed.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>toConsole</a> = <code>false</code><p>Print to console. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>type=</a><p>The type or color of the value. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>background=</a><p>The background color of the value. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			
+
+
+			<!-- CLASS EVENTS DETAIL -->
+			
+
+		</div>
+
+		<footer>
+	Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> using <a href="https://github.com/danyg/jsdoc3Template">jsdoc3Template</a> by danyg & lechecacharro on Tue Feb 20 2018 15:47:06 GMT+0100 (CET)
+</footer>
+
+	</body>
+</html>

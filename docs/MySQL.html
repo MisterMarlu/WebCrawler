@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+                <meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="styles/stylesheet.css">
+                <link rel="stylesheet" type="text/css" href="styles/shCore.css">
+                <link rel="stylesheet" type="text/css" href="styles/shThemeDefault.css">
+                <script type="text/javascript" src="js/shCore.js"></script>
+                <script type="text/javascript" src="js/shBrushJScript.js"></script>
+		<title>Documentation</title>
+	</head>
+	<body id="class" onLoad="SyntaxHighlighter.highlight()">
+
+		<header>
+			<div class="header">
+				<script type="text/javascript" src="js/jQuery.172.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var header = $('.header'),
+		content = $('.content')
+		footer = $('footer')
+	;
+
+	function mtn(str){
+		if(
+			'' === str
+			|| undefined === str
+			|| null === str
+		){
+			return 0;
+		}else{
+			var a = parseInt(str.replace(/px|ex|em/, ''), 10);
+			if(isNaN(a)){
+				a = 0;
+			}
+			return a;
+		}
+	}
+	
+	function resize(){
+		var availableHeight = $(window).height() - (header.outerHeight() + footer.outerHeight()),
+			availableWidth = $(window).width(),
+			contentOffsetH = mtn(content.css('borderTopWidth')) + 
+				mtn(content.css('marginTop')) +
+				mtn(content.css('paddingTop')) +
+				
+				mtn(content.css('paddingBottom')) +
+				mtn(content.css('marginBottom')) +
+				mtn(content.css('borderBottomWidth')),
+			contentOffsetW = mtn(content.css('borderLeftWidth')) + 
+				mtn(content.css('marginLeft')) +
+				mtn(content.css('paddingLeft')) +
+				
+				mtn(content.css('paddingRight')) +
+				mtn(content.css('marginRight')) +
+				mtn(content.css('borderRightWidth'))
+		;
+		content.height(availableHeight - contentOffsetH);
+		content.width(availableWidth - contentOffsetW);
+	}
+	resize();
+	$(window).resize(resize);
+});
+</script>
+
+<ul>
+	
+	
+	<li><a href="class_index.html">Classes</a></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<li><a href="function_index.html">Methods/Functions</a></li>
+	
+	
+	<li><a href="file_index.html">Files</a></li>
+	<li><a href="doc-index.html">Index</a></li>
+</ul>
+
+<div id="title">
+	
+
+		API
+
+		
+</div>
+				<div class="type">Class</div>
+				<h1>
+					MySQL
+				</h1>
+			</div>
+		</header>
+
+		<div class="content">
+
+			<div class="anchor_list">
+	<h2>Contents</h2>
+	<ul>
+		
+		
+		
+		
+		
+
+		
+
+		
+
+		
+
+		
+		<li><a href="#static_methods">Static Methods</a></li>
+		
+
+		
+		<li><a href="#methods">Methods</a></li>
+		
+
+			
+	</ul>
+</div>
+			
+			<!-- CLASS SIGNATURE -->
+			<p class="PrincipalTitle">
+				<span> </span>
+				<span>class </span>
+				<strong>
+					MySQL
+				</strong>
+
+				
+				<span> extends <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></span>
+				
+
+				
+
+				
+			</p>
+
+
+			<!-- CLASS DESCRIPTION -->
+			<div class="description "><p>This class executes all database operations with a MySQL database.</p><p>See MySQL.</p></div>
+
+
+			<!-- CLASS CONSTRUCTOR SUMMARY -->
+			<h2>
+				<a name='constructor'></a>
+				Constructor
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+				<tbody>
+					<tr>
+						<td class="type">&nbsp;</td>
+						<td class="last">
+							<a href="#MySQL">MySQL</a>
+							<span>(  )</span>
+							
+						<td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<!-- CLASS REQUIRES -->
+
+			<!-- NAMESPACE SUB-NAMESPACES -->
+						
+
+			<!-- CLASS CONSTANTS SUMMARY -->
+			
+
+
+			<!-- CLASS STATIC PROPERTIES & ENUMERATIONS SUMMARY -->
+			
+
+			<!-- CLASS PROPERTIES SUMMARY -->
+			
+
+			<!-- CLASS STATIC METHODS SUMMARY -->
+			
+			<h2>
+				<a name='static_methods'></a>
+				Static Methods
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+  <tbody>
+  
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Array
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#parseColumnValue">
+				<abbr title="MySQL.parseColumnValue">
+					parseColumnValue
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object object, string operator )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Array
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#parseStructure">
+				<abbr title="MySQL.parseStructure">
+					parseStructure
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object structure, boolean structure[ )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	number | boolean | string
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#parseValue">
+				<abbr title="MySQL.parseValue">
+					parseValue
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( * value )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	array
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#parseValues">
+				<abbr title="MySQL.parseValues">
+					parseValues
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( array values )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+			
+
+			<!-- CLASS METHODS SUMMARY -->
+			
+			<h2>
+				<a name='methods'></a>
+				Methods
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+  <tbody>
+  
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#delete">
+				<abbr title="MySQL#delete">
+					delete
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object filter, string table, string operator )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#find">
+				<abbr title="MySQL#find">
+					find
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object filter, string table, object structure, string operator )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#findAll">
+				<abbr title="MySQL#findAll">
+					findAll
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string table )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#findOne">
+				<abbr title="MySQL#findOne">
+					findOne
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object filter, string table, object structure, string operator )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#insert">
+				<abbr title="MySQL#insert">
+					insert
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object insert, string table )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#save">
+				<abbr title="MySQL#save">
+					save
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object filter, object object, string table, string operator )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#setConnection">
+				<abbr title="MySQL#setConnection">
+					setConnection
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( connection connection )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public inherited">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#setLocalConfig">
+				<abbr title="MySQL#setLocalConfig">
+					setLocalConfig
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object config )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	<small>inherited from <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></small>
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#update">
+				<abbr title="MySQL#update">
+					update
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object filter, object update, string table, string operator )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+			
+
+
+			<!-- CLASS EVENTS SUMMARY -->
+			
+
+			<!--
+			################################################################################
+			## DETAILS
+			################################################################################
+			-->
+
+			<!-- CLASS CONSTRUCTOR DETAILS -->
+			<h2>
+				<a name='constructor_details'></a>
+				Constructor details
+				<small><a href="#">Top</a></small>
+				<h3 id="MySQL"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno21">MySQL.js</a> at line 21
+
+  </div>
+	
+	<div class="signature">
+		
+  
+		<strong>MySQL</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>This class executes all database operations with a MySQL database.</p><p>See MySQL.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns the MySQL instance.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			</h2>
+
+
+			<!-- CLASS STATIC PROPERTIES & ENUMERATIONS DETAIL -->
+			
+
+
+			<!-- CLASS STATIC METHODS DETAIL -->
+			
+			<h2>
+				<a name='static_methods_details'></a>
+				Static Methods Detail
+				<small><a href="#">Top</a></small>
+			</h2>
+			<h3 id="parseColumnValue"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno332">MySQL.js</a> at line 332
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    static
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Array
+    </span>
+	  
+  
+		<strong>parseColumnValue</strong>
+		
+    <span class="params">
+      ( object object, string operator )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Parse an object to an array in column value format.</p></div><h4>Example</h4><pre class="brush: js">obj = {name: "John"}; -> "name='John'";</pre>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>object</a><p>The object to parse.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>operator</a><p>The operator for the where clause.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Array
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an array with string for each key in this object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="parseStructure"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno374">MySQL.js</a> at line 374
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    static
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Array
+    </span>
+	  
+  
+		<strong>parseStructure</strong>
+		
+    <span class="params">
+      ( object structure, boolean structure[ )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Parse the structure object to return specific columns.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>structure</a><p>The structure object</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>structure[</a><p>The value of the keys inside the structure must be booleans.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Array
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an array of columns to return.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="parseValue"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno315">MySQL.js</a> at line 315
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    static
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      number | boolean | string
+    </span>
+	  
+  
+		<strong>parseValue</strong>
+		
+    <span class="params">
+      ( * value )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Parse the value to correct notation for the MySQL query.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				*
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>value</a><p>The value to parse.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				number | boolean | string
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns the correct notation for the MySQL query.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="parseValues"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno296">MySQL.js</a> at line 296
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    static
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      array
+    </span>
+	  
+  
+		<strong>parseValues</strong>
+		
+    <span class="params">
+      ( array values )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Parse all values to correct notation for the MySQL query.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				array
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>values</a><p>An array of values.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				array
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>The parsed values as array for the MySQL query.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			
+
+
+			<!-- CLASS PROPERTIES DETAIL -->
+			
+
+
+			<!-- CLASS METHODS DETAIL -->
+			
+			<h2>
+				<a name='methods_details'></a>
+				Methods Detail
+				<small><a href="#">Top</a></small>
+			</h2>
+			<h3 id="delete"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno160">MySQL.js</a> at line 160
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>delete</strong>
+		
+    <span class="params">
+      ( object filter, string table, string operator )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Delete data.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>filter</a><p>The filter to get the correct object.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>table</a><p>The name of the table.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>operator</a> = <code>=</code><p>The operator for the where clause. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns a Promise object with the result of the database.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="find"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno208">MySQL.js</a> at line 208
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>find</strong>
+		
+    <span class="params">
+      ( object filter, string table, object structure, string operator )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Get data from table.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>filter</a><p>The filter to get the correct object.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>table</a><p>The name of the table.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>structure</a> = <code>{}</code><p>The structure in that the objects should be returned. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>operator</a> = <code>=</code><p>The operator for the where clause. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns a Promise object with the result of the database.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="findAll"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno186">MySQL.js</a> at line 186
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>findAll</strong>
+		
+    <span class="params">
+      ( string table )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Get all data from table.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>table</a><p>The name of the table.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns a Promise object with the result of the database.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="findOne"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno250">MySQL.js</a> at line 250
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>findOne</strong>
+		
+    <span class="params">
+      ( object filter, string table, object structure, string operator )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Get one element from table.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>filter</a><p>The filter to get the correct object.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>table</a><p>The name of the table.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>structure</a> = <code>{}</code><p>The structure in that the objects should be returned. (Optional)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>operator</a> = <code>=</code><p>The operator for the where clause. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns a Promise object with the result of the database.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="insert"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno55">MySQL.js</a> at line 55
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>insert</strong>
+		
+    <span class="params">
+      ( object insert, string table )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Insert new data.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>insert</a><p>The object that should be inserted.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>table</a><p>The name of the table.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns a Promise object with the result of the database.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="save"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno123">MySQL.js</a> at line 123
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>save</strong>
+		
+    <span class="params">
+      ( object filter, object object, string table, string operator )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Insert data or update if already exists.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>filter</a><p>The filter to get the correct object.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>object</a><p>The object that should be inserted or updated.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>table</a><p>The name of the table.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>operator</a> = <code>=</code><p>The operator for the where clause. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns a Promise object with the result of the database.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="setConnection"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno41">MySQL.js</a> at line 41
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>setConnection</strong>
+		
+    <span class="params">
+      ( connection connection )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Set connection.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				connection
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>connection</a><p>The connection of the database, set by the MySQL.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="setLocalConfig"  class="public inherited">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>setLocalConfig</strong>
+		
+    <span class="params">
+      ( object config )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description inherited"><p>Set all configuration parameters for this class.</p><p>Inherited from <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></p></div>
+
+<div class="details inherited">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>config</a> = <code>{}</code><p>An object of configurations. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="update"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno88">MySQL.js</a> at line 88
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>update</strong>
+		
+    <span class="params">
+      ( object filter, object update, string table, string operator )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Update data.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>filter</a><p>The filter to get the correct object.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>update</a><p>The object that should be updated.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>table</a><p>The name of the table.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>operator</a> = <code>=</code><p>The operator for the where clause. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns a Promise object with the result of the database.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			
+
+
+			<!-- CLASS EVENTS DETAIL -->
+			
+
+		</div>
+
+		<footer>
+	Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> using <a href="https://github.com/danyg/jsdoc3Template">jsdoc3Template</a> by danyg & lechecacharro on Tue Feb 20 2018 15:47:06 GMT+0100 (CET)
+</footer>
+
+	</body>
+</html>

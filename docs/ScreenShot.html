@@ -1,0 +1,2107 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+                <meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="styles/stylesheet.css">
+                <link rel="stylesheet" type="text/css" href="styles/shCore.css">
+                <link rel="stylesheet" type="text/css" href="styles/shThemeDefault.css">
+                <script type="text/javascript" src="js/shCore.js"></script>
+                <script type="text/javascript" src="js/shBrushJScript.js"></script>
+		<title>Documentation</title>
+	</head>
+	<body id="class" onLoad="SyntaxHighlighter.highlight()">
+
+		<header>
+			<div class="header">
+				<script type="text/javascript" src="js/jQuery.172.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var header = $('.header'),
+		content = $('.content')
+		footer = $('footer')
+	;
+
+	function mtn(str){
+		if(
+			'' === str
+			|| undefined === str
+			|| null === str
+		){
+			return 0;
+		}else{
+			var a = parseInt(str.replace(/px|ex|em/, ''), 10);
+			if(isNaN(a)){
+				a = 0;
+			}
+			return a;
+		}
+	}
+	
+	function resize(){
+		var availableHeight = $(window).height() - (header.outerHeight() + footer.outerHeight()),
+			availableWidth = $(window).width(),
+			contentOffsetH = mtn(content.css('borderTopWidth')) + 
+				mtn(content.css('marginTop')) +
+				mtn(content.css('paddingTop')) +
+				
+				mtn(content.css('paddingBottom')) +
+				mtn(content.css('marginBottom')) +
+				mtn(content.css('borderBottomWidth')),
+			contentOffsetW = mtn(content.css('borderLeftWidth')) + 
+				mtn(content.css('marginLeft')) +
+				mtn(content.css('paddingLeft')) +
+				
+				mtn(content.css('paddingRight')) +
+				mtn(content.css('marginRight')) +
+				mtn(content.css('borderRightWidth'))
+		;
+		content.height(availableHeight - contentOffsetH);
+		content.width(availableWidth - contentOffsetW);
+	}
+	resize();
+	$(window).resize(resize);
+});
+</script>
+
+<ul>
+	
+	
+	<li><a href="class_index.html">Classes</a></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<li><a href="function_index.html">Methods/Functions</a></li>
+	
+	
+	<li><a href="file_index.html">Files</a></li>
+	<li><a href="doc-index.html">Index</a></li>
+</ul>
+
+<div id="title">
+	
+
+		API
+
+		
+</div>
+				<div class="type">Class</div>
+				<h1>
+					ScreenShot
+				</h1>
+			</div>
+		</header>
+
+		<div class="content">
+
+			<div class="anchor_list">
+	<h2>Contents</h2>
+	<ul>
+		
+		
+		
+		
+		
+
+		
+
+		
+
+		
+
+		
+
+		
+		<li><a href="#methods">Methods</a></li>
+		
+
+			
+	</ul>
+</div>
+			
+			<!-- CLASS SIGNATURE -->
+			<p class="PrincipalTitle">
+				<span> </span>
+				<span>class </span>
+				<strong>
+					ScreenShot
+				</strong>
+
+				
+				<span> extends <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></span>
+				
+
+				
+
+				
+			</p>
+
+
+			<!-- CLASS DESCRIPTION -->
+			<div class="description "><p>This class can create screenshots.</p><p>See <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a></p></div>
+
+
+			<!-- CLASS CONSTRUCTOR SUMMARY -->
+			<h2>
+				<a name='constructor'></a>
+				Constructor
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+				<tbody>
+					<tr>
+						<td class="type">&nbsp;</td>
+						<td class="last">
+							<a href="#ScreenShot">ScreenShot</a>
+							<span>(  )</span>
+							
+						<td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<!-- CLASS REQUIRES -->
+
+			<!-- NAMESPACE SUB-NAMESPACES -->
+						
+
+			<!-- CLASS CONSTANTS SUMMARY -->
+			
+
+
+			<!-- CLASS STATIC PROPERTIES & ENUMERATIONS SUMMARY -->
+			
+
+			<!-- CLASS PROPERTIES SUMMARY -->
+			
+
+			<!-- CLASS STATIC METHODS SUMMARY -->
+			
+
+			<!-- CLASS METHODS SUMMARY -->
+			
+			<h2>
+				<a name='methods'></a>
+				Methods
+				<small><a href="#">Top</a></small>
+			</h2>
+			<table>
+  <tbody>
+  
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#checkUrl">
+				<abbr title="ScreenShot#checkUrl">
+					checkUrl
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string url, object website, number dimIndex, function callback )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#countUndone">
+				<abbr title="ScreenShot#countUndone">
+					countUndone
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( Array.&lt;object&gt; websites )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#decreaseUndone">
+				<abbr title="ScreenShot#decreaseUndone">
+					decreaseUndone
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#doScreenshots">
+				<abbr title="ScreenShot#doScreenshots">
+					doScreenshots
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( Array.&lt;object&gt; websites, function callback )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	string
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#getScreenshotName">
+				<abbr title="ScreenShot#getScreenshotName">
+					getScreenshotName
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( string url, string pageName, number dimIndex )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#iterateDimensions">
+				<abbr title="ScreenShot#iterateDimensions">
+					iterateDimensions
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object website, Array.&lt;object&gt; websites, number i, function callback, number j )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#iterateWebsites">
+				<abbr title="ScreenShot#iterateWebsites">
+					iterateWebsites
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( Array.&lt;object&gt; websites, function callback, number i )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	Promise
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#screenshotting">
+				<abbr title="ScreenShot#screenshotting">
+					screenshotting
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object website, number dimIndex, function callback )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+
+    <tr  class="public inherited">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#setLocalConfig">
+				<abbr title="ScreenShot#setLocalConfig">
+					setLocalConfig
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		( object config )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	<small>inherited from <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></small>
+      </td>
+    </tr>
+    
+
+    <tr  class="public">
+      <td class="type">
+      	<span>
+      	void
+      	</span>
+      </td>
+      
+      <td class="last">
+		
+			<a href="#stopChrome">
+				<abbr title="ScreenShot#stopChrome">
+					stopChrome
+				</abbr>
+			</a>
+		
+        
+      	<span>
+      		(  )
+      	</span>
+        
+        
+		
+		
+
+		
+      </td>
+      
+      <td>
+      	
+      </td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+			
+
+
+			<!-- CLASS EVENTS SUMMARY -->
+			
+
+			<!--
+			################################################################################
+			## DETAILS
+			################################################################################
+			-->
+
+			<!-- CLASS CONSTRUCTOR DETAILS -->
+			<h2>
+				<a name='constructor_details'></a>
+				Constructor details
+				<small><a href="#">Top</a></small>
+				<h3 id="ScreenShot"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno46">ScreenShot.js</a> at line 46
+
+  </div>
+	
+	<div class="signature">
+		
+  
+		<strong>ScreenShot</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>This class can create screenshots.</p><p>See <a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a></p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns the ScreenShot instance.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			</h2>
+
+
+			<!-- CLASS STATIC PROPERTIES & ENUMERATIONS DETAIL -->
+			
+
+
+			<!-- CLASS STATIC METHODS DETAIL -->
+			
+
+
+			<!-- CLASS PROPERTIES DETAIL -->
+			
+
+
+			<!-- CLASS METHODS DETAIL -->
+			
+			<h2>
+				<a name='methods_details'></a>
+				Methods Detail
+				<small><a href="#">Top</a></small>
+			</h2>
+			<h3 id="checkUrl"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno247">ScreenShot.js</a> at line 247
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>checkUrl</strong>
+		
+    <span class="params">
+      ( string url, object website, number dimIndex, function callback )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Check if the url is accessible.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>url</a><p>The url where the screenshot should be done.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>website</a><p>An object that stores the website information.</p>
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>url</a><p>The url to a website without the protocol.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>has_error</a><p>Has the website an error? (Like 404, 500, etc.)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>name</a><p>Name of the website, e.g. "imprint" or "home".</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>found_url</a><p>The url where the website was found.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				number
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>dimIndex</a><p>The index of the current used dimension.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				function
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>callback</a><p>A callback function that would be called in another method.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="countUndone"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno475">ScreenShot.js</a> at line 475
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>countUndone</strong>
+		
+    <span class="params">
+      ( Array.&lt;object&gt; websites )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Count the number of undone screenshots.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Array.&lt;object&gt;
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites</a><p>An array with objects that stores website information.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].url</a><p>The url to a website without the protocol.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].has_error</a><p>Has the website an error? (Like 404, 500, etc.)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].name</a><p>Name of the website, e.g. "imprint" or "home".</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].found_url</a><p>The url where the website was found.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="decreaseUndone"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno457">ScreenShot.js</a> at line 457
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>decreaseUndone</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Decrease the number of undone screenshots.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="doScreenshots"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno100">ScreenShot.js</a> at line 100
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>doScreenshots</strong>
+		
+    <span class="params">
+      ( Array.&lt;object&gt; websites, function callback )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Create a screenshot for each website that does not has an error.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Array.&lt;object&gt;
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites</a><p>An array with objects that stores website information.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].url</a><p>The url to a website without the protocol.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].has_error</a><p>Has the website an error? (Like 404, 500, etc.)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].name</a><p>Name of the website, e.g. "imprint" or "home".</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].found_url</a><p>The url where the website was found.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				function
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>callback</a><p>A callback that will be called in another method.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Promise object represents an object of time, timeString, done, undone and total screenshots.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="getScreenshotName"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno430">ScreenShot.js</a> at line 430
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      string
+    </span>
+	  
+  
+		<strong>getScreenshotName</strong>
+		
+    <span class="params">
+      ( string url, string pageName, number dimIndex )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Get the name for this screenshot.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>url</a><p>The url where the screenshot should be created.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>pageName</a><p>The name of the website, like "home" or "imprint".</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				number
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>dimIndex</a><p>The index of the current used dimension.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns the generated name for the screenshot.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="iterateDimensions"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno208">ScreenShot.js</a> at line 208
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>iterateDimensions</strong>
+		
+    <span class="params">
+      ( object website, Array.&lt;object&gt; websites, number i, function callback, number j )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Iterate through the dimensions to create screenshots asynchronously.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>website</a><p>An object that stores website information.</p>
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>url</a><p>The url to a website without the protocol.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>has_error</a><p>Has the website an error? (Like 404, 500, etc.)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>name</a><p>Name of the website, e.g. "imprint" or "home".</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>found_url</a><p>The url where the website was found.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				Array.&lt;object&gt;
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites</a><p>An array with objects that stores website information.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].url</a><p>The url to a website without the protocol.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].has_error</a><p>Has the website an error? (Like 404, 500, etc.)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].name</a><p>Name of the website, e.g. "imprint" or "home".</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].found_url</a><p>The url where the website was found.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				number
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>i</a><p>The increment of the websites.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				function
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>callback</a><p>A callback that will be called in another method.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				number
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>j</a> = <code>0</code><p>The increment of the dimensions. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="iterateWebsites"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno160">ScreenShot.js</a> at line 160
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>iterateWebsites</strong>
+		
+    <span class="params">
+      ( Array.&lt;object&gt; websites, function callback, number i )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Iterate through the websites to create screenshots asynchronously.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Array.&lt;object&gt;
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites</a><p>An array with objects that stores website information.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].url</a><p>The url to a website without the protocol.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].has_error</a><p>Has the website an error? (Like 404, 500, etc.)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].name</a><p>Name of the website, e.g. "imprint" or "home".</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>websites[].found_url</a><p>The url where the website was found.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				function
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>callback</a><p>A callback that will be called in another method.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				number
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>i</a> = <code>0</code><p>The increment of the websites. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="screenshotting"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno306">ScreenShot.js</a> at line 306
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      Promise
+    </span>
+	  
+  
+		<strong>screenshotting</strong>
+		
+    <span class="params">
+      ( object website, number dimIndex, function callback )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Create a screenshot from a specific website.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>website</a><p>An object that stores the website information.</p>
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>url</a><p>The url to a website without the protocol.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				boolean
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>has_error</a><p>Has the website an error? (Like 404, 500, etc.)</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>name</a><p>Name of the website, e.g. "imprint" or "home".</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				string
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>found_url</a><p>The url where the website was found.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				number
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>dimIndex</a><p>The index of the current used dimension.</p>
+    </td>
+    
+  
+  <tr>
+    <td class="type">
+			<span>
+				function
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>callback</a><p>This callback would be called when the screenshot was saved.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				Promise
+			</span>
+    </td>
+    
+    <td class="last">
+    <p>Returns an empty Promise object.</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="setLocalConfig"  class="public inherited">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>setLocalConfig</strong>
+		
+    <span class="params">
+      ( object config )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description inherited"><p>Set all configuration parameters for this class.</p><p>Inherited from <a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a></p></div>
+
+<div class="details inherited">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+    <h4>Parameters</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				object
+			</span>
+    </td>
+    
+    <td class="last">
+    <a>config</a> = <code>{}</code><p>An object of configurations. (Optional)</p>
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+<h3 id="stopChrome"  class="public">
+  
+  <div class="location">
+
+  	<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno70">ScreenShot.js</a> at line 70
+
+  </div>
+	
+	<div class="signature">
+		
+	  <span class="virtual">
+	    
+	  </span>
+	  
+	  <span class="scope">
+	    
+	  </span>
+	  
+	  <span class="accesslevel">
+	    public
+	  </span>
+	  
+    <span class="returnvalues">
+      void
+    </span>
+	  
+  
+		<strong>stopChrome</strong>
+		
+    <span class="params">
+      (  )
+    </span>
+	</div>
+</h3>
+
+
+<div class="description "><p>Kill all Google Chrome processes.</p></div>
+
+<div class="details ">
+	<div class="tags">
+	
+    <!-- PARAMS -->
+    
+
+    <!-- RETURN VALUE -->
+    
+    <h4>Return Value</h4>
+    
+
+<table>
+  <tbody>
+
+  
+  <tr>
+    <td class="type">
+			<span>
+				void
+			</span>
+    </td>
+    
+    <td class="last">
+    
+    </td>
+    
+  
+
+  </tbody>
+</table>
+    
+
+    <!-- EXCEPTIONS -->
+    
+    
+	</div>
+</div>
+
+			
+
+
+			<!-- CLASS EVENTS DETAIL -->
+			
+
+		</div>
+
+		<footer>
+	Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> using <a href="https://github.com/danyg/jsdoc3Template">jsdoc3Template</a> by danyg & lechecacharro on Tue Feb 20 2018 15:47:06 GMT+0100 (CET)
+</footer>
+
+	</body>
+</html>

@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="styles/stylesheet.css">
+		<title>Documentation</title>
+	</head>
+	<body id="overview">
+
+		<header>
+			<div class="header">
+				<script type="text/javascript" src="js/jQuery.172.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var header = $('.header'),
+		content = $('.content')
+		footer = $('footer')
+	;
+
+	function mtn(str){
+		if(
+			'' === str
+			|| undefined === str
+			|| null === str
+		){
+			return 0;
+		}else{
+			var a = parseInt(str.replace(/px|ex|em/, ''), 10);
+			if(isNaN(a)){
+				a = 0;
+			}
+			return a;
+		}
+	}
+	
+	function resize(){
+		var availableHeight = $(window).height() - (header.outerHeight() + footer.outerHeight()),
+			availableWidth = $(window).width(),
+			contentOffsetH = mtn(content.css('borderTopWidth')) + 
+				mtn(content.css('marginTop')) +
+				mtn(content.css('paddingTop')) +
+				
+				mtn(content.css('paddingBottom')) +
+				mtn(content.css('marginBottom')) +
+				mtn(content.css('borderBottomWidth')),
+			contentOffsetW = mtn(content.css('borderLeftWidth')) + 
+				mtn(content.css('marginLeft')) +
+				mtn(content.css('paddingLeft')) +
+				
+				mtn(content.css('paddingRight')) +
+				mtn(content.css('marginRight')) +
+				mtn(content.css('borderRightWidth'))
+		;
+		content.height(availableHeight - contentOffsetH);
+		content.width(availableWidth - contentOffsetW);
+	}
+	resize();
+	$(window).resize(resize);
+});
+</script>
+
+<ul>
+	
+	
+	<li><a href="class_index.html">Classes</a></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<li><a href="function_index.html">Methods/Functions</a></li>
+	
+	
+	<li><a href="file_index.html">Files</a></li>
+	<li><a href="doc-index.html">Index</a></li>
+</ul>
+
+<div id="title">
+	
+
+		API
+
+		
+</div>
+
+				<h1>Function</h1>
+			</div>
+		</header>
+		<div class="content">
+			<table>
+				<tbody>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#addConfig">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#addConfig" ><abbr title="Wrapper#addConfig">addConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Add a custom configuration file. It must be a .json file.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno230">Wrapper.js</a> at line 230
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#addDBModules">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#addDBModules" ><abbr title="Wrapper#addDBModules">addDBModules</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Selecting the database type and create instances of all internal modules that needs an instance of the database.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno133">Wrapper.js</a> at line 133
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#addModule">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#addModule" ><abbr title="Wrapper#addModule">addModule</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Add a custom module.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno243">Wrapper.js</a> at line 243
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="DelayedSave#addType">
+								<a href="DelayedSave.html" ><abbr title="DelayedSave">DelayedSave</abbr></a>.
+								<strong><a href="DelayedSave.html#addType" ><abbr title="DelayedSave#addType">addType</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Add a type with necessary information so DelayedSave know how to save the data.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_DelayedSave_js.html#lineno42">DelayedSave.js</a> at line 42
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Formatter.camelToDash">
+								<a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>.
+								<strong><a href="Formatter.html#camelToDash" ><abbr title="Formatter.camelToDash">camelToDash</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Convert camelCase to dash-case.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Formatter_js.html#lineno60">Formatter.js</a> at line 60
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Formatter.camelToUnderscore">
+								<a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>.
+								<strong><a href="Formatter.html#camelToUnderscore" ><abbr title="Formatter.camelToUnderscore">camelToUnderscore</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Convert camelCase to snake_case.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Formatter_js.html#lineno26">Formatter.js</a> at line 26
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Output.checkLogFile">
+								<a href="Output.html" ><abbr title="Output">Output</abbr></a>.
+								<strong><a href="Output.html#checkLogFile" ><abbr title="Output.checkLogFile">checkLogFile</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Generate name and path of the log file.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno249">Output.js</a> at line 249
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler.checkSaveTimer">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#checkSaveTimer" ><abbr title="Crawler.checkSaveTimer">checkSaveTimer</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Check if it's time to save the collected data.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno665">Crawler.js</a> at line 665
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="ScreenShot#checkUrl">
+								<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>.
+								<strong><a href="ScreenShot.html#checkUrl" ><abbr title="ScreenShot#checkUrl">checkUrl</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Check if the url is accessible.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno247">ScreenShot.js</a> at line 247
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#clearCacheDB">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#clearCacheDB" ><abbr title="Crawler#clearCacheDB">clearCacheDB</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Clearing temporary saved data in the database.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno130">Crawler.js</a> at line 130
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#collectLinks">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#collectLinks" ><abbr title="Crawler#collectLinks">collectLinks</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Collect all (relative) links.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno398">Crawler.js</a> at line 398
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#collectRelativeLinks">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#collectRelativeLinks" ><abbr title="Crawler#collectRelativeLinks">collectRelativeLinks</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Split relative from shorted absolute links (e.g. "/google.com").</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno466">Crawler.js</a> at line 466
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="ScreenShot#countUndone">
+								<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>.
+								<strong><a href="ScreenShot.html#countUndone" ><abbr title="ScreenShot#countUndone">countUndone</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Count the number of undone screenshots.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno475">ScreenShot.js</a> at line 475
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#crawl">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#crawl" ><abbr title="Wrapper#crawl">crawl</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Prepare for the crawling process.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno497">Wrapper.js</a> at line 497
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#crawlViaDb">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#crawlViaDb" ><abbr title="Crawler#crawlViaDb">crawlViaDb</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Check if url already visited. If not, visit this url. This is the database variant.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno231">Crawler.js</a> at line 231
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#crawlViaObjects">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#crawlViaObjects" ><abbr title="Crawler#crawlViaObjects">crawlViaObjects</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Check if url already visited. If not, visit this url. This is the object variant.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno172">Crawler.js</a> at line 172
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#createLockFile">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#createLockFile" ><abbr title="Crawler#createLockFile">createLockFile</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Creates lock file.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno568">Crawler.js</a> at line 568
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Formatter.dashToCamel">
+								<a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>.
+								<strong><a href="Formatter.html#dashToCamel" ><abbr title="Formatter.dashToCamel">dashToCamel</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Convert dash-case to camelCase.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Formatter_js.html#lineno38">Formatter.js</a> at line 38
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Formatter.dashToUnderscore">
+								<a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>.
+								<strong><a href="Formatter.html#dashToUnderscore" ><abbr title="Formatter.dashToUnderscore">dashToUnderscore</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Convert dash-case to snake_case.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Formatter_js.html#lineno72">Formatter.js</a> at line 72
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#databaseCheck">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#databaseCheck" ><abbr title="Wrapper#databaseCheck">databaseCheck</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Check if a database connection string is defined.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno274">Wrapper.js</a> at line 274
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Helper.debugEnabled">
+								<a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>.
+								<strong><a href="Helper.html#debugEnabled" ><abbr title="Helper.debugEnabled">debugEnabled</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Check if debug mode is enabled.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Helper_js.html#lineno78">Helper.js</a> at line 78
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="ScreenShot#decreaseUndone">
+								<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>.
+								<strong><a href="ScreenShot.html#decreaseUndone" ><abbr title="ScreenShot#decreaseUndone">decreaseUndone</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Decrease the number of undone screenshots.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno457">ScreenShot.js</a> at line 457
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MongoDB#delete">
+								<a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>.
+								<strong><a href="MongoDB.html#delete" ><abbr title="MongoDB#delete">delete</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Delete data.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MongoDB_js.html#lineno174">MongoDB.js</a> at line 174
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL#delete">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#delete" ><abbr title="MySQL#delete">delete</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Delete data.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno160">MySQL.js</a> at line 160
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="ScreenShot#doScreenshots">
+								<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>.
+								<strong><a href="ScreenShot.html#doScreenshots" ><abbr title="ScreenShot#doScreenshots">doScreenshots</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Create a screenshot for each website that does not has an error.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno100">ScreenShot.js</a> at line 100
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#end">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#end" ><abbr title="Crawler#end">end</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Write ending lines into the .log file and remove .lock file.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno97">Crawler.js</a> at line 97
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL#find">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#find" ><abbr title="MySQL#find">find</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get data from table.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno208">MySQL.js</a> at line 208
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MongoDB#find">
+								<a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>.
+								<strong><a href="MongoDB.html#find" ><abbr title="MongoDB#find">find</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get data from collection.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MongoDB_js.html#lineno227">MongoDB.js</a> at line 227
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MongoDB#findAll">
+								<a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>.
+								<strong><a href="MongoDB.html#findAll" ><abbr title="MongoDB#findAll">findAll</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get all data from collection.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MongoDB_js.html#lineno199">MongoDB.js</a> at line 199
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL#findAll">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#findAll" ><abbr title="MySQL#findAll">findAll</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get all data from table.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno186">MySQL.js</a> at line 186
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL#findOne">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#findOne" ><abbr title="MySQL#findOne">findOne</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get one element from table.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno250">MySQL.js</a> at line 250
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MongoDB#findOne">
+								<a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>.
+								<strong><a href="MongoDB.html#findOne" ><abbr title="MongoDB#findOne">findOne</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get one element from collection.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MongoDB_js.html#lineno255">MongoDB.js</a> at line 255
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Global#get">
+								<a href="Global.html" ><abbr title="Global">Global</abbr></a>.
+								<strong><a href="Global.html#get" ><abbr title="Global#get">get</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get any parameter.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Global_js.html#lineno28">Global.js</a> at line 28
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Helper.getCallback">
+								<a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>.
+								<strong><a href="Helper.html#getCallback" ><abbr title="Helper.getCallback">getCallback</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get a callback if exists.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Helper_js.html#lineno55">Helper.js</a> at line 55
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Output.getColor">
+								<a href="Output.html" ><abbr title="Output">Output</abbr></a>.
+								<strong><a href="Output.html#getColor" ><abbr title="Output.getColor">getColor</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get colored command line output.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno192">Output.js</a> at line 192
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Parser.getMethodName">
+								<a href="Parser.html" ><abbr title="Parser">Parser</abbr></a>.
+								<strong><a href="Parser.html#getMethodName" ><abbr title="Parser.getMethodName">getMethodName</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get the name of the method that is called.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Parser_js.html#lineno27">Parser.js</a> at line 27
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Parser.getModuleName">
+								<a href="Parser.html" ><abbr title="Parser">Parser</abbr></a>.
+								<strong><a href="Parser.html#getModuleName" ><abbr title="Parser.getModuleName">getModuleName</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get the name of the module from the absolute file path.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Parser_js.html#lineno12">Parser.js</a> at line 12
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#getReadableTime">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#getReadableTime" ><abbr title="Crawler#getReadableTime">getReadableTime</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Stops execution timer and prints readable time.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno553">Crawler.js</a> at line 553
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="ScreenShot#getScreenshotName">
+								<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>.
+								<strong><a href="ScreenShot.html#getScreenshotName" ><abbr title="ScreenShot#getScreenshotName">getScreenshotName</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get the name for this screenshot.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno430">ScreenShot.js</a> at line 430
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Helper.getSqlTimestamp">
+								<a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>.
+								<strong><a href="Helper.html#getSqlTimestamp" ><abbr title="Helper.getSqlTimestamp">getSqlTimestamp</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Get a current MySQL timestamp.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Helper_js.html#lineno26">Helper.js</a> at line 26
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Helper.hasCallback">
+								<a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>.
+								<strong><a href="Helper.html#hasCallback" ><abbr title="Helper.hasCallback">hasCallback</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Check if a callback exists.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Helper_js.html#lineno43">Helper.js</a> at line 43
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#hasLockFile">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#hasLockFile" ><abbr title="Crawler#hasLockFile">hasLockFile</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Check if lock file exists.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno623">Crawler.js</a> at line 623
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#increaseVisited">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#increaseVisited" ><abbr title="Crawler#increaseVisited">increaseVisited</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Increase visited pages counter.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno367">Crawler.js</a> at line 367
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Output#initLogger">
+								<a href="Output.html" ><abbr title="Output">Output</abbr></a>.
+								<strong><a href="Output.html#initLogger" ><abbr title="Output#initLogger">initLogger</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Initiate the log file and open a write stream.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno44">Output.js</a> at line 44
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MongoDB#insert">
+								<a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>.
+								<strong><a href="MongoDB.html#insert" ><abbr title="MongoDB#insert">insert</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Insert new data.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MongoDB_js.html#lineno59">MongoDB.js</a> at line 59
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL#insert">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#insert" ><abbr title="MySQL#insert">insert</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Insert new data.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno55">MySQL.js</a> at line 55
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Helper.isDebug">
+								<a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>.
+								<strong><a href="Helper.html#isDebug" ><abbr title="Helper.isDebug">isDebug</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Check if debug mode is enabled for the given module.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Helper_js.html#lineno67">Helper.js</a> at line 67
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#isDefault">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#isDefault" ><abbr title="Crawler#isDefault">isDefault</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Check if this command is default.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno540">Crawler.js</a> at line 540
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="ScreenShot#iterateDimensions">
+								<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>.
+								<strong><a href="ScreenShot.html#iterateDimensions" ><abbr title="ScreenShot#iterateDimensions">iterateDimensions</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Iterate through the dimensions to create screenshots asynchronously.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno208">ScreenShot.js</a> at line 208
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="ScreenShot#iterateWebsites">
+								<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>.
+								<strong><a href="ScreenShot.html#iterateWebsites" ><abbr title="ScreenShot#iterateWebsites">iterateWebsites</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Iterate through the websites to create screenshots asynchronously.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno160">ScreenShot.js</a> at line 160
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL.parseColumnValue">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#parseColumnValue" ><abbr title="MySQL.parseColumnValue">parseColumnValue</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Parse an object to an array in column value format.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno332">MySQL.js</a> at line 332
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Parser.parseInput">
+								<a href="Parser.html" ><abbr title="Parser">Parser</abbr></a>.
+								<strong><a href="Parser.html#parseInput" ><abbr title="Parser.parseInput">parseInput</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Converts the data of the input object into correct types.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Parser_js.html#lineno89">Parser.js</a> at line 89
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL.parseStructure">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#parseStructure" ><abbr title="MySQL.parseStructure">parseStructure</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Parse the structure object to return specific columns.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno374">MySQL.js</a> at line 374
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Parser.parseTime">
+								<a href="Parser.html" ><abbr title="Parser">Parser</abbr></a>.
+								<strong><a href="Parser.html#parseTime" ><abbr title="Parser.parseTime">parseTime</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Parse milliseconds to object or array with days, hours, minutes and seconds.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Parser_js.html#lineno53">Parser.js</a> at line 53
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL.parseValue">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#parseValue" ><abbr title="MySQL.parseValue">parseValue</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Parse the value to correct notation for the MySQL query.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno315">MySQL.js</a> at line 315
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL.parseValues">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#parseValues" ><abbr title="MySQL.parseValues">parseValues</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Parse all values to correct notation for the MySQL query.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno296">MySQL.js</a> at line 296
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#performCustomModules">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#performCustomModules" ><abbr title="Wrapper#performCustomModules">performCustomModules</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Create instances of the added modules.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno171">Wrapper.js</a> at line 171
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#performModuleConfig">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#performModuleConfig" ><abbr title="Wrapper#performModuleConfig">performModuleConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Execute all configurations for all modules, also the added.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno152">Wrapper.js</a> at line 152
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#performWrapperConfig">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#performWrapperConfig" ><abbr title="Wrapper#performWrapperConfig">performWrapperConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Execute the configurations for the Wrapper so we know the type of the database that should be used.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno110">Wrapper.js</a> at line 110
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#prepareForCrawling">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#prepareForCrawling" ><abbr title="Wrapper#prepareForCrawling">prepareForCrawling</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Prepare modules and configurations for the crawling process.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno194">Wrapper.js</a> at line 194
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Helper.printDebugLine">
+								<a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>.
+								<strong><a href="Helper.html#printDebugLine" ><abbr title="Helper.printDebugLine">printDebugLine</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Prints the debugging line.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Helper_js.html#lineno90">Helper.js</a> at line 90
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#removeLockFile">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#removeLockFile" ><abbr title="Crawler#removeLockFile">removeLockFile</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Removes lock file.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno591">Crawler.js</a> at line 591
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="DelayedSave.save">
+								<a href="DelayedSave.html" ><abbr title="DelayedSave">DelayedSave</abbr></a>.
+								<strong><a href="DelayedSave.html#save" ><abbr title="DelayedSave.save">save</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>The default saving process.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_DelayedSave_js.html#lineno105">DelayedSave.js</a> at line 105
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL#save">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#save" ><abbr title="MySQL#save">save</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Insert data or update if already exists.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno123">MySQL.js</a> at line 123
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MongoDB#save">
+								<a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>.
+								<strong><a href="MongoDB.html#save" ><abbr title="MongoDB#save">save</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Insert data or update if already exists.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MongoDB_js.html#lineno124">MongoDB.js</a> at line 124
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="DelayedSave#saveAll">
+								<a href="DelayedSave.html" ><abbr title="DelayedSave">DelayedSave</abbr></a>.
+								<strong><a href="DelayedSave.html#saveAll" ><abbr title="DelayedSave#saveAll">saveAll</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Save all found objects where a type is given.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_DelayedSave_js.html#lineno65">DelayedSave.js</a> at line 65
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#saveStartingUrl">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#saveStartingUrl" ><abbr title="Wrapper#saveStartingUrl">saveStartingUrl</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Save the starting url.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno316">Wrapper.js</a> at line 316
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="ScreenShot#screenshotting">
+								<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>.
+								<strong><a href="ScreenShot.html#screenshotting" ><abbr title="ScreenShot#screenshotting">screenshotting</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Create a screenshot from a specific website.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno306">ScreenShot.js</a> at line 306
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#searchForConfig">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#searchForConfig" ><abbr title="Wrapper#searchForConfig">searchForConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Search for a default configuration file.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno264">Wrapper.js</a> at line 264
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="DB.selectType">
+								<a href="DB.html" ><abbr title="DB">DB</abbr></a>.
+								<strong><a href="DB.html#selectType" ><abbr title="DB.selectType">selectType</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>You must select a database type to get the database instance.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_DB_js.html#lineno21">DB.js</a> at line 21
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Global#set">
+								<a href="Global.html" ><abbr title="Global">Global</abbr></a>.
+								<strong><a href="Global.html#set" ><abbr title="Global#set">set</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set any parameter.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Global_js.html#lineno38">Global.js</a> at line 38
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#setCallback">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#setCallback" ><abbr title="Wrapper#setCallback">setCallback</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set a callback. On some points of the core it calls some callbacks so you can hook into somefunctions with your modules.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno212">Wrapper.js</a> at line 212
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#setConfig">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#setConfig" ><abbr title="Wrapper#setConfig">setConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Add a configuration file so the configs will be used.The configuration file must be a .json file. Look at the local config.json to get the format.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno89">Wrapper.js</a> at line 89
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MongoDB#setConnection">
+								<a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>.
+								<strong><a href="MongoDB.html#setConnection" ><abbr title="MongoDB#setConnection">setConnection</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set connection.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MongoDB_js.html#lineno45">MongoDB.js</a> at line 45
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL#setConnection">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#setConnection" ><abbr title="MySQL#setConnection">setConnection</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set connection.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno41">MySQL.js</a> at line 41
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper.setInput">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#setInput" ><abbr title="Wrapper.setInput">setInput</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Write the user input into the Global class.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno340">Wrapper.js</a> at line 340
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MongoDB#setLocalConfig">
+								<a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>.
+								<strong><a href="MongoDB.html#setLocalConfig" ><abbr title="MongoDB#setLocalConfig">setLocalConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set all configuration parameters for this class.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="ScreenShot#setLocalConfig">
+								<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>.
+								<strong><a href="ScreenShot.html#setLocalConfig" ><abbr title="ScreenShot#setLocalConfig">setLocalConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set all configuration parameters for this class.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Output#setLocalConfig">
+								<a href="Output.html" ><abbr title="Output">Output</abbr></a>.
+								<strong><a href="Output.html#setLocalConfig" ><abbr title="Output#setLocalConfig">setLocalConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set all configuration parameters for this class.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL#setLocalConfig">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#setLocalConfig" ><abbr title="MySQL#setLocalConfig">setLocalConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set all configuration parameters for this class.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="BaseModule#setLocalConfig">
+								<a href="BaseModule.html" ><abbr title="BaseModule">BaseModule</abbr></a>.
+								<strong><a href="BaseModule.html#setLocalConfig" ><abbr title="BaseModule#setLocalConfig">setLocalConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set all configuration parameters for this class.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#setLocalConfig">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#setLocalConfig" ><abbr title="Crawler#setLocalConfig">setLocalConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set all configuration parameters for this class.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#setLocalConfig">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#setLocalConfig" ><abbr title="Wrapper#setLocalConfig">setLocalConfig</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Set all configuration parameters for this class.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_BaseModule_js.html#lineno29">BaseModule.js</a> at line 29
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="String#splice">
+								String.
+								<strong><a href="String.html#splice" ><abbr title="String#splice">splice</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>The splice() method changes the content of a string by removing a range ofcharacters and/or adding new characters.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno14">ScreenShot.js</a> at line 14
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#start">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#start" ><abbr title="Crawler#start">start</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Initiate the crawling process.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno76">Crawler.js</a> at line 76
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#startCrawling">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#startCrawling" ><abbr title="Wrapper#startCrawling">startCrawling</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Start the crawling process.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno521">Wrapper.js</a> at line 521
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#startWithMongo">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#startWithMongo" ><abbr title="Wrapper#startWithMongo">startWithMongo</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Start the crawling process with the MongoDB database.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno395">Wrapper.js</a> at line 395
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper#startWithMysql">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#startWithMysql" ><abbr title="Wrapper#startWithMysql">startWithMysql</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Start the crawling process with the MySQL database.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno445">Wrapper.js</a> at line 445
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="ScreenShot#stopChrome">
+								<a href="ScreenShot.html" ><abbr title="ScreenShot">ScreenShot</abbr></a>.
+								<strong><a href="ScreenShot.html#stopChrome" ><abbr title="ScreenShot#stopChrome">stopChrome</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Kill all Google Chrome processes.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_ScreenShot_js.html#lineno70">ScreenShot.js</a> at line 70
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Wrapper.stopCrawling">
+								<a href="Wrapper.html" ><abbr title="Wrapper">Wrapper</abbr></a>.
+								<strong><a href="Wrapper.html#stopCrawling" ><abbr title="Wrapper.stopCrawling">stopCrawling</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Stop the crawling process.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Wrapper_js.html#lineno536">Wrapper.js</a> at line 536
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#syncFoundUrls">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#syncFoundUrls" ><abbr title="Crawler#syncFoundUrls">syncFoundUrls</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Store all following urls into the database.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno636">Crawler.js</a> at line 636
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Formatter.toUpperFirst">
+								<a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>.
+								<strong><a href="Formatter.html#toUpperFirst" ><abbr title="Formatter.toUpperFirst">toUpperFirst</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Converts the first letter of a string to upper case.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Formatter_js.html#lineno12">Formatter.js</a> at line 12
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Helper.twoDigits">
+								<a href="Helper.html" ><abbr title="Helper">Helper</abbr></a>.
+								<strong><a href="Helper.html#twoDigits" ><abbr title="Helper.twoDigits">twoDigits</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Convert a one digit number into a two digit number.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Helper_js.html#lineno16">Helper.js</a> at line 16
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Formatter.underscoreToCamel">
+								<a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>.
+								<strong><a href="Formatter.html#underscoreToCamel" ><abbr title="Formatter.underscoreToCamel">underscoreToCamel</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Convert snake_case to camelCase.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Formatter_js.html#lineno84">Formatter.js</a> at line 84
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Formatter.underscoreToDash">
+								<a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>.
+								<strong><a href="Formatter.html#underscoreToDash" ><abbr title="Formatter.underscoreToDash">underscoreToDash</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Convert snake_case to dash-case.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Formatter_js.html#lineno50">Formatter.js</a> at line 50
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Formatter.underscoreToWhitespace">
+								<a href="Formatter.html" ><abbr title="Formatter">Formatter</abbr></a>.
+								<strong><a href="Formatter.html#underscoreToWhitespace" ><abbr title="Formatter.underscoreToWhitespace">underscoreToWhitespace</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Convert underscore to whitespaces.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Formatter_js.html#lineno96">Formatter.js</a> at line 96
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MongoDB#update">
+								<a href="MongoDB.html" ><abbr title="MongoDB">MongoDB</abbr></a>.
+								<strong><a href="MongoDB.html#update" ><abbr title="MongoDB#update">update</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Update data.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MongoDB_js.html#lineno90">MongoDB.js</a> at line 90
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="MySQL#update">
+								<a href="MySQL.html" ><abbr title="MySQL">MySQL</abbr></a>.
+								<strong><a href="MySQL.html#update" ><abbr title="MySQL#update">update</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Update data.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_MySQL_js.html#lineno88">MySQL.js</a> at line 88
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Crawler#visitPage">
+								<a href="Crawler.html" ><abbr title="Crawler">Crawler</abbr></a>.
+								<strong><a href="Crawler.html#visitPage" ><abbr title="Crawler#visitPage">visitPage</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Visit the url and let the customer search for whatever he want.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Crawler_js.html#lineno296">Crawler.js</a> at line 296
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Output#write">
+								<a href="Output.html" ><abbr title="Output">Output</abbr></a>.
+								<strong><a href="Output.html#write" ><abbr title="Output#write">write</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Write output.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno74">Output.js</a> at line 74
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Output#writeConsole">
+								<a href="Output.html" ><abbr title="Output">Output</abbr></a>.
+								<strong><a href="Output.html#writeConsole" ><abbr title="Output#writeConsole">writeConsole</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Write in console only.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno117">Output.js</a> at line 117
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Output#writeLine">
+								<a href="Output.html" ><abbr title="Output">Output</abbr></a>.
+								<strong><a href="Output.html#writeLine" ><abbr title="Output#writeLine">writeLine</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Write output with a new line before.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno88">Output.js</a> at line 88
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Output#writeOutput">
+								<a href="Output.html" ><abbr title="Output">Output</abbr></a>.
+								<strong><a href="Output.html#writeOutput" ><abbr title="Output#writeOutput">writeOutput</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Write array as strings with new line for each entry.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno142">Output.js</a> at line 142
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Output#writeUserInput">
+								<a href="Output.html" ><abbr title="Output">Output</abbr></a>.
+								<strong><a href="Output.html#writeUserInput" ><abbr title="Output#writeUserInput">writeUserInput</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Write user input values.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno163">Output.js</a> at line 163
+							
+							</div> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<abbr title="Output#writeWithSpace">
+								<a href="Output.html" ><abbr title="Output">Output</abbr></a>.
+								<strong><a href="Output.html#writeWithSpace" ><abbr title="Output#writeWithSpace">writeWithSpace</abbr></a></strong>
+							</abbr>
+						</td>
+						<td>Write output with a trailing new line.</td>
+						<td width="15%">
+							<div class="location">
+							
+								<a href="_var_www_html_docs_crawlerInput_Output_js.html#lineno103">Output.js</a> at line 103
+							
+							</div> 
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+
+		<footer>
+	Documentation generated by <a href="https://github.com/micmath/jsdoc">JSDoc 3</a> using <a href="https://github.com/danyg/jsdoc3Template">jsdoc3Template</a> by danyg & lechecacharro on Tue Feb 20 2018 15:47:06 GMT+0100 (CET)
+</footer>
+
+	</body>
+</html>
