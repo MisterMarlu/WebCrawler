@@ -1,0 +1,106 @@
+{
+  "questions": {
+    "database": [
+      {
+        "type": "input",
+        "name": "database",
+        "message": "Database name:"
+      },
+      {
+        "type": "input",
+        "name": "user",
+        "message": "Database username:"
+      },
+      {
+        "type": "password",
+        "name": "password",
+        "message": "Database user password:"
+      }
+    ],
+    "createDatabase": [
+      {
+        "type": "confirm",
+        "name": "create",
+        "message": "Do you want to create some default tables in your database?"
+      }
+    ],
+    "module": [
+      {
+        "type": "input",
+        "name": "name",
+        "message": "Module name:",
+        "default": "ModuleStub"
+      },
+      {
+        "type": "input",
+        "name": "directory",
+        "message": "Module directory name:",
+        "default": "modules"
+      }
+    ],
+    "overwrite": {
+      "type": "confirm",
+      "name": "delete",
+      "message": "There is already %type% called \"%name%\". Overwrite?"
+    }
+  },
+  "databaseInfo": {
+    "database": "",
+    "user": "",
+    "password": ""
+  },
+  "moduleInfo": {
+    "name": "",
+    "directory": ""
+  },
+  "paths": {
+    "quickStart": {
+      "path": "%projectDir%/quickStart.js",
+      "created": false,
+      "isDir": false
+    },
+    "configuration": {
+      "path": "%projectDir%/web-crawler.json",
+      "created": false,
+      "isDir": false
+    },
+    "module": {
+      "path": "",
+      "created": false,
+      "isDir": false
+    },
+    "screenshot": {
+      "path": "%projectDir%/screenshots",
+      "created": false,
+      "isDir": true
+    },
+    "log": {
+      "path": "%projectDir%/logs",
+      "created": false,
+      "isDir": true
+    },
+    "moduleDir": {
+      "path": "",
+      "created": false,
+      "isDir": true
+    }
+  },
+  "replacements": [
+    {
+      "pattern": "%crawlerDir%",
+      "replacement": "%crawlerDir%"
+    },
+    {
+      "pattern": "%crawlerDirName%",
+      "replacement": "%crawlerDirName%"
+    },
+    {
+      "pattern": "%projectDir%",
+      "replacement": "%projectDir%"
+    },
+    {
+      "pattern": "%projectDirName%",
+      "replacement": "%projectDirName%"
+    }
+  ]
+}

@@ -15,11 +15,6 @@ Some configurations can be modified by creating a web-crawler.json file with spe
 
 ### Installation
 
-Just run *(not possible at the moment, maybe in future)*:
-```
-npm install --save mistermarlu/web-crawler
-```
-
 Import the `WebCrawler` class like:
 ```javascript
 
@@ -286,7 +281,7 @@ webcrawler.setCallback('output', outputCallback);
 
 ##### Wrapper.crawl(logFileName)
 Prepare for the crawling process.
-**{string} logFileName** *Name of the log file. Default is the name defined in a config.json.*
+**{string} logFileName** *Name of the log file. Default is the name defined in a genConfig.json.*
 
 Example:
 ```javascript

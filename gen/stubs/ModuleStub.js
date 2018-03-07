@@ -1,5 +1,5 @@
 // Import custom modules.
-const {BaseModule} = require(`${__dirname}/../core`);
+const {BaseModule} = require(`${__dirname}/../%crawlerDirName%`);
 
 let instance = null;
 

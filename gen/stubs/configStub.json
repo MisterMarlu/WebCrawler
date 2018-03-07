@@ -1,0 +1,25 @@
+{
+    "default": {
+        "connString": "mongodb://{username}:{password}@{host}:{port}/{database}?authSource={authentication-database}",
+        "connection": {
+            "host": "localhost",
+            "user": "user",
+            "password": "",
+            "database": "database"
+        },
+        "dbVariant": "mysql"
+    },
+    "crawler": {
+        "lockFileName": "webcrawler.lock"
+    },
+    "output": {
+        "logPath": "%projectDir%/logs",
+        "logFileName": "webcrawler",
+        "multiple": false
+    },
+    "screenShot": {
+        "screenshot": {
+            "filePath": "%projectDir%/screenshots/"
+        }
+    }
+}
