@@ -1,13 +1,7 @@
-/**
- * @author lbraun
- * @date 20.02.2018
- * @licence MIT
- */
-
 'use strict';
 
-const {Helper} = require('../lib/Helper'),
-  {Global} = require('../lib/Global'),
+const Helper = require('../lib/Helper'),
+  Global = require('../lib/Global'),
   expect = require('chai').expect;
 
 describe('Helper module', () => {

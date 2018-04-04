@@ -1,12 +1,6 @@
-/**
- * @author lbraun
- * @date 20.02.2018
- * @licence MIT
- */
-
 'use strict';
 
-const {Parser} = require('../lib/Parser'),
+const Parser = require('../lib/Parser'),
   expect = require('chai').expect;
 
 describe('Parser module', () => {

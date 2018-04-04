@@ -1,12 +1,6 @@
-/**
- * @author lbraun
- * @date 20.02.2018
- * @licence MIT
- */
-
 'use strict';
 
-const {Formatter} = require('../lib/Formatter'),
+const Formatter = require('../lib/Formatter'),
   expect = require('chai').expect;
 
 describe('Formatter module', () => {

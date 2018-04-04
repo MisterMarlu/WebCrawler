@@ -29,4 +29,4 @@ class %ModuleStub% extends BaseModule {
   }
 }
 
-exports.%ModuleStub% = %ModuleStub%;
+module.exports = %ModuleStub%;

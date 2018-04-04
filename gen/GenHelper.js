@@ -94,7 +94,7 @@ class GenHelper {
   }
 
   /**
-   * Get all available colores.
+   * Get all available colors.
    *
    * @returns {object} Returns an object with all available colors.
    */
@@ -103,7 +103,7 @@ class GenHelper {
   }
 
   /**
-   * Clones an object with the safest way, so the source object will not be touched.
+   * Clones an object with the safest way, so the source object wont be touched.
    *
    * @param {object} source The object that should be cloned.
    * @returns {object} Returns a clone of the source object.
@@ -113,4 +113,4 @@ class GenHelper {
   }
 }
 
-exports.GenHelper = GenHelper;
+module.exports = GenHelper;

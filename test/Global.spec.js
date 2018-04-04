@@ -1,12 +1,6 @@
-/**
- * @author lbraun
- * @date 20.02.2018
- * @licence MIT
- */
-
 'use strict';
 
-const {Global} = require('../lib/Global'),
+const Global = require('../lib/Global'),
   expect = require('chai').expect;
 
 describe('Global module', () => {

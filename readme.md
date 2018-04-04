@@ -1,6 +1,6 @@
 # WebCrawler
 
-An easy script to crawl through websites. This crawler is not searching for anything but can be extended very easy via asynchronous callback functions.
+A script to crawl through websites. This crawler is not searching for anything but can be extended very easy via asynchronous callback functions and modules.
 
 
 Some configurations can be modified by creating a web-crawler.json file with specific parameters.
@@ -10,8 +10,9 @@ Some configurations can be modified by creating a web-crawler.json file with spe
 2. [Configuration parameters](#configuration-parameters)
 3. [Use callbacks](#use-callbacks)
 4. [Public functions](#public-functions)
-4. [Defining custom modules](#defining-custom-modules)
-5. [Available parameters](#available-parameters)
+5. [Defining custom modules](#defining-custom-modules)
+6. [Quickstart](#quickstart)
+7. [Available parameters](#available-parameters)
 
 ### Installation
 
@@ -20,9 +21,15 @@ Import the `WebCrawler` class like:
 
 // Get commands from console.
 const commands = require('minimist')(process.argv.slice(2)),
-  {WebCrawler} = require('web-crawler');
+  WebCrawler = require('web-crawler');
 
-let webcrawler = new WebCrawler(__dirname, commands);
+let webcrawler = new WebCrawler.Main(__dirname, commands);
+
+// OR this way.
+const commands = require('minimist')(process.argv.slice(2)),
+  {Main} = require('web-crawler');
+
+let webcrawler = new Main(__dirname, commands);
 
 ```
 
@@ -34,55 +41,51 @@ Here is the full list of available configuration parameters:
 
 ```json
 {
-  "default": {
-    "connString": "mongodb://{username}:{password}@{host}:{port}/{database}?authSource={authentication-database}",
-    "connection": {
-      "host": "host",
-      "user": "username",
-      "password": "password",
-      "database": "mydb"
+    "default": {
+        "connString": "mongodb://{username}:{password}@{host}:{port}/{database}?authSource={authentication-database}",
+        "connection": {
+            "host": "host",
+            "user": "username",
+            "password": "password",
+            "database": "mydb"
+        },
+        "dbVariant": "mysql"
     },
-    "dbVariant": "mongodb"
-  },
-  "crawler": {
-    "lockFileName": "webcrawler.lock"
-  },
-  "output": {
-    "logPath": "/full/path/to/logs",
-    "logFileName": "webcrawler",
-    "multiple": false
-  },
-  "screenShot": {
-    "chromeless": {
-      "waitTimeout": 3000,
-      "launchChrome": false
+    "crawler": {
+        "lockFileName": "webcrawler.lock"
     },
-    "resolutions": [
-      {
-        "height": 3500,
-        "width": 1920
-      }
-    ],
-    "screenshot": {
-      "filePath": "/full/path/to/screenshots/"
+    "output": {
+        "logPath": "/absolute/path/to/logs",
+        "logFileName": "logger-1",
+        "multiple": true
     },
-    "clicks": [
-      {
-        "element": "a[href*=\"?enter\"]",
-        "waits": {
-          "before": 100,
-          "after": 500
-        }
-      },
-      {
-        "element": ".popup .popup_closebutton",
-        "waitings": {
-          "before": 1000,
-          "after": 1200
-        }
-      }
-    ]
-  }
+    "screenShot": {
+        "screenshot": {
+            "filePath": "/absolute/path/to/screenshots/"
+        },
+        "dimensions": [
+            {
+                "width": "1920",
+                "height": "1080"
+            }
+        ],
+        "clicks": [
+            {
+                "element": "a[href*=\"?enter\"]",
+                "waitings": {
+                    "before": 100,
+                    "after": 500
+                }
+            },
+            {
+                "element": ".popup .popup_closebutton",
+                "waitings": {
+                    "before": 1000,
+                    "after": 1200
+                }
+            }
+        ]
+    }
 }
 ```
 
@@ -123,7 +126,7 @@ so the web crawler would overwrite the old log file.
 Configurations for chromeless, see [here](https://github.com/graphcool/chromeless#usage).
 
   
-**screenShot.resolutions**  
+**screenShot.dimensions**
 An array of width and height resolutions of the screenshots that should be done.
 
   
@@ -148,6 +151,7 @@ At the moment there are some hooks available:
 /**
  * Callback for initiation.
  *
+ * @async
  * @param {WebCrawler} webcrawler The WebCrawler instance.
  * @param {object} options The options for the webcrawler.
  * @param {string} [options.startUrl=https://www.phpdoc.org/] The url you are starting from.
@@ -155,9 +159,11 @@ At the moment there are some hooks available:
  * @param {number} [options.debug=0] Turn on/off the debug mode.
  * @param {string} [options.debugModule=] Specify a module to debug. If empty and debug is on, all modules will be debugged.
  * @param {number} [options.screenShots=0] Turn on/of the function to create screenshots.
+ * @returns {Promise} Returns an empty Promise.
  */
-function initCallback(webcrawler, options) {
-  // Here you can do some operations before the crawling process begins.
+async function initCallback(webcrawler, options) {
+  await webcrawler.CustomModule.init(webcrawler, options);
+
   webcrawler.startCrawling();
 }
 
@@ -171,7 +177,8 @@ webcrawler.setCallback('init', initCallback);
 /**
  * Callback for searching.
  *
- * @param {function} $ The content of the website where we can perform like in jQuery.
+ * @async
+ * @param {object} $ The content of the website where we can perform like in jQuery.
  * @param {string} url The current url.
  * @returns {Promise} Returns an empty Promise.
  */
@@ -191,6 +198,7 @@ webcrawler.setCallback('search', searchCallback);
 /**
  * Callback for doing screenshots.
  *
+ * @async
  * @param {object} commands The options for the webcrawler.
  * @param {string} [commands.startUrl=https://www.phpdoc.org/] The url you are starting from.
  * @param {number} [commands.pageLimit=0] The limit of pages to crawl. 0 will be infinite.
@@ -235,7 +243,7 @@ webcrawler.setCallback('output', outputCallback);
 
 ### Public functions
 There are a lot of functions you can use. This web crawler is a wrapper and manager of some classes. Remember, you can use a mongodb and a mysql database. So in the methods of DB the parameter is called "table" but with the usage of mongodb it would be called "collection".
-So the wrapper WebCrawler has some functions and each class has it's own functions, let me show you:
+So the wrapper WebCrawler has some methods and each class has it's own methods, let me show you:
 
 ### Wrapper
 
@@ -247,7 +255,14 @@ Example:
 ```javascript
 
 webcrawler.addModule('/modules/SomeModule');
-webcrawler.SomeModule.someMethod();
+
+function searchCallback(webcrawler) {
+  webcrawler.SomeModule.someMethod();
+}
+
+webcrawler.setCallback('search', searchCallback);
+
+webcrawler.startCrawling();
 
 ```
 
@@ -279,9 +294,9 @@ webcrawler.setCallback('output', outputCallback);
 
 ```
 
-##### Wrapper.crawl(logFileName)
+##### Wrapper.crawl(logFileName = '')
 Prepare for the crawling process.
-**{string} logFileName** *Name of the log file. Default is the name defined in a genConfig.json.*
+**{string} logFileName=** *Name of the log file. Default is the name defined in the config.json.*
 
 Example:
 ```javascript
@@ -491,7 +506,7 @@ webcrawler.output.write('An example', true, 'black', 'white');
 // Would print this string to the console with font color black and background color white.
 
 ```
-![screenshot from console](https://git.rto.de/cws/rtocrawler/blob/master/core/doc/output.black.white.png)
+![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 ##### Output.writeLine(value, toConsole = false, type = '', background = '')
 Write output with a new line before.
@@ -508,7 +523,7 @@ webcrawler.output.writeLine('An example', true, 'black', 'white');
 // Would print this string to the console with font color black and background color white.
 
 ```
-![screenshot from console](https://git.rto.de/cws/rtocrawler/blob/master/core/doc/output.black.white.png)
+![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 ##### Output.writeWithSpace(value, toConsole = false, type = '', background = '')
 Write output with a trailing new line.
@@ -525,7 +540,7 @@ webcrawler.output.writeWithSpace('An example', true, 'black', 'white');
 // Would print this string to the console with font color black and background color white.
 
 ```
-![screenshot from console](https://git.rto.de/cws/rtocrawler/blob/master/core/doc/output.black.white.png)
+![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 ##### Output.writeConsole(value, toConsole = false, type, background)
 Write in console only.
@@ -542,7 +557,7 @@ webcrawler.output.writeConsole('An example', true, 'black', 'white');
 // Would print this string to the console with font color black and background color white.
 
 ```
-![screenshot from console](https://git.rto.de/cws/rtocrawler/blob/master/core/doc/output.black.white.png)
+![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 ##### Output.writeOutput(sentences, type = '')
 Write array as strings with new line for each entry.
@@ -566,7 +581,7 @@ webcrawler.output.writeOutput(sentences, 'underscore');
 // Would print this sentences to console as small list.
 
 ```
-![screenshot from console](https://git.rto.de/cws/rtocrawler/blob/master/core/doc/output.array.png)
+![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.array.png)
 
 ##### Output.getColor(type, background = '')
 Get colored command line output.
@@ -633,8 +648,9 @@ webcrawler.screenShot.doScreenshots(websites, callbackAfterEachScreenshot).then(
 
 #### DelayedSave
 
-##### DelayedSave.addType(collection, globalName, index, callback = DelayedSave.save)
+##### DelayedSave.addType(position, collection, globalName, index, callback = DelayedSave.save)
 Add a type with necessary information so DelayedSave know how to save the data.
+**{number} position** *Position of the ordered saving types.*
 **{string} collection** *Name of the collection.*
 **{string} globalName** *Name of the array of objects in the class Global*
 **{string} index** *Index of the collection.*
@@ -647,7 +663,7 @@ class CustomModule extends BaseModule {
   constructor(options) {
     super(options);
 
-    this.delayedSave.addType('foo', 'foo', 'bar', CustomModule.delayedSaveMethod);
+    this.delayedSave.addType(10, 'foo', 'foo', 'bar', CustomModule.delayedSaveMethod);
 
     return this;
   }
@@ -856,6 +872,36 @@ setTimeout(() => {
 
 #### Helper
 
+##### Helper.compare2Objects(a, b)
+Compare two objects. Are they equal?
+**{object} a** *Object a that should be compared with object b.*
+**{object} b** *Object b that should be compared with object a.*
+**Return {boolean}** *Returns true or false.*
+
+Example:
+```javascript
+
+const {Helper} = require('web-crawler');
+
+let a = {
+    one: 1,
+    two: 0,
+  },
+  b = {
+    one: 1,
+    two: 0,
+  },
+  c = {
+    one: 0,
+    two: 0,
+  };
+
+console.log(a === b); // Would print "false".
+console.log(Helper.compare2Objects(a, b)); // Would print "true".
+console.log(Helper.compare2Objects(a, c)); // Would print "false".
+
+```
+
 ##### Helper.twoDigits(number)
 Convert a one digit number into a two digit number.
 **{number} number** *The number to convert.*
@@ -932,6 +978,23 @@ if (Helper.isDebug('CustomModule')) {
 
 ```
 
+##### Helper.debug(file, value, level = 5)
+Prints output on debugging.
+**{string} file** *The absolute path to the file.*
+**{*} value** *The value that should be debugged.*
+**{number} level** *The debug level on which it should be printed (level 0-5).*
+
+Example:
+```javascript
+
+const {Helper} = require('web-crawler');
+
+let foo = 'bar';
+
+Helper.debug(__filename, foo, 4); // Would print "bar" when debugging the module with the debug level 4 or higher.
+
+```
+
 ##### Helper.debugEnabled()
 Check if debug mode is enabled.
 **Return {boolean}** *Returns true or false.*
@@ -978,13 +1041,15 @@ class CustomModule extends BaseModule {
 
 ### Defining custom modules
 
-You can define your own modules with the default module generator:
+You can define your own modules with this command:
 ```
 npm run add-module
 ```
 
 You can also define your module manually with this preferred template:
 ```javascript
+
+// project/modules/ModuleName.js
 
 // Import custom modules.
 const {BaseModule} = require(`${__dirname}/../core`);
@@ -1017,7 +1082,47 @@ class ModuleName extends BaseModule {
   }
 }
 
-exports.ModuleName = ModuleName;
+module.exports = ModuleName;
+
+```
+
+**[back to top](#table-of-contents)**
+
+### Quickstart
+
+With the generator you can easily initiate a crawler project on this command:
+```
+npm run quick-start
+```
+
+This will ask you some questions:
+```
+? Do you want to create some default tables in your database? (Y/n)
+? Database name:
+? Database username:
+? Database user password: [input is hidden]
+```
+
+And will create some files and directories into your project root:
+* File "quickStart.js"
+* File "web-crawler.json"
+* Directory "logs"
+* Directory "screenshots"
+
+Here is an example of the generated quickstart.js:
+
+```javascript
+
+// Get commands from console.
+const commands = require('minimist')(process.argv.slice(2)),
+// Import WebCrawler.
+  WebCrawler = require(`${__dirname}/core`);
+
+// Create WebCrawler instance.
+let crawler = new WebCrawler.Main(__dirname, commands);
+
+// Start the crawling process.
+crawler.crawl();
 
 ```
 
@@ -1026,7 +1131,7 @@ exports.ModuleName = ModuleName;
 ### Available parameters
 You can call your script with
 ```
-node script.js --startUrl="https://github.com" --pageLimit=100 --screenShots=1 --debug=1 --debugModule=Wrapper
+node script.js --startUrl="https://github.com" --pageLimit=100 --screenShots=1 --debug=1 --debugModule=Wrapper --debugLevel=5
 ```
 
 Here you can see all available parameters:
@@ -1038,5 +1143,6 @@ Here you can see all available parameters:
 | screenShots | boolean          | `0`                       | If `1` screenshots would be made for each customer website                 |
 | debug       | boolean          | `0`                       | If `1` you get a lot of output for debugging. You can add a module name    |
 | debugModule | string           | ` `                       | The module you like to get the debug information                           |
+| debugLevel  | number           | `0`                       | The level to debug, from 0 to 5 where 5 is the highest level               |
 
 **[back to top](#table-of-contents)**

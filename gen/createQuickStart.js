@@ -1,4 +1,4 @@
-const {Generator} = require('./Generator');
+const Generator = require('./Generator');
 
 let generator = new Generator();
 

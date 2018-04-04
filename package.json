@@ -1,6 +1,6 @@
 {
   "name": "web-crawler",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "A webcrawler with optional screenshotting websites.",
   "main": "index.js",
   "author": "MisterMarlu",

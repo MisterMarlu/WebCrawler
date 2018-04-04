@@ -1,11 +1,11 @@
 const fs = require('fs'),
   cp = require("child_process"),
   inquirer = require('inquirer'),
-  {GenHelper} = require('./GenHelper'),
+  GenHelper = require('./GenHelper'),
   genConfig = require('./genConfig');
 
 /**
- * Class to generate files for the webcrawler.
+ * Class to generate files and directories for the webcrawler.
  */
 class Generator {
 
@@ -395,4 +395,4 @@ class Generator {
   }
 }
 
-exports.Generator = Generator;
+module.exports = Generator;
