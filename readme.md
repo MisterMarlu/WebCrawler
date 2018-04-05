@@ -92,15 +92,15 @@ Here is the full list of available configuration parameters:
 Okay, now step for step: There are some available configurations in each module of the web crawler, first default:
 
   
-**default.connString**
+**default.connString**  
 The connection string for mongodb because the web crawler saves some data.
 
 
-**default.connection**
+**default.connection**  
 The connection object for mariadb because the web crawler saves some data.
 
 
-**default.dbVariant**
+**default.dbVariant**  
 The type of database you want to use. You can switch between mongodb and mysql.
 
   
@@ -126,7 +126,7 @@ so the web crawler would overwrite the old log file.
 Configurations for chromeless, see [here](https://github.com/graphcool/chromeless#usage).
 
   
-**screenShot.dimensions**
+**screenShot.dimensions**  
 An array of width and height resolutions of the screenshots that should be done.
 
   
@@ -248,7 +248,7 @@ So the wrapper WebCrawler has some methods and each class has it's own methods, 
 ### Wrapper
 
 ##### Wrapper.addModule(pathToModule)
-Add a custom module.
+Add a custom module.  
 **{string} pathToModule** *The relative path to the module.*
 
 Example:
@@ -267,9 +267,9 @@ webcrawler.startCrawling();
 ```
 
 ##### Wrapper.addConfig(pathToConfig, name)
-Add a custom configuration file. It must be a .json file.
-**{string} pathToConfig** *The absolute path to the configuration file.*
-**{string} name** *The name of the configuration.*
+Add a custom configuration file. It must be a .json file.  
+**{string} pathToConfig** *The absolute path to the configuration file.*  
+**{string} name** *The name of the configuration.*  
 
 Example:
 ```javascript
@@ -279,9 +279,9 @@ webcrawler.addConfig('/path/to/config.json', 'custom');
 ```
 
 ##### Wrapper.setCallback(name, callback)
-Set a callback. On some points of the core it calls some callbacks so you can hook into some functions with your modules.
-**{string} name** *A name for this callback is necessary.*
-**{function} callback** *Of cause the callback should be a function.*
+Set a callback. On some points of the core it calls some callbacks so you can hook into some functions with your modules.  
+**{string} name** *A name for this callback is necessary.*  
+**{function} callback** *Of cause the callback should be a function.*  
 
 Example:
 ```javascript
@@ -295,8 +295,8 @@ webcrawler.setCallback('output', outputCallback);
 ```
 
 ##### Wrapper.crawl(logFileName = '')
-Prepare for the crawling process.
-**{string} logFileName=** *Name of the log file. Default is the name defined in the config.json.*
+Prepare for the crawling process.  
+**{string} logFileName=** *Name of the log file. Default is the name defined in the config.json.*  
 
 Example:
 ```javascript
@@ -308,7 +308,7 @@ webcrawler.crawl(logFileName); // logFileName is a optional parameter.
 ```
 
 ##### Wrapper.startCrawling()
-Start the crawling process.
+Start the crawling process.  
 
 Example:
 ```javascript
@@ -326,10 +326,10 @@ webcrawler.crawl();
 #### DB
 
 ##### DB.insert(insert, table)
-Insert new data.
-**{object} insert** *The object that should be inserted.*
-**{string} table** *The name of the table.*
-**Return {Promise}** *Returns a Promise object with the result of the database.*
+Insert new data.  
+**{object} insert** *The object that should be inserted.*  
+**{string} table** *The name of the table.*  
+**Return {Promise}** *Returns a Promise object with the result of the database.*  
 
 Example:
 ```javascript
@@ -348,12 +348,12 @@ webcrawler.db.insert(insert, 'foo').then(result => {
 ```
 
 ##### DB.update(filter, update, table, operator = '=')
-Update data.
-**{object} filter** *The filter to get the current object.*
-**{object} update** *The object that should be updated.*
-**{string} table** *The name of the table.*
-**{string} operator** *The operator for the where clause.*
-**Return {Promise}** *Returns a Promise object with the result of the database.*
+Update data.  
+**{object} filter** *The filter to get the current object.*  
+**{object} update** *The object that should be updated.*  
+**{string} table** *The name of the table.*  
+**{string} operator** *The operator for the where clause.*  
+**Return {Promise}** *Returns a Promise object with the result of the database.*  
 
 Example:
 ```javascript
@@ -375,12 +375,12 @@ webcrawler.db.update(filter, update, 'foo').then(result => {
 ```
 
 ##### DB.save(filter, object, table, operator = '=')
-Insert data or update if already exists.
-**{object} filter** *The filter to get the current object.*
-**{object} object** *The object that should be inserted or updated.*
-**{string} table** *The name of the table.*
-**{string} operator** *The operator for the where clause.*
-**Return {Promise}** *Returns a Promise object with the result of the database.*
+Insert data or update if already exists.  
+**{object} filter** *The filter to get the current object.*  
+**{object} object** *The object that should be inserted or updated.*  
+**{string} table** *The name of the table.*  
+**{string} operator** *The operator for the where clause.*  
+**Return {Promise}** *Returns a Promise object with the result of the database.*  
 
 Example:
 ```javascript
@@ -402,11 +402,11 @@ webcrawler.db.save(filter, obj, 'foo').then(result => {
 ```
 
 ##### DB.delete(filter, table, operator = '=')
-Delete data.
-**{object} filter** *The filter to get the current object.*
-**{string} table** *The name of the table.*
-**{string} operator** *The operator for the where clause.*
-**Return {Promise}** *Returns a Promise object with the result of the database.*
+Delete data.  
+**{object} filter** *The filter to get the current object.*  
+**{string} table** *The name of the table.*  
+**{string} operator** *The operator for the where clause.*  
+**Return {Promise}** *Returns a Promise object with the result of the database.*  
 
 Example:
 ```javascript
@@ -424,9 +424,9 @@ webcrawler.db.delete(filter, 'foo').then(result => {
 ```
 
 ##### DB.findAll(table)
-Get all data from table.
-**{string} table** *The name of the table.*
-**Return {Promise}** *Returns a Promise object with the result of the database.*
+Get all data from table.  
+**{string} table** *The name of the table.*  
+**Return {Promise}** *Returns a Promise object with the result of the database.*  
 
 Example:
 ```javascript
@@ -440,12 +440,12 @@ webcrawler.db.findAll('foo').then(result => {
 ```
 
 ##### DB.find(filter, table, structure = {}, operator = '=')
-Get data from table.
-**{object} filter** *The filter to get the current object.*
-**{string} table** *The name of the table.*
-**{string} structure** *The structure in that the object should be returned.*
-**{string} operator** *The operator for the where clause.*
-**Return {Promise}** *Returns a Promise object with the result of the database.*
+Get data from table.  
+**{object} filter** *The filter to get the current object.*  
+**{string} table** *The name of the table.*  
+**{string} structure** *The structure in that the object should be returned.*  
+**{string} operator** *The operator for the where clause.*  
+**Return {Promise}** *Returns a Promise object with the result of the database.*  
 
 Example:
 ```javascript
@@ -466,12 +466,12 @@ webcrawler.db.find(filter, structure, 'foo').then(result => {
 ```
 
 ##### DB.findOne(filter, table, structure = {}, operator = '=')
-Get one element from table.
-**{object} filter** *The filter to get the current object.*
-**{string} table** *The name of the table.*
-**{string} structure** *The structure in that the object should be returned.*
-**{string} operator** *The operator for the where clause.*
-**Return {Promise}** *Returns a Promise object with the result of the database.*
+Get one element from table.  
+**{object} filter** *The filter to get the current object.*  
+**{string} table** *The name of the table.*  
+**{string} structure** *The structure in that the object should be returned.*  
+**{string} operator** *The operator for the where clause.*  
+**Return {Promise}** *Returns a Promise object with the result of the database.*  
 
 Example:
 ```javascript
@@ -492,11 +492,11 @@ webcrawler.db.findOne(search, {}, 'foo').then(result => {
 #### Output
 
 ##### Output.write(value, toConsole = false, type = '', background = '')
-Write output.
-**{string} value** *The value that should be printed.*
-**{boolean} toConsole** *Print to console.*
-**{string} type** *The type or color of the value.*
-**{string} background** *The background color of the value.*
+Write output.  
+**{string} value** *The value that should be printed.*  
+**{boolean} toConsole** *Print to console.*  
+**{string} type** *The type or color of the value.*  
+**{string} background** *The background color of the value.*  
 
 Example:
 ```javascript
@@ -509,11 +509,11 @@ webcrawler.output.write('An example', true, 'black', 'white');
 ![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 ##### Output.writeLine(value, toConsole = false, type = '', background = '')
-Write output with a new line before.
-**{string} value** *The value that should be printed.*
-**{boolean} toConsole** *Print to console.*
-**{string} type** *The type or color of the value.*
-**{string} background** *The background color of the value.*
+Write output with a new line before.  
+**{string} value** *The value that should be printed.*  
+**{boolean} toConsole** *Print to console.*  
+**{string} type** *The type or color of the value.*  
+**{string} background** *The background color of the value.*  
 
 Example:
 ```javascript
@@ -526,11 +526,11 @@ webcrawler.output.writeLine('An example', true, 'black', 'white');
 ![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 ##### Output.writeWithSpace(value, toConsole = false, type = '', background = '')
-Write output with a trailing new line.
-**{string} value** *The value that should be printed.*
-**{boolean} toConsole** *Print to console.*
-**{string} type** *The type or color of the value.*
-**{string} background** *The background color of the value.*
+Write output with a trailing new line.  
+**{string} value** *The value that should be printed.*  
+**{boolean} toConsole** *Print to console.*  
+**{string} type** *The type or color of the value.*  
+**{string} background** *The background color of the value.*  
 
 Example:
 ```javascript
@@ -543,11 +543,11 @@ webcrawler.output.writeWithSpace('An example', true, 'black', 'white');
 ![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 ##### Output.writeConsole(value, toConsole = false, type, background)
-Write in console only.
-**{string} value** *The value that should be printed.*
-**{boolean} toConsole** *Print to console.*
-**{string} type** *The type or color of the value.*
-**{string} background** *The background color of the value.*
+Write in console only.  
+**{string} value** *The value that should be printed.*  
+**{boolean} toConsole** *Print to console.*  
+**{string} type** *The type or color of the value.*  
+**{string} background** *The background color of the value.*  
 
 Example:
 ```javascript
@@ -560,12 +560,12 @@ webcrawler.output.writeConsole('An example', true, 'black', 'white');
 ![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.black.white.png)
 
 ##### Output.writeOutput(sentences, type = '')
-Write array as strings with new line for each entry.
-**{object[]} sentences** *An array of objects stored with default write information.*
-**{string} sentences[].text** *The text that should be printed.*
-**{string} sentences[].type** *The type or color of the text.*
-**{string} sentences[].background** *The background color of the text.*
-**{string} type** *The type or color of the first text.*
+Write array as strings with new line for each entry.  
+**{object[]} sentences** *An array of objects stored with default write information.*  
+**{string} sentences[].text** *The text that should be printed.*  
+**{string} sentences[].type** *The type or color of the text.*  
+**{string} sentences[].background** *The background color of the text.*  
+**{string} type** *The type or color of the first text.*  
 
 Example:
 ```javascript
@@ -584,10 +584,10 @@ webcrawler.output.writeOutput(sentences, 'underscore');
 ![screenshot from console](https://github.com/MisterMarlu/WebCrawler/blob/master/doc/output.array.png)
 
 ##### Output.getColor(type, background = '')
-Get colored command line output.
-**{string} type** *The type or color of the value.*
-**{string} background** *The background color of the value.*
-**Return {string}** *Returns the colored string.*
+Get colored command line output.  
+**{string} type** *The type or color of the value.*  
+**{string} background** *The background color of the value.*  
+**Return {string}** *Returns the colored string.*  
 
 Example:
 ```javascript
@@ -602,7 +602,7 @@ console.log(colorString, 'Say something.');
 #### ScreenShot
 
 ##### ScreenShot.stopChrome()
-Kill all Google Chrome processes.
+Kill all Google Chrome processes.  
 
 Example:
 ```javascript
@@ -612,14 +612,14 @@ webcrawler.screenShot.stopChrome();
 ```
 
 ##### ScreenShot.doScreenshots(websites, debug, callback)
-Create a screenshot for each website that does not has an error.
-**{object[]} websites** *An array with objects that stores website information.*
-**{string} websites[].url** *The url to a website without the protocol.*
-**{boolean} websites[].has_error** *Has the website an error? (Like 404, 500, etc.)*
-**{string} websites[].name** *Name of the website, e.g. "imprint" or "home".*
-**{string} websites[].found_url** *The url where the website was found.*
-**{function} callback** *This callback would be called when the screenshot was saved.*
-**Return {Promise}** *Promise object represents an object of time, timeString, done, undone and total screenshots.*
+Create a screenshot for each website that does not has an error.  
+**{object[]} websites** *An array with objects that stores website information.*  
+**{string} websites[].url** *The url to a website without the protocol.*  
+**{boolean} websites[].has_error** *Has the website an error? (Like 404, 500, etc.)*  
+**{string} websites[].name** *Name of the website, e.g. "imprint" or "home".*  
+**{string} websites[].found_url** *The url where the website was found.*  
+**{function} callback** *This callback would be called when the screenshot was saved.*  
+**Return {Promise}** *Promise object represents an object of time, timeString, done, undone and total screenshots.*  
 
 Example:
 ```javascript
@@ -649,12 +649,12 @@ webcrawler.screenShot.doScreenshots(websites, callbackAfterEachScreenshot).then(
 #### DelayedSave
 
 ##### DelayedSave.addType(position, collection, globalName, index, callback = DelayedSave.save)
-Add a type with necessary information so DelayedSave know how to save the data.
-**{number} position** *Position of the ordered saving types.*
-**{string} collection** *Name of the collection.*
-**{string} globalName** *Name of the array of objects in the class Global*
-**{string} index** *Index of the collection.*
-**{function} callback** *Callback to the way of saving the data.*
+Add a type with necessary information so DelayedSave know how to save the data.  
+**{number} position** *Position of the ordered saving types.*  
+**{string} collection** *Name of the collection.*  
+**{string} globalName** *Name of the array of objects in the class Global*  
+**{string} index** *Index of the collection.*  
+**{function} callback** *Callback to the way of saving the data.*  
 
 Example:
 ```javascript
@@ -674,9 +674,9 @@ class CustomModule extends BaseModule {
 #### Global
 
 ##### Global.get(name)
-Get any parameter.
-**{string} name** *The name of the parameter.*
-**Return {*|null}** *Returns the value of the parameter or null.*
+Get any parameter.  
+**{string} name** *The name of the parameter.*  
+**Return {*|null}** *Returns the value of the parameter or null.*  
 
 Example:
 ```javascript
@@ -688,9 +688,9 @@ let foo = Global.get('foo');
 ```
 
 ##### Global.set(name, value)
-Set any parameter.
-**{string} name** *The name of the parameter.*
-**{*} value** *The value of the parameter.*
+Set any parameter.  
+**{string} name** *The name of the parameter.*  
+**{*} value** *The value of the parameter.*  
 
 Example:
 ```javascript
@@ -706,9 +706,9 @@ Global.set('foo', foo);
 #### Formatter
 
 ##### Formatter.toUpperFirst(string)
-Converts the first letter of a string to upper case.
-**{string} string** *The string that should be converted.*
-**Return {string}** *Returns the converted string.*
+Converts the first letter of a string to upper case.  
+**{string} string** *The string that should be converted.*  
+**Return {string}** *Returns the converted string.*  
 
 Example:
 ```javascript
@@ -720,9 +720,9 @@ let upperFirst = Formatter.toUpperFirst('foo'); // Would return 'Foo'.
 ```
 
 ##### Formatter.camelToUnderscore(camel)
-Convert camelCase to snake_case.
-**{string} camel** *The string that should be converted.*
-**Return {string}** *Returns the converted string.*
+Convert camelCase to snake_case.  
+**{string} camel** *The string that should be converted.*  
+**Return {string}** *Returns the converted string.*  
 
 Example:
 ```javascript
@@ -734,9 +734,9 @@ let underscore = Formatter.camelToUnderscore('fooBar'); // Would return 'foo_bar
 ```
 
 ##### Formatter.dashToCamel(dash)
-Convert dash-case to camelCase.
-**{string} string** *The string that should be converted.*
-**Return {string}** *Returns the converted string.*
+Convert dash-case to camelCase.  
+**{string} string** *The string that should be converted.*  
+**Return {string}** *Returns the converted string.*  
 
 Example:
 ```javascript
@@ -748,9 +748,9 @@ let camel = Formatter.dashToCamel('foo-bar'); // Would return 'fooBar'.
 ```
 
 ##### Formatter.underscoreToDash(underscore)
-Convert snake_case to dash-case.
-**{string} string** *The string that should be converted.*
-**Return {string}** *Returns the converted string.*
+Convert snake_case to dash-case.  
+**{string} string** *The string that should be converted.*  
+**Return {string}** *Returns the converted string.*  
 
 Example:
 ```javascript
@@ -762,9 +762,9 @@ let dash = Formatter.unserscoreToDash('foo_bar'); // Would return 'foo_bar'.
 ```
 
 ##### Formatter.camelToDash(camel)
-Convert camelCase to dash-case.
-**{string} string** *The string that should be converted.*
-**Return {string}** *Returns the converted string.*
+Convert camelCase to dash-case.  
+**{string} string** *The string that should be converted.*  
+**Return {string}** *Returns the converted string.*  
 
 Example:
 ```javascript
@@ -776,9 +776,9 @@ let dash = Formatter.camelToDash('fooBar'); // Would return 'foo-bar'.
 ```
 
 ##### Formatter.dashToUnderscore(dash)
-Convert dash-case to snake_case.
-**{string} string** *The string that should be converted.*
-**Return {string}** *Returns the converted string.*
+Convert dash-case to snake_case.  
+**{string} string** *The string that should be converted.*  
+**Return {string}** *Returns the converted string.*  
 
 Example:
 ```javascript
@@ -790,9 +790,9 @@ let underscore = Formatter.dashToUnderscore('foo-bar'); // Would return 'foo_bar
 ```
 
 ##### Formatter.underscoreToCamel(underscore)
-Convert dash-case to camelCase.
-**{string} string** *The string that should be converted.*
-**Return {string}** *Returns the converted string.*
+Convert dash-case to camelCase.  
+**{string} string** *The string that should be converted.*  
+**Return {string}** *Returns the converted string.*  
 
 Example:
 ```javascript
@@ -804,9 +804,9 @@ let camel = Formatter.underscoreToCame('foo_bar'); // Would return 'fooBar'.
 ```
 
 ##### Formatter.underscoreToWhitespace(underscore)
-Convert underscore to whitespaces.
-**{string} string** *The string that should be converted.*
-**Return {string}** *Returns the converted string.*
+Convert underscore to whitespaces.  
+**{string} string** *The string that should be converted.*  
+**Return {string}** *Returns the converted string.*  
 
 Example:
 ```javascript
@@ -820,9 +820,9 @@ let whitespace = Formatter.underscoreToWhitespace('foo_bar'); // Would return 'f
 #### Parser
 
 ##### Parser.getModuleName(path)
-Get the name of the module from the absolute file path.
-**{string} path** *Absolute path to the file.*
-**Return {string}** *Returns the module name.*
+Get the name of the module from the absolute file path.  
+**{string} path** *Absolute path to the file.*  
+**Return {string}** *Returns the module name.*  
 
 Example:
 ```javascript
@@ -835,9 +835,9 @@ let moduleName = Parser.getModuleName(__filename); // Would return 'CustomModule
 ```
 
 ##### Parser.getMethodName(method)
-Get the name of the method that is called.
-**{function} method** *The method.*
-**Return {string}** *Returns the method name.*
+Get the name of the method that is called.  
+**{function} method** *The method.*  
+**Return {string}** *Returns the method name.*  
 
 Example:
 ```javascript
@@ -851,10 +851,10 @@ function foo() {
 ```
 
 ##### Parser.parseTime(ms, toArray = false)
-Parse milliseconds to object or array with days, hours, minutes and seconds.
-**{number} ms** *Milliseconds that should be parsed.*
-**{boolean} toArray** *Return as an array.*
-**Return {object|array}** *Returns an object with d, h, m and s or an array with it's values.*
+Parse milliseconds to object or array with days, hours, minutes and seconds.  
+**{number} ms** *Milliseconds that should be parsed.*  
+**{boolean} toArray** *Return as an array.*  
+**Return {object|array}** *Returns an object with d, h, m and s or an array with it's values.*  
 
 Example:
 ```javascript
@@ -873,10 +873,10 @@ setTimeout(() => {
 #### Helper
 
 ##### Helper.compare2Objects(a, b)
-Compare two objects. Are they equal?
-**{object} a** *Object a that should be compared with object b.*
-**{object} b** *Object b that should be compared with object a.*
-**Return {boolean}** *Returns true or false.*
+Compare two objects. Are they equal?  
+**{object} a** *Object a that should be compared with object b.*  
+**{object} b** *Object b that should be compared with object a.*  
+**Return {boolean}** *Returns true or false.*  
 
 Example:
 ```javascript
@@ -903,9 +903,9 @@ console.log(Helper.compare2Objects(a, c)); // Would print "false".
 ```
 
 ##### Helper.twoDigits(number)
-Convert a one digit number into a two digit number.
-**{number} number** *The number to convert.*
-**Return {string}** *Returns a two digit number as string.*
+Convert a one digit number into a two digit number.  
+**{number} number** *The number to convert.*  
+**Return {string}** *Returns a two digit number as string.*  
 
 Example:
 ```javascript
@@ -917,9 +917,9 @@ let minutes = Helper.twoDigits(5); // Would return "05".
 ```
 
 ##### Helper.getSqlTimestamp(date = new Date())
-Get a current MySQL timestamp.
-**{Date} date** *A Date object.*
-**Return {string}** *Returns the current MySQL timestamp.*
+Get a current MySQL timestamp.  
+**{Date} date** *A Date object.*  
+**Return {string}** *Returns the current MySQL timestamp.*  
 
 Example:
 ```javascript
@@ -931,9 +931,9 @@ let timestamp = Helper.getSqlTimestamp(); // Would return "2018-02-20 15:02:26".
 ```
 
 ##### Helper.hasCallback(name)
-Check if a callback exists.
-**{string} name** *The name of a callback.*
-**Return {boolean}** *Returns true or false.*
+Check if a callback exists.  
+**{string} name** *The name of a callback.*  
+**Return {boolean}** *Returns true or false.*  
 
 Example:
 ```javascript
@@ -947,9 +947,9 @@ if (Helper.hasCallback('init')) {
 ```
 
 ##### Helper.getCallback(name)
-Get a callback if exists.
-**{string} name** *The name of a callback.*
-**Return {function|null}** *Returns the callback or null if not exists.*
+Get a callback if exists.  
+**{string} name** *The name of a callback.*  
+**Return {function|null}** *Returns the callback or null if not exists.*  
 
 Example:
 ```javascript
@@ -963,9 +963,9 @@ if (Helper.hasCallback('init')) {
 ```
 
 ##### Helper.isDebug(moduleName)
-Check if debug mode is enabled for the given module.
-**{string} moduleName** *The name of the module.*
-**Return {boolean}** *Returns true or false.*
+Check if debug mode is enabled for the given module.  
+**{string} moduleName** *The name of the module.*  
+**Return {boolean}** *Returns true or false.*  
 
 Example:
 ```javascript
@@ -979,10 +979,10 @@ if (Helper.isDebug('CustomModule')) {
 ```
 
 ##### Helper.debug(file, value, level = 5)
-Prints output on debugging.
-**{string} file** *The absolute path to the file.*
-**{*} value** *The value that should be debugged.*
-**{number} level** *The debug level on which it should be printed (level 0-5).*
+Prints output on debugging.  
+**{string} file** *The absolute path to the file.*  
+**{*} value** *The value that should be debugged.*  
+**{number} level** *The debug level on which it should be printed (level 0-5).*  
 
 Example:
 ```javascript
@@ -996,8 +996,8 @@ Helper.debug(__filename, foo, 4); // Would print "bar" when debugging the module
 ```
 
 ##### Helper.debugEnabled()
-Check if debug mode is enabled.
-**Return {boolean}** *Returns true or false.*
+Check if debug mode is enabled.  
+**Return {boolean}** *Returns true or false.*  
 
 Example:
 ```javascript
@@ -1011,11 +1011,11 @@ if (Helper.debugEnabled()) {
 ```
 
 ##### Helper.printDebugLine(output, method, file, line)
-Prints the debugging line.
-**{Output} output** *The Output instance.*
-**{function} method** *The method which called this method.*
-**{string} file** *The absolute path to the file.*
-**{number} line** *The line number where this method was called.*
+Prints the debugging line.  
+**{Output} output** *The Output instance.*  
+**{function} method** *The method which called this method.*  
+**{string} file** *The absolute path to the file.*  
+**{number} line** *The line number where this method was called.*  
 
 Example:
 ```javascript
