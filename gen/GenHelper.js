@@ -111,6 +111,29 @@ class GenHelper {
   static safeClone(source) {
     return JSON.parse(JSON.stringify(source));
   }
+
+  /**
+   * Replace a string.
+   *
+   * @param {string} string String that should be replaced.
+   * @param {string|object|object[]} pattern The pattern that should be replaced. It can be a string, an object containing the properties "pattern" and "replacement" or an array with objects.
+   * @param {string} pattern.pattern The pattern that should be used.
+   * @param {string} pattern.replacement The replacement that should be used.
+   * @param {string[]} pattern[].pattern The pattern that should be used.
+   * @param {string[]} pattern[].replacement The replacement that should be used.
+   * @param {string} [replacement=] The replacement that should be used. Optional when pattern is an object or an array of objects.
+   * @returns {string} Returns the replaced string.
+   */
+  static replace(string, pattern, replacement = '') {
+    if (typeof pattern === 'string' && replacement) return string.split(pattern).join(replacement);
+    if (!pattern.hasOwnProperty(0)) return string.split(pattern.pattern).join(pattern.replacement);
+
+    for (let i = 0; i < pattern.length; i += 1) {
+      string = string.split(pattern[i].pattern).join(pattern[i].replacement);
+    }
+
+    return string;
+  }
 }
 
 module.exports = GenHelper;

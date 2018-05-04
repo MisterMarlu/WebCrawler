@@ -11,6 +11,10 @@ async function start() {
 
   if (createTables) await generator.askForDatabase();
 
-  await generator.fileQuickStart();
   await generator.fileConfigJson();
+
+  let modules = await generator.askForQuickStart();
+  if (modules) await generator.askForQuickStartModules();
+
+  await generator.fileQuickStart();
 }

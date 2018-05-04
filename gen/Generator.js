@@ -2,27 +2,19 @@ const fs = require('fs'),
   cp = require("child_process"),
   inquirer = require('inquirer'),
   GenHelper = require('./GenHelper'),
+  GenFiles = require('./GenFiles'),
   genConfig = require('./genConfig');
 
 /**
  * Class to generate files and directories for the webcrawler.
  */
-class Generator {
+class Generator extends GenFiles {
 
   /**
    * @see Generator.
    */
   constructor() {
-    this._configStub = require('./stubs/configStub');
-    this._directories = GenHelper.getImportantDirs();
-    this._questions = GenHelper.safeClone(genConfig.questions);
-    this._databaseInfo = GenHelper.safeClone(genConfig.databaseInfo);
-    this._moduleInfo = GenHelper.safeClone(genConfig.moduleInfo);
-    this._paths = GenHelper.safeClone(genConfig.paths);
-    this._replacements = GenHelper.safeClone(genConfig.replacements);
-
-    this.setReplacements();
-    this.replaceObjectString(this._paths);
+    super();
   }
 
   /**
@@ -75,22 +67,57 @@ class Generator {
       GenHelper.setAnswers(this._moduleInfo, answers);
 
       let replacement = {
-          pattern: '%ModuleStub%',
-          replacement: this._moduleInfo.name,
-        },
-        replacementExists = false;
+        pattern: '%ModuleStub%',
+        replacement: this._moduleInfo.name,
+      };
 
-      for (let i = 0; i < this._replacements.length; i += 1) {
-        if (this._replacements[i].pattern !== '%ModuleStub%') continue;
-        replacementExists = true;
-        this._replacements[i].replacement = this._moduleInfo.name;
-      }
-
-      if (!replacementExists) this._replacements.push(replacement);
+      this.addReplacement(replacement);
 
       this._moduleInfo.directory = `${this._directories.projectDir}/${this._moduleInfo.directory}`;
       this._paths.moduleDir.path = this._moduleInfo.directory;
       this._paths.module.path = `${this._moduleInfo.directory}/${this._moduleInfo.name}.js`;
+
+      resolve();
+    });
+  }
+
+  askForQuickStart() {
+    let prompt = inquirer.createPromptModule();
+
+    return new Promise(async (resolve, reject) => {
+      let answers = await prompt(this._questions.quickStart);
+
+      GenHelper.setAnswers(this._quickStartInfo, answers);
+
+      resolve();
+    });
+  }
+
+  askForQuickStartModules() {
+    let prompt = null;
+
+    if (this._quickStartInfo.modules) prompt = inquirer.createPromptModule();
+
+    return new Promise(async (resolve, reject) => {
+      if (!this._quickStartInfo.modules) resolve();
+
+      let answers = await prompt(this._questions.quickStartModule);
+
+      GenHelper.setAnswers(this._quickStartInfo, answers);
+
+      let moduleDir = this.simpleReplace(`%projectDir%/${this._quickStartInfo.moduleDirName}`),
+        moduleList = fs.readdirSync(moduleDir);
+
+      this._quickStartInfo.moduleNames = [];
+
+      for (let i = 0; i < moduleList.length; i += 1) {
+        let moduleFileArray = moduleList[i].split('.');
+
+        if (moduleFileArray[moduleFileArray.length - 1] !== 'js') continue;
+
+        let moduleName = moduleList[i].split('.')[0];
+        this._quickStartInfo.moduleNames.push(moduleName);
+      }
 
       resolve();
     });
@@ -143,8 +170,8 @@ class Generator {
    * @async
    * @returns {Promise}
    */
-  fileQuickStart() {
-    let content = this.genContent('quickStartStub.js'),
+  async fileQuickStart() {
+    let content = await this.genQuickStart(),
       replacements = [
         {
           pattern: '%type%',
@@ -227,25 +254,6 @@ class Generator {
   }
 
   /**
-   * Generate correct content from stub file.
-   *
-   * @param {string} stubFile Name of the stub file with extension.
-   * @returns {string} Returns the generated content as string.
-   */
-  genContent(stubFile) {
-    let stub = fs.readFileSync(`${this._directories.stubsDir}/${stubFile}`),
-      lines = stub.toString().split("\r\n");
-
-    for (let i = 0; i < lines.length; i += 1) {
-      for (let j = 0; j < this._replacements.length; j += 1) {
-        lines[i] = Generator.replace(lines[i], this._replacements[j]);
-      }
-    }
-
-    return lines.join("\r\n");
-  }
-
-  /**
    * Create tables in the database.
    *
    * @async
@@ -267,7 +275,7 @@ class Generator {
       cp.exec(command, function (error, stdout, stderr) {
         let database = `%yes% Successfully generated tables`;
 
-        if (error) database = `%yes% Unable to generate tables`;
+        if (error) database = `%no% Unable to generate tables`;
 
         console.log(GenHelper.coloredString(database));
         resolve();
@@ -315,7 +323,7 @@ class Generator {
       let question = this._questions.overwrite.message,
         prompt = inquirer.createPromptModule();
 
-      this._questions.overwrite.message = Generator.replace(question, replacements);
+      this._questions.overwrite.message = GenHelper.replace(question, replacements);
 
       let answers = await prompt(this._questions.overwrite);
 
@@ -334,61 +342,9 @@ class Generator {
     });
   }
 
-  /**
-   * Set replacements.
-   */
-  setReplacements() {
+  simpleReplace(string) {
     for (let i = 0; i < this._replacements.length; i += 1) {
-      let string = this._replacements[i].replacement,
-        type = string.split('%').join('');
-
-      if (!this._directories.hasOwnProperty(type)) continue;
-
-      let replacement = this._directories[type];
-
-      this._replacements[i].replacement = Generator.replace(string, string, replacement);
-    }
-  }
-
-  /**
-   * Deep replacing of strings in objects.
-   *
-   * @param {object} object An object where all strings should be replaced with a given pattern.
-   */
-  replaceObjectString(object) {
-    for (let property in object) {
-      if (!object.hasOwnProperty(property)) continue;
-      if (typeof object[property] === 'object') {
-        this.replaceObjectString(object[property]);
-        continue;
-      }
-
-      if (typeof object[property] !== 'string') continue;
-
-      for (let i = 0; i < this._replacements.length; i += 1) {
-        object[property] = Generator.replace(object[property], this._replacements[i]);
-      }
-    }
-  }
-
-  /**
-   * Replace a string.
-   *
-   * @param {string} string String that should be replaced.
-   * @param {string|object|object[]} pattern The pattern that should be replaced. It can be a string, an object containing the properties "pattern" and "replacement" or an array with objects.
-   * @param {string} pattern.pattern The pattern that should be used.
-   * @param {string} pattern.replacement The replacement that should be used.
-   * @param {string[]} pattern[].pattern The pattern that should be used.
-   * @param {string[]} pattern[].replacement The replacement that should be used.
-   * @param {string} [replacement=] The replacement that should be used. Optional when pattern is an object or an array of objects.
-   * @returns {string} Returns the replaced string.
-   */
-  static replace(string, pattern, replacement = '') {
-    if (typeof pattern === 'string' && replacement) return string.split(pattern).join(replacement);
-    if (!pattern.hasOwnProperty(0)) return string.split(pattern.pattern).join(pattern.replacement);
-
-    for (let i = 0; i < pattern.length; i += 1) {
-      string = string.split(pattern[i].pattern).join(pattern[i].replacement);
+      string = GenHelper.replace(string, this._replacements[i]);
     }
 
     return string;

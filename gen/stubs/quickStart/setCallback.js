@@ -1,0 +1,1 @@
+crawler.setCallback('%callbackName%', %callbackFunctionName%);

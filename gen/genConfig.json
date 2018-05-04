@@ -38,6 +38,26 @@
         "default": "modules"
       }
     ],
+    "quickStart": [
+      {
+        "type": "confirm",
+        "name": "modules",
+        "message": "Do you want to integrate all modules into the quick start?"
+      },
+      {
+        "type": "confirm",
+        "name": "callbacks",
+        "message": "Do you want to generate and add callback functions?"
+      }
+    ],
+    "quickStartModule": [
+      {
+        "type": "input",
+        "name": "moduleDirName",
+        "message": "Module directory name:",
+        "default": "modules"
+      }
+    ],
     "overwrite": {
       "type": "confirm",
       "name": "delete",
@@ -52,6 +72,12 @@
   "moduleInfo": {
     "name": "",
     "directory": ""
+  },
+  "quickStartInfo": {
+    "modules": false,
+    "callbacks": false,
+    "moduleDirName": "",
+    "moduleNames": []
   },
   "paths": {
     "quickStart": {
@@ -102,5 +128,9 @@
       "pattern": "%projectDirName%",
       "replacement": "%projectDirName%"
     }
-  ]
+  ],
+  "comments": {
+    "addModule": "Add custom modules to the WebCrawler, with a relative path from this file.",
+    "setCallback": "Set callbacks so the WebCrawler can use them."
+  }
 }

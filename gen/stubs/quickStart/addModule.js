@@ -1,0 +1,1 @@
+crawler.addModule('%pathToModule%');
