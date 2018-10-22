@@ -1,5 +1,5 @@
 {
-  "name": "web-crawler",
+  "name": "@mistermarlu/web-crawler",
   "version": "1.0.0",
   "description": "A webcrawler with optional screenshotting websites.",
   "main": "index.js",

@@ -1,3 +1,6 @@
+[![npm (scoped)](https://img.shields.io/npm/v/@mistermarlu/web-crawler.svg)](https://github.com/MisterMarlu/WebCrawler)
+
+
 # WebCrawler
 
 A script to crawl through websites. This crawler is not searching for anything but can be extended very easy via asynchronous callback functions and modules.
@@ -15,6 +18,8 @@ Some configurations can be modified by creating a web-crawler.json file with spe
 7. [Available parameters](#available-parameters)
 
 ### Installation
+
+Run `npm install --save mistermarlu/web-crawler`.
 
 Import the `WebCrawler` class like:
 ```javascript
